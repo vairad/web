@@ -1,0 +1,31 @@
+body{
+    background-color: black;
+}
+.menu{
+    background-color: red;
+    margin-top: 10px;
+}
+.right-menu{
+   /* background-color: #ffff00;*/
+    margin-top: 10px;
+}
+.content{
+    background-color: lightblue;
+    margin-top: 10px;
+}
+.footer{
+    background-color: white;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+.header{
+    padding: 0px;
+}
+
+.my-right{
+    padding-right: 0;
+}
+
+.rounded{
+    border-radius: 4px;
+}
