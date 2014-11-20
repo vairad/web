@@ -3,7 +3,8 @@
 
 	// nacist konfiguraci
 	require 'conf/config.inc.php';
-	require 'conf/functions.inc.php';					// pomocne funkce
+    require 'conf/style.inc.php';
+    require 'conf/functions.inc.php';					// pomocne funkce
 
 	// nacist objekty - soubory .class.php
 	require 'application/core/app.class.php';			// drzi hlavni funkcionalitu cele aplikace, obsahuje routing = navigovani po webu
@@ -51,21 +52,6 @@
         $data["footer_right_a"]="http://www.pilirionos.org/";
         $data["footer_right"]="Pilirion o.s.";
 
-
-/*
-	// zpracovat si data pro vystup
-		// nejake vypocty apod
-		$a = 1;
-		$b = 2;
-		//$c = $a + $b;
-		$c = $app->Secti($a, $b);
-
-
-	// nacist vsechny predmety
-		$predmety_data = $mista->LoadAllMista();
-		echo "Mista:";
-		printr($predmety_data);	// specialni funkce pro vypis
-*/
 
         Twig_Autoloader::register();
 

@@ -6,3 +6,6 @@ $data["bootstrap_theme"]=VIEW."/bootstrap/css/bootstrap-theme.min.css";
 $data["my_css"]=VIEW."/default.css";
 
 $data["header_img"]=VIEW."/picture/header.png";
+
+
+?>
