@@ -68,11 +68,12 @@
            </div>
   <!-- NAVIGATION -->
             <div class="row">
-                <div class="col-xs-12 menu rounded">
+                <div class="col-xs-12 menu rounded" id="navbar">
                     <ol class="col-xs-12 breadcrumb rounded">
-                        <li><a href="#">Home</a></li>
-                        <li><a href="#">Library</a></li>
-                        <li class="active">Data</li>
+                        {% for item in navbar %}
+                        <li><a href="{{ item.href }}">{{ item.text }}</a></li>
+                        {% endfor %}
+                        <li class="active">{{navbar_last}}</li>
                     </ol>
                 </div>
             </div>
@@ -86,12 +87,10 @@
   <!-- RIGHT BAR -->
                 <div class="col-xs-offset-0 col-xs-3 right-menu rounded my-right">
          <!-- MENU -->
-                    <ul class="list-group my-right">
-                        <li class="list-group-item"><a href="#">Akce</a></li>
-                        <li class="list-group-item">Cena</li>
-                        <li class="list-group-item">Hry</li>
-                        <li class="list-group-item">Letošní ročník</li>
-                        <li class="list-group-item">Registrace</li>
+                    <ul class="list-group my-right" id="menu">
+                        {% for item in menu %}
+                        <li class="list-group-item"><a href="{{ item.href }}">{{ item.text }}</a></li>
+                        {% endfor %}
                     </ul>
          <!-- LOG FORM -->
                     <ul class="list-group my-right">

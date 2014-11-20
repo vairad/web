@@ -1,17 +1,17 @@
 <?php
     global $data;
 
+    session_start();
+
 	// nacist konfiguraci
 	require 'conf/config.inc.php';
     require 'conf/style.inc.php';
     require 'conf/functions.inc.php';					// pomocne funkce
 
 	// nacist objekty - soubory .class.php
-	require 'application/core/app.class.php';			// drzi hlavni funkcionalitu cele aplikace, obsahuje routing = navigovani po webu
+	require 'application/core/app.class.php';	    // drzi hlavni funkcionalitu cele aplikace, obsahuje routing = navigovani po webu
 	require 'application/db/db.class.php';			// zajisti pristup k db a spolecne metody pro dalsi pouziti
 	require 'application/db/mista.class.php';		// zajisti pristup ke konkretnim db tabulkam - objekt vetsinou zajisti pristup k cele sade souvisejicich tabulek
-
-
 
     // připojení twigu
     require_once("application/view/twig/lib/Twig/Autoloader.php");
@@ -52,6 +52,28 @@
         $data["footer_right_a"]="http://www.pilirionos.org/";
         $data["footer_right"]="Pilirion o.s.";
 
+
+        $data["menu"][0]["text"]="Akce";
+      //$data["menu"][0]["href"]="";
+
+        $data["menu"][1]["text"]="Hry";
+        //$data["menu"][1]["href"]="";
+
+        $data["menu"][2]["text"]="Letošní ročník";
+        //$data["menu"][2]["href"]="";
+
+        $data["menu"][3]["text"]="Registrace";
+        //$data["menu"][3]["href"]="";
+
+
+        $data["navbar"][3]["text"]="Prvnu bod";
+        //$data["menu"][3]["href"]="";
+
+
+        $data["navbar"][2]["text"]="druhy bod";
+        //$data["menu"][2]["href"]="";
+
+        $data["navbar_last"]="Aktualni stranka";
 
         Twig_Autoloader::register();
 
