@@ -1,4 +1,5 @@
 <?php
+    global $data;
 
 	// nacist konfiguraci
 	require 'conf/config.inc.php';
@@ -34,6 +35,24 @@
 		// nebo q = pozadovane url, ktere jsem dostal z .htaccess
 
 
+        $data["nadpis"]="Blábol";
+        $data["obsah"]='   <p class="text-justify">šablonou ipsum dolor sit amet, consectetur adipiscing elit. Nam sodales arcu non fermentum vestibulum. Sed sed cursus risus. Donec porta urna in tellus sodales, ut congue velit blandit. In porttitor vulputate enim, vel viverra nulla mattis eu. Fusce mollis, diam egestas fringilla lobortis, tellus erat sodales ipsum, vitae auctor arcu lectus nec justo. Sed rhoncus, ex in condimentum rhoncus, velit est ultricies urna, sed posuere mauris lectus ac dui. Nullam tincidunt ligula nec congue commodo. Praesent pellentesque luctus pharetra. Maecenas at blandit nisi. Etiam vitae nulla lectus. Quisque sed augue elementum nisl tincidunt vulputate nec a est.
+                    </p>
+                    <p class="text-justify">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam sodales arcu non fermentum vestibulum. Sed sed cursus risus. Donec porta urna in tellus sodales, ut congue velit blandit. In porttitor vulputate enim, vel viverra nulla mattis eu. Fusce mollis, diam egestas fringilla lobortis, tellus erat sodales ipsum, vitae auctor arcu lectus nec justo. Sed rhoncus, ex in condimentum rhoncus, velit est ultricies urna, sed posuere mauris lectus ac dui. Nullam tincidunt ligula nec congue commodo. Praesent pellentesque luctus pharetra. Maecenas at blandit nisi. Etiam vitae nulla lectus. Quisque sed augue elementum nisl tincidunt vulputate nec a est.
+                    </p>
+                    <p class="text-justify">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam sodales arcu non fermentum vestibulum. Sed sed cursus risus. Donec porta urna in tellus sodales, ut congue velit blandit. In porttitor vulputate enim, vel viverra nulla mattis eu. Fusce mollis, diam egestas fringilla lobortis, tellus erat sodales ipsum, vitae auctor arcu lectus nec justo. Sed rhoncus, ex in condimentum rhoncus, velit est ultricies urna, sed posuere mauris lectus ac dui. Nullam tincidunt ligula nec congue commodo. Praesent pellentesque luctus pharetra. Maecenas at blandit nisi. Etiam vitae nulla lectus. Quisque sed augue elementum nisl tincidunt vulputate nec a est.
+                    </p>
+                    <p class="text-justify">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam sodales arcu non fermentum vestibulum. Sed sed cursus risus. Donec porta urna in tellus sodales, ut congue velit blandit. In porttitor vulputate enim, vel viverra nulla mattis eu. Fusce mollis, diam egestas fringilla lobortis, tellus erat sodales ipsum, vitae auctor arcu lectus nec justo. Sed rhoncus, ex in condimentum rhoncus, velit est ultricies urna, sed posuere mauris lectus ac dui. Nullam tincidunt ligula nec congue commodo. Praesent pellentesque luctus pharetra. Maecenas at blandit nisi. Etiam vitae nulla lectus. Quisque sed augue elementum nisl tincidunt vulputate nec a est.
+                    </p>';
+
+        $data["footer_left_a"]="http://www.pilirionos.org/pro-verejnost";
+        $data["footer_left"]="Co je to larp?";
+
+        $data["footer_right_a"]="http://www.pilirionos.org/";
+        $data["footer_right"]="Pilirion o.s.";
+
+
+/*
 	// zpracovat si data pro vystup
 		// nejake vypocty apod
 		$a = 1;
@@ -46,21 +65,19 @@
 		$predmety_data = $mista->LoadAllMista();
 		echo "Mista:";
 		printr($predmety_data);	// specialni funkce pro vypis
+*/
 
-	// Vypis dat
-		// TODO nevypisovat to primo, ale s vyuzitim sablonovaciho systemu
-		// v nejhorsim to musi byt aspon v oddelenem souboru v casti templates nebo view
+        Twig_Autoloader::register();
 
-		echo "<html>";
-			echo "<head>";
-                echo "<meta charset=\"utf-8\">";
-			echo "</head>";
-			echo "<body>";
-				echo "<h1>Moje aplikace</h1>";
+        // cesta k adresari se sablonama - od index.php
+        $loader = new Twig_Loader_Filesystem('application/view');
+        $twig = new Twig_Environment($loader); // takhle je to bez cache
 
-				echo "Použitá databáze: ".DB_DATABASE_NAME."<br/>";
-				echo "c = $c <br/>";
-			echo "</body>";
-		echo "</html>";
-	// Konec vypis dat
+        // nacist danou sablonu z adresare
+        $template = $twig->loadTemplate('default.html');
+
+        // render vrati data pro vypis nebo display je vypise
+        // v poli jsou data pro vlozeni do sablony
+
+        echo $template->render($data);
 ?>

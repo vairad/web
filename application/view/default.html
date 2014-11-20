@@ -14,15 +14,15 @@
     <title>Sem pr web</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="{{bootstrap_css}}" rel="stylesheet">
     <!-- Optional Bootstrap Theme -->
-    <link href="bootstrap/css/bootstrap-theme.min.css" rel="stylesheet">
+    <link href="{{bootstrap_theme}}" rel="stylesheet">
 
     <!-- My CSS -->
-    <link href="default.css" rel="stylesheet">
+    <link href="{{my_css}}" rel="stylesheet">
 
     <!-- TODO favicon projektu -->
-    <link rel="icon" href="/favicon.ico">
+    <link rel="icon" href="{{favico}}">
 
 </head>
 <body>
@@ -58,13 +58,15 @@
             </div>
         </nav>
 
+  <!-- HEADER -->
+
         <div class="container">
            <div class="row">
                 <div class="col-xs-12 header">
-                    <img src="picture/header.png" class="col-xs-12">
+                    <img src="{{header_img}}" class="col-xs-12">
                 </div>
            </div>
-
+  <!-- NAVIGATION -->
             <div class="row">
                 <div class="col-xs-12 menu rounded">
                     <ol class="col-xs-12 breadcrumb rounded">
@@ -75,20 +77,15 @@
                 </div>
             </div>
 
-
+  <!-- CONTENT -->
             <div class="row">
                 <div class="col-xs-9 content rounded">
-                   <h1>Pivko</h1>
-                   <p class="text-justify">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam sodales arcu non fermentum vestibulum. Sed sed cursus risus. Donec porta urna in tellus sodales, ut congue velit blandit. In porttitor vulputate enim, vel viverra nulla mattis eu. Fusce mollis, diam egestas fringilla lobortis, tellus erat sodales ipsum, vitae auctor arcu lectus nec justo. Sed rhoncus, ex in condimentum rhoncus, velit est ultricies urna, sed posuere mauris lectus ac dui. Nullam tincidunt ligula nec congue commodo. Praesent pellentesque luctus pharetra. Maecenas at blandit nisi. Etiam vitae nulla lectus. Quisque sed augue elementum nisl tincidunt vulputate nec a est.
-                    </p>
-                    <p class="text-justify">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam sodales arcu non fermentum vestibulum. Sed sed cursus risus. Donec porta urna in tellus sodales, ut congue velit blandit. In porttitor vulputate enim, vel viverra nulla mattis eu. Fusce mollis, diam egestas fringilla lobortis, tellus erat sodales ipsum, vitae auctor arcu lectus nec justo. Sed rhoncus, ex in condimentum rhoncus, velit est ultricies urna, sed posuere mauris lectus ac dui. Nullam tincidunt ligula nec congue commodo. Praesent pellentesque luctus pharetra. Maecenas at blandit nisi. Etiam vitae nulla lectus. Quisque sed augue elementum nisl tincidunt vulputate nec a est.
-                    </p>
-                    <p class="text-justify">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam sodales arcu non fermentum vestibulum. Sed sed cursus risus. Donec porta urna in tellus sodales, ut congue velit blandit. In porttitor vulputate enim, vel viverra nulla mattis eu. Fusce mollis, diam egestas fringilla lobortis, tellus erat sodales ipsum, vitae auctor arcu lectus nec justo. Sed rhoncus, ex in condimentum rhoncus, velit est ultricies urna, sed posuere mauris lectus ac dui. Nullam tincidunt ligula nec congue commodo. Praesent pellentesque luctus pharetra. Maecenas at blandit nisi. Etiam vitae nulla lectus. Quisque sed augue elementum nisl tincidunt vulputate nec a est.
-                    </p>
-                    <p class="text-justify">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam sodales arcu non fermentum vestibulum. Sed sed cursus risus. Donec porta urna in tellus sodales, ut congue velit blandit. In porttitor vulputate enim, vel viverra nulla mattis eu. Fusce mollis, diam egestas fringilla lobortis, tellus erat sodales ipsum, vitae auctor arcu lectus nec justo. Sed rhoncus, ex in condimentum rhoncus, velit est ultricies urna, sed posuere mauris lectus ac dui. Nullam tincidunt ligula nec congue commodo. Praesent pellentesque luctus pharetra. Maecenas at blandit nisi. Etiam vitae nulla lectus. Quisque sed augue elementum nisl tincidunt vulputate nec a est.
-                    </p>
+                   <h1>{{nadpis}}</h1>
+                        {{obsah | raw}}
                 </div>
+  <!-- RIGHT BAR -->
                 <div class="col-xs-offset-0 col-xs-3 right-menu rounded my-right">
+         <!-- MENU -->
                     <ul class="list-group my-right">
                         <li class="list-group-item"><a href="#">Akce</a></li>
                         <li class="list-group-item">Cena</li>
@@ -96,6 +93,7 @@
                         <li class="list-group-item">Letošní ročník</li>
                         <li class="list-group-item">Registrace</li>
                     </ul>
+         <!-- LOG FORM -->
                     <ul class="list-group my-right">
                         <form method="post">
                             <li class="list-group-item">
@@ -113,16 +111,16 @@
                 </div>
 
             </div>
-
+  <!-- FOOTER -->
             <footer class="row">
-                <a href="http://www.pilirionos.org/pro-verejnost" target="_blank">
+                <a href="{{footer_left_a}}" target="_blank">
                     <div class="col-xs-6 footer rounded">
-                       <p class="text-center h4">Co je to larp?</p>
+                       <p class="text-center h4">{{footer_left}}</p>
                     </div>
                 </a>
-                <a href="http://www.pilirionos.org/pro-verejnost" target="_blank">
+                <a href="{{footer_right_a}}" target="_blank">
                     <div class=" col-xs-offset-0 col-xs-6 footer rounded">
-                        <p class="text-center h4">Pilirion o.s.</p>
+                        <p class="text-center h4">{{footer_right}}</p>
                     </div>
                 </a>
             </footer>
@@ -137,7 +135,7 @@
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-    <script src="bootstrap/js/bootstrap.min.js"></script>
+    <script src="./application/bootstrap/js/bootstrap.min.js"></script>
 
 </body>
 </html>
