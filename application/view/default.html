@@ -26,49 +26,23 @@
 
 </head>
 <body>
+ <!-- LOGED BAR -->
+        {% include 'default/loggedbar.html' %}
 
-        <nav class="navbar navbar-inverse">
-            <div class="container-fluid">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand" href="#">WebSiteName</a>
-                </div>
-                <div class="collapse navbar-collapse" id="myNavbar">
-                    <ul class="nav navbar-nav">
-                        <li class="active"><a href="#">Home</a></li>
-                        <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Page 1 <span class="caret"></span></a>
-                            <ul class="dropdown-menu">
-                                <li><a href="#">werdgs</a></li>
-                                <li><a href="#">Hry</a></li>
-                                <li><a href="#">R</a></li>
-                            </ul>
-                        </li>
-                        <li><a href="#">Page 2</a></li>
-                        <li><a href="#">Page 3</a></li>
-                    </ul>
-                    <ul class="nav navbar-nav navbar-right">
-                        <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-                        <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
+    <div class="container">
 
-  <!-- HEADER -->
-
-        <div class="container">
-           <div class="row">
+            <!-- HEADER -->
+            <div class="row">
+               <a href="./index.php">
                 <div class="col-xs-12 header">
                     <img src="{{header_img}}" class="col-xs-12">
                 </div>
+               </a>
            </div>
-  <!-- NAVIGATION -->
+
+            <!-- NAVIGATION -->
             <div class="row">
-                <div class="col-xs-12 menu rounded" id="navbar">
+                <div class="col-xs-12 rounded" id="navbar">
                     <ol class="col-xs-12 breadcrumb rounded">
                         {% for item in navbar %}
                         <li><a href="{{ item.href }}">{{ item.text }}</a></li>
@@ -78,39 +52,22 @@
                 </div>
             </div>
 
-  <!-- CONTENT -->
+
             <div class="row">
+
+                <!-- CONTENT -->
                 <div class="col-xs-9 content rounded">
-                   <h1>{{nadpis}}</h1>
-                        {{obsah | raw}}
+                    {% include 'default/content.html' %}
                 </div>
-  <!-- RIGHT BAR -->
+
+                <!-- RIGHT BAR -->
                 <div class="col-xs-offset-0 col-xs-3 right-menu rounded my-right">
-         <!-- MENU -->
-                    <ul class="list-group my-right" id="menu">
-                        {% for item in menu %}
-                        <li class="list-group-item"><a href="{{ item.href }}">{{ item.text }}</a></li>
-                        {% endfor %}
-                    </ul>
-         <!-- LOG FORM -->
-                    <ul class="list-group my-right">
-                        <form method="post">
-                            <li class="list-group-item">
-
-                                             <input type="text" class="form-control" placeholder="E-mail" name="login">
-                                <div class="input-group">
-                                             <input type="password" class="form-control" placeholder="Heslo" name="pass">
-                                             <span class="input-group-btn">
-                                                 <button class="btn btn-default" type="submit">Přihlaš</button>
-                                             </span>
-                                 </div>
-                            </li>
-                        </form>
-                    </ul>
+                     {% include 'default/menu.html' %}
                 </div>
 
-            </div>
-  <!-- FOOTER -->
+           </div>
+
+            <!-- FOOTER -->
             <footer class="row">
                 <a href="{{footer_left_a}}" target="_blank">
                     <div class="col-xs-6 footer rounded">
@@ -124,7 +81,7 @@
                 </a>
             </footer>
 
-        </div>
+    </div>
 
 
 
@@ -134,7 +91,7 @@
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-    <script src="./application/bootstrap/js/bootstrap.min.js"></script>
+    <script src="{{bootstrap_js}}"></script>
 
 </body>
 </html>

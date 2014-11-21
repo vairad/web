@@ -7,9 +7,6 @@
 
 class app
 {
-    // promenna tridy
-    private $data = null;
-    
     // pripojeni k db - pomocny objekt
     private $db = null;
 
@@ -23,28 +20,49 @@ class app
 
     public function GetConnection()
     {
-    	return $this->db->GetConnection();
+        return $this->db->GetConnection();
     }
-    
+
     /**
      * Pripojit k databazi.
      */
     public function Connect()
     {
-    	$this->db->Connect();
+        $this->db->Connect();
     }
-    
-    
-    
+
+
     public function Secti($a, $b)
     {
-    	$c = $a + $b;
-    	return $c;
+        $c = $a + $b;
+        return $c;
+    }
+
+    public function zpracujHTML(){
+        global $data;
+        $id = @$_REQUEST["id"];
+        $data["menu"][$id]["aktiv"]="active";
+        $data["content"]="regform";
+        echo $id;
+        if($id=="akce"){
+                $data["nadpis"]="Akce";
+        }elseif($id=="hry"){
+                $data["nadpis"]="Hry";
+        }elseif($id=="letos"){
+                $data["nadpis"]="Letošní ročník";
+        }elseif($id=="reg"){
+                $data["nadpis"]="Registrace";
+        }else{
+                $data["nadpis"]="Index";
+        }
+        $data["logged"]=1;
     }
 
     public function testDat(){
         global $data;
-        $data["nadpis"]="Blábol";
+        // nacist vstupy - napr. ID clanku, ktery mam zobrazit
+        $id = @$_REQUEST["id"];
+
         $data["obsah"]='   <p class="text-justify">šablonou ipsum dolor sit amet, consectetur adipiscing elit. Nam sodales arcu non fermentum vestibulum. Sed sed cursus risus. Donec porta urna in tellus sodales, ut congue velit blandit. In porttitor vulputate enim, vel viverra nulla mattis eu. Fusce mollis, diam egestas fringilla lobortis, tellus erat sodales ipsum, vitae auctor arcu lectus nec justo. Sed rhoncus, ex in condimentum rhoncus, velit est ultricies urna, sed posuere mauris lectus ac dui. Nullam tincidunt ligula nec congue commodo. Praesent pellentesque luctus pharetra. Maecenas at blandit nisi. Etiam vitae nulla lectus. Quisque sed augue elementum nisl tincidunt vulputate nec a est.
                     </p>
                     <p class="text-justify">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam sodales arcu non fermentum vestibulum. Sed sed cursus risus. Donec porta urna in tellus sodales, ut congue velit blandit. In porttitor vulputate enim, vel viverra nulla mattis eu. Fusce mollis, diam egestas fringilla lobortis, tellus erat sodales ipsum, vitae auctor arcu lectus nec justo. Sed rhoncus, ex in condimentum rhoncus, velit est ultricies urna, sed posuere mauris lectus ac dui. Nullam tincidunt ligula nec congue commodo. Praesent pellentesque luctus pharetra. Maecenas at blandit nisi. Etiam vitae nulla lectus. Quisque sed augue elementum nisl tincidunt vulputate nec a est.
@@ -61,18 +79,24 @@ class app
         $data["footer_right"]="Pilirion o.s.";
 
 
-        $data["menu"][0]["text"]="Akce";
-        //$data["menu"][0]["href"]="";
+        $data["menu"]["akce"]["text"]="O akci";
+        $data["menu"]["akce"]["href"]="?id=akce";
 
-        $data["menu"][1]["text"]="Hry";
-        //$data["menu"][1]["href"]="";
+        $data["menu"]["hry"]["text"]="Hry";
+        $data["menu"]["hry"]["href"]="?id=hry";
 
-        $data["menu"][2]["text"]="Letošní ročník";
-        //$data["menu"][2]["href"]="";
+        $data["menu"]["letos"]["text"]="Letošní ročník";
+        $data["menu"]["letos"]["href"]="?id=letos";
 
-        $data["menu"][3]["text"]="Registrace";
-        //$data["menu"][3]["href"]="";
+        $data["menu"]["reg"]["text"]="Registrace";
+        $data["menu"]["reg"]["href"]="?id=reg";
 
+
+        $data["menu_member"]["mujucet"]["text"]="Můj účet";
+        $data["menu_member"]["mujucet"]["href"]="?id=mujucet";
+
+        $data["menu_admin"]["mujucet"]["text"]="Můj účet";
+        $data["menu_admin"]["mujucet"]["href"]="?id=mujucet";
 
         $data["navbar"][3]["text"]="Prvnu bod";
         //$data["menu"][3]["href"]="";
