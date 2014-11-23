@@ -27,8 +27,22 @@ class osoby extends db
        $item["heslo"]=$hrac_class->getPass();
 
         // uložení do db
-       $this->DBInsert(TABLE_OSOBY, $item);
+      return $this->DBInsert(TABLE_OSOBY, $item);
     }
+
+    public function GetOsobaByLogin($mail,$pass)
+    {
+        $where_arr[0]["column"]= "email";
+        $where_arr[0]["value"]= "%".$mail."%";
+        $where_arr[0]["symbol"]= "LIKE";
+
+        $where_arr[1]["column"]= "heslo";
+        $where_arr[1]["value"]= sha1($pass);
+        $where_arr[1]["symbol"]= "=";
+
+        return $this->DBSelectOne(TABLE_OSOBY,"*",$where_arr);
+    }
+
 
 
     public function DeleteOsobaByID($predmet_id)

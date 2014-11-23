@@ -56,4 +56,8 @@
     define('TABLE_UVEDENI', TABLE_PREFIX.'uvedeni');
     define('TABLE_PRIHLASKY', TABLE_PREFIX.'prihlasky');
 
+
+
+    define('MY_SES', "pivko_session");
+
 ?>

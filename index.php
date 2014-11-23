@@ -24,8 +24,18 @@
 	// pripojit k db
 	$app->Connect();
 
+    $app->setFooter();
+
+    if(isset($_POST["do"]) && ($_POST["do"])=="login"){
+        $app->login();
+    }
+    if(@$_REQUEST["do"] =="logout"){
+        $app->logout();
+    }
+
+    $app->setLogged();
+    $app->zpracujPoz();
     $app->testDat();
-    $app->zpracujHTML();
 
         Twig_Autoloader::register();
 
@@ -35,6 +45,7 @@
 
         // nacist danou sablonu z adresare
         $template = $twig->loadTemplate(TEMPLATE);
+
 
         echo $template->render($data);
 ?>

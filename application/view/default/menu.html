@@ -11,7 +11,7 @@
     {% endfor %}
 </div>
 <!-- LOG FORM -->
-{% if loged != 0 %}
+{% if logged == 0 %}
 <ul class="list-group my-right">
     <form method="post">
         <li class="list-group-item">
@@ -19,6 +19,7 @@
             <input type="text" class="form-control" placeholder="E-mail" name="login">
             <div class="input-group">
                 <input type="password" class="form-control" placeholder="Heslo" name="pass">
+                <input type="hidden" name="do" value="login">
                                              <span class="input-group-btn">
                                                  <button class="btn btn-default" type="submit">Přihlaš</button>
                                              </span>
@@ -29,7 +30,7 @@
 {% endif %}
 
 <!-- SIGNED MENU -->
-{% if logged == 1 %}
+{% if logged > 0 %}
 <div class="list-group my-right menu">
     {% for item in menu_member%}
     {% if item.href|length > 0 %}
@@ -44,7 +45,7 @@
 {%endif%}
 
 <!-- ADMIN MENU -->
-{% if logged == 1 %}
+{% if logged > 1 %}
 <div class="list-group my-right menu">
     {% for item in menu_admin %}
     {% if item.href|length > 0 %}

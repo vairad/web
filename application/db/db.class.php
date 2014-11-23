@@ -88,7 +88,7 @@ class db
 				// 6) nacist data a vratit
 				if ($mysql_pdo_error == false)
 				{
-					$row = $statement->fetch(PDO::FETCH_ASSOC);
+                    $row = $statement->fetch(PDO::FETCH_ASSOC);
 					return $row;
 				}
 				else
@@ -293,6 +293,7 @@ class db
 	 			echo "Chyba v dotazu - PDOStatement::errorInfo(): ";
 	 			printr($errors);
 	 			echo "SQL dotaz: $query";
+                    return false;
 				}
 	}
 	
