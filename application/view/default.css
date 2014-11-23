@@ -43,6 +43,26 @@ a:hover{
     border-right-color: rgba(240, 128, 0, 0.80);
 }
 
+.menu .list-group-item.active:last-child {
+    border-bottom: rgba(240, 128, 0, 0.80);
+}
+
+.list-group-item.active:hover:first-child{
+    border-top: rgba(240, 128, 0, 0.80);
+}
+
+.list-group-item:hover:last-child{
+    border-bottom: rgb(245, 198, 1);
+}
+
+.menu .list-group-item.active:first-child{
+    border-top: rgb(245, 198, 1);
+}
+
+.menu .list-group{
+    box-shadow: none;
+}
+
 .content{
     background-color: lightgrey;
     margin-top: 10px;
@@ -81,5 +101,10 @@ a:hover{
 #navbar{
     margin-top: 10px;
     padding: 0px;
+}
+form .row{
+    margin-top: 5px;
+    margin-bottom: 10px;
+
 }
 

@@ -1,15 +1,15 @@
 <!-- MENU -->
-<ul class="list-group my-right menu">
+<div class="list-group my-right menu">
     {% for item in menu %}
     {% if item.href|length > 0 %}
     <a href="{{ item.href }}#h1" class="list-group-item  {{item.aktiv}} ">
-        <li class="nav nav-pills nav-stacked">
+        <div class="nav nav-pills nav-stacked">
             {{ item.text }}
-        </li>
+        </div>
     </a>
     {%endif%}
     {% endfor %}
-</ul>
+</div>
 <!-- LOG FORM -->
 {% if loged != 0 %}
 <ul class="list-group my-right">
@@ -30,30 +30,30 @@
 
 <!-- SIGNED MENU -->
 {% if logged == 1 %}
-<ul class="list-group my-right menu">
+<div class="list-group my-right menu">
     {% for item in menu_member%}
     {% if item.href|length > 0 %}
     <a href="{{ item.href }}#h1" class="list-group-item  {{item.aktiv}} ">
-        <li class="nav nav-pills nav-stacked">
+        <div class="nav nav-pills nav-stacked">
             {{ item.text }}
-        </li>
+        </div>
     </a>
     {%endif%}
     {% endfor %}
-</ul>
+</div>
 {%endif%}
 
 <!-- ADMIN MENU -->
 {% if logged == 1 %}
-<ul class="list-group my-right menu">
+<div class="list-group my-right menu">
     {% for item in menu_admin %}
     {% if item.href|length > 0 %}
     <a href="{{ item.href }}#h1" class="list-group-item  {{item.aktiv}} ">
-        <li class="nav nav-pills nav-stacked">
+        <div class="nav nav-pills nav-stacked">
             {{ item.text }}
-        </li>
+        </div>
     </a>
     {%endif%}
     {% endfor %}
-</ul>
+</div>
 {%endif%}

@@ -41,8 +41,12 @@ class app
     public function zpracujHTML(){
         global $data;
         $id = @$_REQUEST["id"];
+
+        $do = @$_REQUEST["do"];
+
+        $data["title"]="Semestrání práce WEB";
         $data["menu"][$id]["aktiv"]="active";
-        $data["content"]="regform";
+        $data["content"]="text";
         echo $id;
         if($id=="akce"){
                 $data["nadpis"]="Akce";
@@ -51,7 +55,15 @@ class app
         }elseif($id=="letos"){
                 $data["nadpis"]="Letošní ročník";
         }elseif($id=="reg"){
+                if($do=="reg"){
+                    $hrac = new hrac();
+                    require_once("front/regcheck.php");
+                    $osoby = new osoby($this->GetConnection());
+                    $osoby->InsertOsoba($hrac);
+                }
                 $data["nadpis"]="Registrace";
+                $data["content"]="regform";
+                $data["info"]="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam sodales arcu non fermentum vestibulum. Sed sed cursus risus. Donec porta urna in tellus sodales, ut congue velit blandit. In porttitor vulputate enim, vel viverra nulla mattis eu. Fusce mollis, diam egesta";
         }else{
                 $data["nadpis"]="Index";
         }

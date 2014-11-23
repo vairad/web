@@ -1,7 +1,192 @@
 
 <h1 id="h1">{{nadpis}}</h1>
   {% if content == 'text' %}
+ <!-- sPROSTÝ TEXT V HTML --->
     {{obsah | raw}}
-  {% elseif content == 'reg-form' %}
+  {% elseif content == 'regform' %}
+<!-- REGISTRAČNÍ FORMULÁŘ -->
+        <p>{{info}}</p>
+<form role="form" method="post">
+    <div class="row">
+            <div class="form-group" id="basic">
+                    <div class="col-md-4">
+                        <div class="input-group">
+                            <span class="input-group-addon">Jméno</span>
+                            <input type="text"
+                                   class="form-control"
+                                   name="name"
+                                   placeholder="Jméno"
+                                   maxlength="50"
+                                   required
+                                   value="{{reg.name}}"
+                                    >
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="input-group">
+                            <span class="input-group-addon">Příjmení</span>
+                            <input type="text"
+                                   class="form-control"
+                                   name="surname"
+                                   placeholder="Příjmení"
+                                   maxlength="50"
+                                   required
+                                   value="{{reg.surname}}"
+                                    >
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="input-group">
+                            <span class="input-group-addon">Nick</span>
+                            <input type="text"
+                                   class="form-control"
+                                   name="nick"
+                                   placeholder="Přezdívka"
+                                   maxlength="50"
+                                   value="{{reg.nick}}"
+                                    >
+                        </div>
+                    </div>
+            </div>
+    </div>
+    <div class="row">
+        <div class="col-md-offset-1 col-md-2">
 
-  {% endif %}
+            <div class="input-group">
+                <span class="input-group-addon">
+                      <input type="radio"
+                             name="sex"
+                             value="male"
+                            {% if reg.sex != "female" %}
+                             checked
+                            {% endif %}
+                              >
+                </span>
+                <span class="form-control">Muž</span>
+            </div>
+
+        </div>
+
+        <div class="col-md-2">
+            <div class="input-group">
+                <span class="input-group-addon">
+                  <input type="radio"
+                         name="sex"
+                         value="female"
+                         {% if reg.sex == "female" %}
+                             checked
+                         {% endif %}
+                         >
+                </span>
+                <span  class="form-control">
+                    Žena
+                </span>
+            </div>
+
+        </div>
+
+        <div class="col-md-offset-1 col-md-5">
+            <div class="input-group">
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>  Datum narození</span>
+                    <input type="text"
+                           name="date"
+                           placeholder="1.1.1990"
+                           class="datepicker form-control"
+                           value="{{reg.date}}"
+                           required
+                            >
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-offset-3 col-md-6">
+            <div class="input-group">
+                <span class="input-group-addon"><span class="glyphicon glyphicon-phone"></span> </span>
+                <input type="text"
+                       placeholder="Mobil (+420)"
+                       maxlength="9"
+                       class="form-control"
+                       required
+                       value="{{reg.mobil}}"
+                       name="mobil"
+                        >
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="input-group">
+                <span class="input-group-addon">E-mail</span>
+                <input type="email"
+                       placeholder="Kontaktní email (login)"
+                       class="form-control"
+                       required
+                       value="{{reg.mail_1}}"
+                       name="mail_1"
+                        >
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="input-group">
+                <span class="input-group-addon">E-mail (kontrola)</span>
+                <input type="email"
+                       placeholder="Kontrola e-mailu"
+                       class="form-control"
+                       required
+                       value="{{reg.mail_2}}"
+                       name="mail_2"
+                        >
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="input-group">
+                <span class="input-group-addon">Heslo</span>
+                <input type="password"
+                       placeholder="Heslo pro přihlášení"
+                       class="form-control"
+                       required
+                       value=""
+                       name="pass_1"
+                        >
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="input-group">
+                <span class="input-group-addon">Heslo (kontrola)</span>
+                <input type="password"
+                       placeholder="Kontrola hesla"
+                       class="form-control"
+                       required
+                       value=""
+                       name="pass_2"
+                        >
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-offset-1 col-md-10">
+            <div class="input-group">
+                <span class="input-group-addon">
+                    <input type="checkbox"
+                           class="input-group-addon"
+                           name="rights"
+                           required
+                           {{reg.rights}}
+                            >
+                </span>
+                <span class="form-control">Dávám blah blah lbah PIlieiosafv aopdsivn apfos na </span>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-offset-5 col-md-2">
+            <input type="hidden" name="do" value="reg">
+            <button type="submit"  class="btn btn-default" formaction="?id=reg#h1">Registruj!</button>
+        </div>
+    </div>
+</form>
+{% endif %}

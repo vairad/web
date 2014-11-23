@@ -10,13 +10,16 @@
     <meta name="keywords" content="">
     <meta name="author" content="">
 
-    <!-- TODO správný title -->
-    <title>Sem pr web</title>
+    <title>{{title}}</title>
 
     <!-- Bootstrap core CSS -->
     <link href="{{bootstrap_css}}" rel="stylesheet">
+
     <!-- Optional Bootstrap Theme -->
     <link href="{{bootstrap_theme}}" rel="stylesheet">
+
+    <!-- Bootstrap datepicker CSS -->
+    <link href="{{bootstrap_dp_css}}" rel="stylesheet">
 
     <!-- My CSS -->
     <link href="{{my_css}}" rel="stylesheet">
@@ -92,6 +95,17 @@
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script src="{{bootstrap_js}}"></script>
+    <script src="{{bootstrap_datepicker}}"></script>
+    <script src="{{bootstrap_dp_locale}}"></script>
+    <script>
+     $(function(){
+         $('.datepicker').datepicker({
+             format: 'dd.mm.yyyy',
+             autoclose:true,
+             language: 'cs'
+         });
+     });
+    </script>
 
 </body>
 </html>
