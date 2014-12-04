@@ -1,4 +1,4 @@
-<!-- DATABÁZOVÉ HLÁŠKY --->
+<!-- DATABÁZOVÉ HLÁŠKY -->
 {% if data.error|length >0 %}
 <div class="alert alert-danger" role="alert">
     <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
@@ -15,204 +15,19 @@
 {% endif %}
 
 
-<!-- NADPIS H1 --->
+<!-- NADPIS H1 -->
 <h1 id="h1">{{nadpis}}</h1>
-
-
-
+        
   {% if content == 'text' %}
- <!-- sPROSTÝ TEXT V HTML --->
+ <!-- sPROSTÝ TEXT V HTML -->
     {{obsah | raw}}
-  {% elseif content == 'regform' %}
+
 <!-- REGISTRAČNÍ FORMULÁŘ -->
-        <p>{{info}}</p>
+{% elseif content == 'regform' %}
+    {% include 'default/form/regform.html' %}
+{% endif %}
 
-
-
-
-<form role="form" method="post">
-    <div class="row">
-            <div class="form-group" id="basic">
-                    <div class="col-md-4">
-                        <div class="input-group">
-                            <span class="input-group-addon {% if reg_fail.name == true  %} alert-danger {% endif %} ">Jméno</span>
-                            <input type="text"
-                                   class="form-control"
-                                   name="name"
-                                   placeholder="Jméno"
-                                   maxlength="50"
-                                   required
-                                   value="{{reg.name}}"
-                                    >
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="input-group">
-                            <span class="input-group-addon {% if reg_fail.surname == true  %} alert-danger {% endif %}">Příjmení</span>
-                            <input type="text"
-                                   class="form-control"
-                                   name="surname"
-                                   placeholder="Příjmení"
-                                   maxlength="50"
-                                   required
-                                   value="{{reg.surname}}"
-                                    >
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="input-group">
-                            <span class="input-group-addon {% if reg_fail.nick == true  %} alert-danger {% endif %}">Nick</span>
-                            <input type="text"
-                                   class="form-control"
-                                   name="nick"
-                                   placeholder="Přezdívka"
-                                   maxlength="50"
-                                   value="{{reg.nick}}"
-                                    >
-                        </div>
-                    </div>
-            </div>
-    </div>
-    <div class="row">
-        <div class="col-md-offset-1 col-md-2">
-
-            <div class="input-group">
-                <span class="input-group-addon {% if reg_fail.sex == true  %} alert-danger {% endif %}">
-                      <input type="radio"
-                             name="sex"
-                             value="male"
-                            {% if reg.sex != "female" %}
-                             checked
-                            {% endif %}
-                              >
-                </span>
-                <span class="form-control">Muž</span>
-            </div>
-
-        </div>
-
-        <div class="col-md-2">
-            <div class="input-group">
-                <span class="input-group-addon {% if reg_fail.sex == true  %} alert-danger {% endif %}">
-                  <input type="radio"
-                         name="sex"
-                         value="female"
-                         {% if reg.sex == "female" %}
-                             checked
-                         {% endif %}
-                         >
-                </span>
-                <span  class="form-control">
-                    Žena
-                </span>
-            </div>
-
-        </div>
-
-        <div class="col-md-offset-1 col-md-5">
-            <div class="input-group">
-                    <span class="input-group-addon {% if reg_fail.date == true  %} alert-danger {% endif %}">
-                        <span class="glyphicon glyphicon-calendar"></span>  Datum narození</span>
-                    <input type="text"
-                           name="date"
-                           placeholder="1.1.1990"
-                           class="datepicker form-control"
-                           value="{{reg.date}}"
-                           required
-                            >
-            </div>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-md-offset-3 col-md-6">
-            <div class="input-group">
-                <span class="input-group-addon {% if reg_fail.mobil == true  %} alert-danger {% endif %}">
-                     <span class="glyphicon glyphicon-phone"></span> </span>
-                <input type="text"
-                       placeholder="Mobil (+420)"
-                       maxlength="9"
-                       class="form-control"
-                       required
-                       value="{{reg.mobil}}"
-                       name="mobil"
-                        >
-            </div>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-md-6">
-            <div class="input-group">
-                <span class="input-group-addon {% if reg_fail.mail == true  %} alert-danger {% endif %}">E-mail</span>
-                <input type="email"
-                       placeholder="Kontaktní email (login)"
-                       class="form-control"
-                       required
-                       value="{{reg.mail_1}}"
-                       name="mail_1"
-                        >
-            </div>
-        </div>
-        <div class="col-md-6">
-            <div class="input-group">
-                <span class="input-group-addon {% if reg_fail.mail == true  %} alert-danger {% endif %}">E-mail (kontrola)</span>
-                <input type="email"
-                       placeholder="Kontrola e-mailu"
-                       class="form-control"
-                       required
-                       value="{{reg.mail_2}}"
-                       name="mail_2"
-                        >
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-6">
-            <div class="input-group">
-                <span class="input-group-addon {% if reg_fail.pass == true  %} alert-danger {% endif %}">Heslo</span>
-                <input type="password"
-                       placeholder="Heslo pro přihlášení"
-                       class="form-control"
-                       required
-                       value=""
-                       name="pass_1"
-                        >
-            </div>
-        </div>
-        <div class="col-md-6">
-            <div class="input-group">
-                <span class="input-group-addon {% if reg_fail.pass == true  %} alert-danger {% endif %}">Heslo (kontrola)</span>
-                <input type="password"
-                       placeholder="Kontrola hesla"
-                       class="form-control"
-                       required
-                       value=""
-                       name="pass_2"
-                        >
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-offset-1 col-md-10">
-            <div class="input-group">
-                <span class="input-group-addon {% if reg_fail.rights == true  %} alert-danger {% endif %}">
-                    <input type="checkbox"
-                           class="input-group-addon"
-                           name="rights"
-                           required
-                           {{reg.rights}}
-                            >
-                </span>
-                <span class="form-control">Dávám blah blah lbah PIlieiosafv aopdsivn apfos na </span>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-offset-5 col-md-2">
-            <input type="hidden" name="do" value="reg">
-            <button type="submit"  class="btn btn-default" formaction="?id=reg#h1">Registruj!</button>
-        </div>
-    </div>
-</form>
+<!-- CREATE MISTO -->
+{% elseif content == 'regform' %}
+    {% include 'default/form/create_misto.html' %}
 {% endif %}
