@@ -1,187 +1,114 @@
-<p>{{info}}</p>
-
 <form role="form" method="post">
     <div class="row">
-        <div class="form-group" id="basic">
-            <div class="col-md-4">
+        <div class="form-group">
+            <div class="col-md-offset-1 col-md-10">
                 <div class="input-group">
-                    <span class="input-group-addon {% if reg_fail.name == true  %} alert-danger {% endif %} ">Jméno</span>
+                    <span class="input-group-addon {% if place_fail.name == true  %} alert-danger {% endif %} ">Název místa</span>
                     <input type="text"
                            class="form-control"
                            name="name"
-                           placeholder="Jméno"
-                           maxlength="50"
+                           placeholder="Název místa"
+                           maxlength="60"
                            required
-                           value="{{reg.name}}"
+                           value="{{place.name}}"
                             >
                 </div>
             </div>
-            <div class="col-md-4">
+        </div>
+    </div>
+
+    <div class="row">
+
+        <div class="form-group">
+            <div class="col-md-offset-1 col-md-8">
                 <div class="input-group">
-                    <span class="input-group-addon {% if reg_fail.surname == true  %} alert-danger {% endif %}">Příjmení</span>
+                    <span class="input-group-addon {% if place_fail.street == true  %} alert-danger {% endif %}">
+                        Ulice
+                    </span>
                     <input type="text"
                            class="form-control"
-                           name="surname"
-                           placeholder="Příjmení"
-                           maxlength="50"
+                           name="street"
+                           placeholder="Adresa"
+                           maxlength="100"
                            required
-                           value="{{reg.surname}}"
+                           value="{{place.street}}"
                             >
                 </div>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-2">
                 <div class="input-group">
-                    <span class="input-group-addon {% if reg_fail.nick == true  %} alert-danger {% endif %}">Nick</span>
+                    <span class="input-group-addon {% if place_fail.cp == true  %} alert-danger {% endif %}">
+                        ČP
+                    </span>
                     <input type="text"
                            class="form-control"
-                           name="nick"
-                           placeholder="Přezdívka"
-                           maxlength="50"
-                           value="{{reg.nick}}"
-                            >
+                           name="cp"
+                           placeholder="ČP"
+                           maxlength="11"
+                           value="{{place.cp}}"
+                           required
+                           >
                 </div>
             </div>
         </div>
+
+
     </div>
+
     <div class="row">
-        <div class="col-md-offset-1 col-md-2">
-
+        <div class="col-md-offset-1 col-md-6">
             <div class="input-group">
-                <span class="input-group-addon {% if reg_fail.sex == true  %} alert-danger {% endif %}">
-                      <input type="radio"
-                             name="sex"
-                             value="male"
-                            {% if reg.sex != "female" %}
-                             checked
-                            {% endif %}
-                              >
+                <span class="input-group-addon {% if place_fail.gps == true  %} alert-danger {% endif %}">
+                     <span class="glyphicon glyphicon-globe"></span>
                 </span>
-                <span class="form-control">Muž</span>
-            </div>
-
-        </div>
-
-        <div class="col-md-2">
-            <div class="input-group">
-                <span class="input-group-addon {% if reg_fail.sex == true  %} alert-danger {% endif %}">
-                  <input type="radio"
-                         name="sex"
-                         value="female"
-                         {% if reg.sex == "female" %}
-                             checked
-                         {% endif %}
-                         >
-                </span>
-                <span  class="form-control">
-                    Žena
-                </span>
-            </div>
-
-        </div>
-
-        <div class="col-md-offset-1 col-md-5">
-            <div class="input-group">
-                    <span class="input-group-addon {% if reg_fail.date == true  %} alert-danger {% endif %}">
-                        <span class="glyphicon glyphicon-calendar"></span>  Datum narození</span>
                 <input type="text"
-                       name="date"
-                       placeholder="1.1.1990"
-                       class="datepicker form-control"
-                       value="{{reg.date}}"
+                       placeholder="GPS"
+                       maxlength="45"
+                       class="form-control"
                        required
+                       value="{{place.gps}}"
+                       name="gps"
                         >
             </div>
         </div>
-    </div>
 
-    <div class="row">
-        <div class="col-md-offset-3 col-md-6">
+        <div class=" col-md-4">
             <div class="input-group">
-                <span class="input-group-addon {% if reg_fail.mobil == true  %} alert-danger {% endif %}">
-                     <span class="glyphicon glyphicon-phone"></span> </span>
+                <span class="input-group-addon {% if place_fail.capacity == true  %} alert-danger {% endif %}">
+                     <span class="glyphicon glyphicon-tower "></span>
+                </span>
                 <input type="text"
-                       placeholder="Mobil (+420)"
-                       maxlength="9"
+                       placeholder="Kapacita her"
+                       maxlength="11"
                        class="form-control"
                        required
-                       value="{{reg.mobil}}"
-                       name="mobil"
+                       value="{{place.capacity}}"
+                       name="capacity"
                         >
             </div>
         </div>
     </div>
 
-    <div class="row">
-        <div class="col-md-6">
-            <div class="input-group">
-                <span class="input-group-addon {% if reg_fail.mail == true  %} alert-danger {% endif %}">E-mail</span>
-                <input type="email"
-                       placeholder="Kontaktní email (login)"
-                       class="form-control"
-                       required
-                       value="{{reg.mail_1}}"
-                       name="mail_1"
-                        >
-            </div>
-        </div>
-        <div class="col-md-6">
-            <div class="input-group">
-                <span class="input-group-addon {% if reg_fail.mail == true  %} alert-danger {% endif %}">E-mail (kontrola)</span>
-                <input type="email"
-                       placeholder="Kontrola e-mailu"
-                       class="form-control"
-                       required
-                       value="{{reg.mail_2}}"
-                       name="mail_2"
-                        >
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-6">
-            <div class="input-group">
-                <span class="input-group-addon {% if reg_fail.pass == true  %} alert-danger {% endif %}">Heslo</span>
-                <input type="password"
-                       placeholder="Heslo pro přihlášení"
-                       class="form-control"
-                       required
-                       value=""
-                       name="pass_1"
-                        >
-            </div>
-        </div>
-        <div class="col-md-6">
-            <div class="input-group">
-                <span class="input-group-addon {% if reg_fail.pass == true  %} alert-danger {% endif %}">Heslo (kontrola)</span>
-                <input type="password"
-                       placeholder="Kontrola hesla"
-                       class="form-control"
-                       required
-                       value=""
-                       name="pass_2"
-                        >
-            </div>
-        </div>
-    </div>
     <div class="row">
         <div class="col-md-offset-1 col-md-10">
             <div class="input-group">
-                <span class="input-group-addon {% if reg_fail.rights == true  %} alert-danger {% endif %}">
-                    <input type="checkbox"
-                           class="input-group-addon"
-                           name="rights"
-                           required
-                           {{reg.rights}}
-                            >
-                </span>
-                <span class="form-control">Dávám blah blah lbah PIlieiosafv aopdsivn apfos na </span>
+                <span class="input-group-addon {% if place_fail.popis == true  %} alert-danger {% endif %}">Popis</span>
+                <textarea
+                        placeholder="Popis místa, dopravy, atp..."
+                       class="form-control"
+                       required
+                       name="text"
+                       rows="10"
+                       spellcheck="true"
+                        >{% if place.text|length >0 %}{{place.text | raw}}{% endif %}</textarea>
             </div>
         </div>
     </div>
+
     <div class="row">
         <div class="col-md-offset-5 col-md-2">
-            <input type="hidden" name="do" value="reg">
-            <button type="submit"  class="btn btn-default" formaction="?id=reg#h1">Registruj!</button>
+            <input type="hidden" name="do" value="create">
+            <button type="submit"  class="btn btn-default" formaction="?id=vmisto#h1">Vytvoř místo!</button>
         </div>
     </div>
 </form>

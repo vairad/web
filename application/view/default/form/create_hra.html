@@ -1,0 +1,140 @@
+<form role="form" method="post">
+    <div class="row">
+        <div class="form-group" id="basic">
+            <div class="col-md-offset-1 col-md-10">
+                <div class="input-group">
+                    <span class="input-group-addon {% if game_fail.name == true  %} alert-danger {% endif %} ">Název hry</span>
+                    <input type="text"
+                           class="form-control"
+                           name="name"
+                           placeholder="Název místa"
+                           maxlength="60"
+                           required
+                           value="{{game.name}}"
+                            >
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+
+        <div class="form-group" id="basic">
+            <div class="col-md-offset-1 col-md-2">
+                <div class="input-group">
+                    <span class="input-group-addon {% if game_fail.num_m == true  %} alert-danger {% endif %}">
+                        <img src="./application/view/glyphicons/png/glyphicons-35-old-man.png" alt="Muži" class="glyphicon" />
+                    </span>
+                    <input type="text"
+                           class="form-control"
+                           name="num_m"
+                           placeholder="Muži"
+                           maxlength="11"
+                           required
+                           value="{{game.num_m}}"
+                            >
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="input-group">
+                    <span class="input-group-addon {% if game_fail.num_f == true  %} alert-danger {% endif %}">
+                        <img src="./application/view/glyphicons/png/glyphicons-36-woman.png" alt="Ženy" class="glyphicon" />
+                    </span>
+                    <input type="text"
+                           class="form-control"
+                           name="num_f"
+                           placeholder="Ženy"
+                           maxlength="11"
+                           required
+                           value="{{game.num_f}}"
+                            >
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="input-group">
+                    <span class="input-group-addon {% if game_fail.num_h == true  %} alert-danger {% endif %}">
+                        <img src="./application/view/glyphicons/png/glyphicons-25-parents.png" alt="Obojí" class="glyphicon" />
+                    </span>
+                    <input type="text"
+                           class="form-control"
+                           name="num_h"
+                           placeholder="Obojí"
+                           maxlength="11"
+                           required
+                           value="{{game.num_h}}"
+                            >
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="input-group">
+                    <span class="input-group-addon {% if game_fail.num_min == true  %} alert-danger {% endif %}">Minimum</span>
+                    <input type="text"
+                           class="form-control"
+                           name="num_min"
+                           placeholder="Minimum"
+                           maxlength="11"
+                           required
+                           value="{{game.num_min}}"
+                            >
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+    <div class="row">
+        <div class="col-md-offset-1 col-md-3">
+            <div class="input-group">
+                <span class="input-group-addon {% if game_fail.capacity == true  %} alert-danger {% endif %}">
+                     <span class="glyphicon glyphicon-time"></span> </span>
+                <input type="text"
+                       placeholder="Délka hry"
+                       maxlength="45"
+                       class="form-control"
+                       required
+                       value="{{game.capacity}}"
+                       name="capacity"
+                        >
+            </div>
+        </div>
+
+        <div class="col-md-7">
+            <div class="input-group">
+                <span class="input-group-addon {% if game_fail.web == true  %} alert-danger {% endif %}">
+                      Web
+                </span>
+                <input type="text"
+                       placeholder="Web hry"
+                       maxlength="45"
+                       class="form-control"
+                       required
+                       value="{{game.web}}"
+                       name="web"
+                        >
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-offset-1 col-md-10">
+            <div class="input-group">
+                <span class="input-group-addon {% if place_fail.popis == true  %} alert-danger {% endif %}">Popis</span>
+                <textarea
+                        placeholder="Anotace hry..."
+                        class="form-control"
+                        required
+                        name="text"
+                        rows="15"
+                        >{% if place.text|length >0 %}{{place.text | raw}}{% endif %}</textarea>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-offset-5 col-md-2">
+            <input type="hidden" name="do" value="cr_game">
+            <button type="submit"  class="btn btn-default" formaction="?id=vhra#h1">Vytvoř hru!</button>
+        </div>
+    </div>
+</form>

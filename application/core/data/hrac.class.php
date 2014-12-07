@@ -12,13 +12,23 @@ class hrac {
 
     public $set_up = array();
 
-   //===========================================================
+    function __construct()
+    {
 
+    }
+
+    //===========================================================
+
+    /**
+     * @param osobyDB $osoby_db_class
+     * @return bool
+     */
     public function toDB($osoby_db_class){
-        $osoby_db_class->saveHrac($this);
+       return $osoby_db_class->InsertOsoba($this);
     }
 
    //===========================================================
+
 
     /**
      * @param mixed $date

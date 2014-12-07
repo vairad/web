@@ -1,10 +1,10 @@
 <?php
 
 // diky extends mohu pouzivat metody db - jako DBSelect ...
-class osoby extends db
+class osobyDB extends db
 {
 
-    public function osoby($connection)
+    public function osobyDB($connection)
     {
         $this->connection = $connection;
     }

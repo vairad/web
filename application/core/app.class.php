@@ -31,24 +31,50 @@ class app
         $this->db->Connect();
     }
 
-
-    public function Secti($a, $b)
-    {
-        $c = $a + $b;
-        return $c;
-    }
-
     public function zpracujPoz(){
         global $data;
         $id = @$_REQUEST["id"];
 
         $do = @$_REQUEST["do"];
+        $data["data"]["error"]=array();
+
+       // printr($_POST);
+
+        $prihl = isset($_SESSION[MY_SES]) && $_SESSION[MY_SES]["user"]["flag"]==true;
+
+      //  printr($prihl);
 
         $data["title"]="Semestrání práce WEB";
         $data["menu"][$id]["aktiv"]="active";
         $data["content"]="text";
         site:
-        if($id=="akce"){
+        if($id=="vhra" && $prihl) {
+            //printr($_POST);
+                $data["nadpis"] = "Vytvor hru";
+                $data["content"] = "vhra";
+
+        }elseif($id=="vmisto" && $prihl){
+                $data["nadpis"]="Vytvor misto";
+                $data["content"]="vmisto";
+                if($do=="create"){
+                    $misto = new misto();
+                    require_once("front/placecheck.php");
+                    $mista = new mistaDB($this->GetConnection());
+                    $database = $misto->toDB($mista);
+                    if($database == true){
+                        $data["data"]["succes"]="Hra byla úspěšně vytvořena";
+                        //zobrazit prázdný formulář
+                        unset($data["place"]);
+                    }
+                    else {
+                        if(!isset($data["data"]["error"][0])) {
+                            $data["data"]["error"][] = "Hra se stejným názvem již existuje";
+                        }
+                    }
+                }
+
+
+}elseif($id=="akce"){
                 $data["nadpis"]="Akce";
         }elseif($id=="hry"){
                 $data["nadpis"]="Hry";
@@ -58,15 +84,18 @@ class app
                 if($do=="reg"){
                     $hrac = new hrac();
                     require_once("front/regcheck.php");
-                    $osoby = new osoby($this->GetConnection());
-                    $database = $osoby->InsertOsoba($hrac);
+                    $osoby = new osobyDB($this->GetConnection());
+                    $database = $hrac->toDB($osoby);
                     if($database == true){
                         $data["data"]["succes"]="Byl jste úspěšně zaregistrován";
+                        //zobrazit hlavni stranku
                         $id="akce";
                         goto site;
                     }
                     else{
-                        $data["data"]["error"]="Chyba při registraci. Vaše e-mailová adresa již byla použita.";
+                        if(!isset($data["data"]["error"][0])) {
+                            $data["data"]["error"][] = "Chyba při registraci. Vaše e-mailová adresa již byla použita.";
+                        }
                     }
 
                 }
@@ -98,7 +127,7 @@ class app
     public function setLogged(){
         global $data;
         if(isset($_SESSION[MY_SES]["user"]["flag"]) && $_SESSION[MY_SES]["user"]["flag"] == true){
-            $data["logged"]=1;
+            $data["logged"]=$_SESSION[MY_SES]["user"]["rights"];
             $data["user"]["name"]=$_SESSION[MY_SES]["user"]["name"];
             $data["user"]["nick"]=$_SESSION[MY_SES]["user"]["nick"];
             $data["user"]["surname"]=$_SESSION[MY_SES]["user"]["surname"];
@@ -112,7 +141,7 @@ class app
         $osoby = new osoby($this->GetConnection());
         $user = $osoby->GetOsobaByLogin(trim($_POST["login"]), trim($_POST["pass"]));
         if(!isset($user["jmeno"])){
-            $data["data"]["error"]="Špatná kombinace jména a hesla.";
+            $data["data"]["error"][]="Špatná kombinace jména a hesla.";
         }else{
             $data["data"]["succes"]="Přihlášení bylo úspěšné";
             $_SESSION[MY_SES]["user"]= array();
@@ -135,8 +164,6 @@ class app
 
     public function testDat(){
         global $data;
-        // nacist vstupy - napr. ID clanku, ktery mam zobrazit
-        $id = @$_REQUEST["id"];
 
         $data["menu"]["akce"]["text"]="O akci";
         $data["menu"]["akce"]["href"]="?id=akce";
@@ -154,8 +181,11 @@ class app
         $data["menu_member"]["mujucet"]["text"]="Můj účet";
         $data["menu_member"]["mujucet"]["href"]="?id=mujucet";
 
-        $data["menu_admin"]["mujucet"]["text"]="Můj účet";
-        $data["menu_admin"]["mujucet"]["href"]="?id=mujucet";
+        $data["menu_admin"][0]["text"]="Vytvor misto";
+        $data["menu_admin"][0]["href"]="?id=vmisto";
+
+        $data["menu_admin"][1]["text"]="Vytvor hru";
+        $data["menu_admin"][1]["href"]="?id=vhra";
 
         $data["navbar"][3]["text"]="Prvnu bod";
         //$data["menu"][3]["href"]="";

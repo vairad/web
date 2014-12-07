@@ -1,11 +1,13 @@
 <!-- DATABÁZOVÉ HLÁŠKY -->
-{% if data.error|length >0 %}
+
+{% for item in data.error %}
 <div class="alert alert-danger" role="alert">
     <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
     <span class="sr-only">Chyba:</span>
-    {{data.error}}
+    {{item}}
 </div>
-{% endif %}
+{% endfor %}
+
 {% if data.succes|length >0 %}
 <div class="alert alert-success" role="alert">
     <span class="glyphicon glyphicon-ok-sign" aria-hidden="true"></span>
@@ -17,17 +19,22 @@
 
 <!-- NADPIS H1 -->
 <h1 id="h1">{{nadpis}}</h1>
-        
+
   {% if content == 'text' %}
  <!-- sPROSTÝ TEXT V HTML -->
     {{obsah | raw}}
 
 <!-- REGISTRAČNÍ FORMULÁŘ -->
 {% elseif content == 'regform' %}
+    <p>{{info}}</p>
     {% include 'default/form/regform.html' %}
-{% endif %}
 
 <!-- CREATE MISTO -->
-{% elseif content == 'regform' %}
+{% elseif content == 'vmisto' %}
+    <p>{{info}}</p>
     {% include 'default/form/create_misto.html' %}
+<!-- CREATE HRA -->
+{% elseif content == 'vhra' %}
+    <p>{{info}}</p>
+    {% include 'default/form/create_hra.html' %}
 {% endif %}

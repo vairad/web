@@ -111,3 +111,7 @@ form .row{
 .alert{
     margin-top: 10px;
 }
+
+img.glyphicon{
+ height: 14px;
+}

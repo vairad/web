@@ -87,13 +87,10 @@ else {
 
 
 /* proměnná DATNAR */
-echo "pyčo nula";
 echo $_POST["date"];
 if(!empty($_POST["date"]))
 {
-    echo "pyčo";
     $date = dateToData($_POST["date"]);
-    echo "dvěpyčy";
     if($date != false){
         $data["reg"]["date"]=$_POST["date"];
         $hrac->setDate($date);
@@ -166,9 +163,5 @@ else{
     $data["reg_fail"]["sex"]=1;
     $hrac->set_up["sex"]=false;
 }
-
-
-
-
 
 ?>

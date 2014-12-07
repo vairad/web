@@ -11,10 +11,15 @@
 
 	// nacist objekty - soubory .class.php
 	require 'application/core/app.class.php';	    // drzi hlavni funkcionalitu cele aplikace, obsahuje routing = navigovani po webu
-    require 'application/core/hrac.class.php';
+
+
     require 'application/db/db.class.php';			// zajisti pristup k db a spolecne metody pro dalsi pouziti
-	require 'application/db/mista.class.php';		// zajisti pristup ke konkretnim db tabulkam - objekt vetsinou zajisti pristup k cele sade souvisejicich tabulek
-    require 'application/db/osoby.class.php';
+	require 'application/db/mistaDB.class.php';		// zajisti pristup ke konkretnim db tabulkam - objekt vetsinou zajisti pristup k cele sade souvisejicich tabulek
+    require 'application/db/osobyDB.class.php';
+
+    //datove struktury
+    require 'application/core/data/hrac.class.php';
+    require 'application/core/data/misto.class.php';
 
     // připojení twigu
     require_once("application/view/twig/lib/Twig/Autoloader.php");
@@ -36,6 +41,7 @@
     $app->setLogged();
     $app->zpracujPoz();
     $app->testDat();
+
 
         Twig_Autoloader::register();
 
