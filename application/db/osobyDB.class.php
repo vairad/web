@@ -15,18 +15,9 @@ class osobyDB extends db
      */
     public function InsertOsoba($hrac_class)
     {
-       $item["jmeno"]=$hrac_class->getName();
-       $item["prijmeni"]=$hrac_class->getSurname();
-       $item["prezdivka"]=$hrac_class->getNick();
-
-       $item["datnar"]=$hrac_class->getDate();
-       $item["pohlavi"]=$hrac_class->getSex();
-
-       $item["mobil"]=$hrac_class->getMobil();
-       $item["email"]=$hrac_class->getMail();
-       $item["heslo"]=$hrac_class->getPass();
-
+       $item = $hrac_class->getItem();
         // uložení do db
+        printr($item);
       return $this->DBInsert(TABLE_OSOBY, $item);
     }
 
@@ -43,6 +34,19 @@ class osobyDB extends db
         return $this->DBSelectOne(TABLE_OSOBY,"*",$where_arr);
     }
 
+    /**
+     * @param int $rights_val
+     * @return array[]
+     */
+    public function GetOsobyByRights($rights_val)
+    {
+        $where_arr[0]["column"]= "typuctu";
+        $where_arr[0]["value"]= $rights_val;
+        $where_arr[0]["symbol"]= ">=";
+
+        $order = $this->abecedne();
+        return $this->DBSelectAll(TABLE_OSOBY,"id_osoby, jmeno, prijmeni, prezdivka",$where_arr, "", $order);
+    }
 
 
     public function DeleteOsobaByID($predmet_id)
@@ -50,16 +54,32 @@ class osobyDB extends db
 
     }
 
-
-    public function GetOsobaByID($predmet_id)
-    {
-
-    }
-
-
     public function LoadAllOsoby()
     {
+        $table_name = TABLE_MISTA;
+        $select_columns_string = "*";
+        $where_array = array();
+        $limit_string = "";
+        $order_by_array = $this->abecedne();
 
+        $mista = $this->DBSelectAll($table_name, $select_columns_string, $where_array, $limit_string, $order_by_array);
+        //printr($predmety);
+
+        // vratit data
+        return $mista;
+    }
+
+    private function abecedne(){
+        $order = array();
+        $order[0]["column"]="prijmeni";
+        $order[0]["sort"]="asc";
+
+        $order[1]["column"]="jmeno";
+        $order[1]["sort"]="asc";
+
+        $order[2]["column"]="prezdivka";
+        $order[2]["sort"]="asc";
+        return $order;
     }
 }
 

@@ -45,7 +45,7 @@
 {%endif%}
 
 <!-- ADMIN MENU -->
-{% if logged > 1 %}
+{% if logged >= 99  %}
 <div class="list-group my-right menu">
     {% for item in menu_admin %}
     {% if item.href|length > 0 %}

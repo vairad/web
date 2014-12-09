@@ -37,7 +37,7 @@ function dateToData($date){
 
 function timeToData($timestamp){
     $datum=date("Y-m-d H:i:s.u",$timestamp) ;
-    echo ($datum);
+   // echo ($datum);
     return $datum;
 }
 

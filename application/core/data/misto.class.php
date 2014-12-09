@@ -27,6 +27,17 @@ class misto {
         $this->set_up["capacity"] = false;
     }
 
+    public function getItem(){
+        $item["nazev"] = $this->getName();
+        $item["ulice"] = $this->getStreet();
+        $item["cp"] = $this->getCp();
+        $item["gps"] = $this->getGps();
+        $item["popis"] = $this->getText();
+        $item["kapacita"] = $this->getCapacity();
+
+        return $item;
+    }
+
     //===========================================================
 
     /**
@@ -35,14 +46,14 @@ class misto {
      */
     public function toDB($mista_db_class){
         $bool = true;
-        $debug[]= $bool;
-        $debug["index"]= array();
+      //  $debug[]= $bool;
+       // $debug["index"]= array();
         foreach($this->set_up as $index ) {
             $bool &= $index;
-            $debug[]=$bool;
-            $debug["index"][]=$index;
+      //      $debug[]=$bool;
+      //      $debug["index"][]=$index;
         }
-        printr($debug);
+      //  printr($debug);
         if($bool) {
            return $mista_db_class->InsertMisto($this);
         }

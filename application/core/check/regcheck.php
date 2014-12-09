@@ -87,7 +87,7 @@ else {
 
 
 /* proměnná DATNAR */
-echo $_POST["date"];
+// echo $_POST["date"];
 if(!empty($_POST["date"]))
 {
     $date = dateToData($_POST["date"]);

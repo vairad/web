@@ -12,19 +12,51 @@ class hrac {
 
     public $set_up = array();
 
-    function __construct()
+    public function hrac()
     {
-
+        $this->set_up["name"] = false;
+        $this->set_up["nick"] = false;
+        $this->set_up["sex"] = false;
+        $this->set_up["date"] = false;
+        $this->set_up["mail"] = false;
+        $this->set_up["mobil"] = false;
+        $this->set_up["pass"] = false;
     }
 
     //===========================================================
+
+    public function getItem(){
+        $item["jmeno"]=$this->getName();
+        $item["prijmeni"]=$this->getSurname();
+        $item["prezdivka"]=$this->getNick();
+
+        $item["datnar"]=$this->getDate();
+        $item["pohlavi"]=$this->getSex();
+
+        $item["mobil"]=$this->getMobil();
+        $item["email"]=$this->getMail();
+        $item["heslo"]=$this->getPass();
+        return $item;
+    }
 
     /**
      * @param osobyDB $osoby_db_class
      * @return bool
      */
     public function toDB($osoby_db_class){
-       return $osoby_db_class->InsertOsoba($this);
+        $bool = true;
+       // $debug[]= $bool;
+      //  $debug["index"]= array();
+        foreach($this->set_up as $index ) {
+            $bool &= $index;
+        //    $debug[]=$bool;
+       //     $debug["index"][]=$index;
+        }
+       // printr($debug);
+        if($bool) {
+            return $osoby_db_class->InsertOsoba($this);
+        }
+        return false;
     }
 
    //===========================================================

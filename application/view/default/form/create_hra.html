@@ -1,4 +1,5 @@
 <form role="form" method="post">
+   <!-- název -->
     <div class="row">
         <div class="form-group" id="basic">
             <div class="col-md-offset-1 col-md-10">
@@ -7,7 +8,7 @@
                     <input type="text"
                            class="form-control"
                            name="name"
-                           placeholder="Název místa"
+                           placeholder="Název hry"
                            maxlength="60"
                            required
                            value="{{game.name}}"
@@ -16,7 +17,7 @@
             </div>
         </div>
     </div>
-
+    <!-- muzi zeny herm minimum -->
     <div class="row">
 
         <div class="form-group" id="basic">
@@ -82,24 +83,39 @@
 
 
     </div>
-
+    <!-- délka cena web -->
     <div class="row">
-        <div class="col-md-offset-1 col-md-3">
+        <div class="col-md-offset-1 col-md-2">
             <div class="input-group">
-                <span class="input-group-addon {% if game_fail.capacity == true  %} alert-danger {% endif %}">
+                <span class="input-group-addon {% if game_fail.length == true  %} alert-danger {% endif %}">
                      <span class="glyphicon glyphicon-time"></span> </span>
                 <input type="text"
-                       placeholder="Délka hry"
-                       maxlength="45"
+                       placeholder="Délka"
+                       maxlength="11"
                        class="form-control"
                        required
-                       value="{{game.capacity}}"
-                       name="capacity"
+                       value="{{game.length}}"
+                       name="length"
                         >
             </div>
         </div>
 
-        <div class="col-md-7">
+        <div class="col-md-2">
+            <div class="input-group">
+                <span class="input-group-addon {% if game_fail.cost == true  %} alert-danger {% endif %}">
+                     <span class="glyphicon glyphicon-usd"></span> </span>
+                <input type="text"
+                       placeholder="Cena"
+                       maxlength="11"
+                       class="form-control"
+                       required
+                       value="{{game.cost}}"
+                       name="cost"
+                        >
+            </div>
+        </div>
+
+        <div class="col-md-6">
             <div class="input-group">
                 <span class="input-group-addon {% if game_fail.web == true  %} alert-danger {% endif %}">
                       Web
@@ -108,7 +124,6 @@
                        placeholder="Web hry"
                        maxlength="45"
                        class="form-control"
-                       required
                        value="{{game.web}}"
                        name="web"
                         >
@@ -116,24 +131,39 @@
         </div>
     </div>
 
+    <!-- org -->
     <div class="row">
         <div class="col-md-offset-1 col-md-10">
             <div class="input-group">
-                <span class="input-group-addon {% if place_fail.popis == true  %} alert-danger {% endif %}">Popis</span>
+                <span class="input-group-addon {% if game_fail.org == true  %} alert-danger {% endif %}">Organizátor</span>
+                <select name="org" class="form-control" required>
+                    {% for org in orgove %}
+                    <option value="{{org.id_osoby+123}}" {{org.selected}}>{{org.jmeno}} {{org.prijmeni}} ({{org.prezdivka}})</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <!-- popis -->
+    <div class="row">
+        <div class="col-md-offset-1 col-md-10">
+            <div class="input-group">
+                <span class="input-group-addon {% if game_fail.popis == true  %} alert-danger {% endif %}">Popis</span>
                 <textarea
                         placeholder="Anotace hry..."
                         class="form-control"
                         required
                         name="text"
                         rows="15"
-                        >{% if place.text|length >0 %}{{place.text | raw}}{% endif %}</textarea>
+                        >{% if game.text|length >0 %}{{game.text | raw}}{% endif %}</textarea>
             </div>
         </div>
     </div>
 
     <div class="row">
         <div class="col-md-offset-5 col-md-2">
-            <input type="hidden" name="do" value="cr_game">
+            <input type="hidden" name="do" value="create">
             <button type="submit"  class="btn btn-default" formaction="?id=vhra#h1">Vytvoř hru!</button>
         </div>
     </div>

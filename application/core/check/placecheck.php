@@ -5,7 +5,7 @@ global $misto;
 
 $misto = new misto();
 
-if(!isset($_POST["name"]))$_POST["jmeno"]="";
+if(!isset($_POST["name"]))$_POST["name"]="";
 
 if(!isset($_POST["street"]))$_POST["street"]="";
 if(!isset($_POST["cp"]))$_POST["cp"]="";

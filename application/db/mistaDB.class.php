@@ -16,30 +16,26 @@ class mistaDB extends db
      */
 	public function InsertMisto($misto)
 	{
-        $item["nazev"] = $misto->getName();
-        $item["ulice"] = $misto->getStreet();
-        $item["cp"] = $misto->getCp();
-        $item["gps"] = $misto->getGps();
-        $item["popis"] = $misto->getText();
-        $item["kapacita"] = $misto->getCapacity();
-
-        printr($item);
-
+        $item= $misto->getItem();
+       // printr($item);
         return $this->DBInsert(TABLE_MISTA,$item);
 	}
-	
-	
-	public function DeleteMisotByID($misto_id)
+
+	/*public function DeleteMisotByID($misto_id)
 	{
+        //TODO dodělat!!!
         $where_arr[0]["column"]= "id";
         $where_arr[0]["value"]= "$misto_id";
         $where_arr[0]["symbol"]= "=";
 
         $misto = $this->DBSelectOne(TABLE_MISTA, "*", $where_arr, $limit_string = "");
         return $misto;
-	}
-	
-	
+	}*/
+
+    /**
+     * @param int $misto_id
+     * @return array[]
+     */
 	public function GetMistoByID($misto_id)
 	{
         $where_arr[0]["column"]= "id";
