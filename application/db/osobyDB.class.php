@@ -54,10 +54,10 @@ class osobyDB extends db
 
     }
 
-    public function LoadAllOsoby()
+    public function SelectAllOsobyInfo()
     {
-        $table_name = TABLE_MISTA;
-        $select_columns_string = "*";
+        $table_name = TABLE_OSOBY;
+        $select_columns_string = "jmeno, prijmeni, prezdivka, datnar, pohlavi, email, mobil, typuctu";
         $where_array = array();
         $limit_string = "";
         $order_by_array = $this->abecedne();

@@ -115,3 +115,12 @@ form .row{
 img.glyphicon{
  height: 14px;
 }
+
+
+
+.table-striped > tbody > tr:nth-child(2n+1){
+    background-color: rgb(252, 255, 169);
+}
+.table-striped > tbody > tr:nth-child(2n){
+    background-color: #ffc35c;
+}

@@ -20,7 +20,7 @@
 <!-- NADPIS H1 -->
 <h1 id="h1">{{nadpis}}</h1>
 
-  {% if content == 'text' %}
+{% if content == 'text' %}
  <!-- sPROSTÝ TEXT V HTML -->
     {{obsah | raw}}
 
@@ -28,6 +28,25 @@
 {% elseif content == 'regform' %}
     <p>{{info}}</p>
     {% include 'default/form/regform.html' %}
+
+<!-- TABULKA UŽIVATELŮ -->
+{% elseif content == 'table_user' %}
+<div class="table-responsive">
+    <table class="table table-striped table-bordered">
+        <tr> <th>Jméno</th> <th>Příjmení</th><th>Přezdívka</th>
+            <th>Věk</th><th>Pohlaví</th><th>Telefon</th><th>Mail</th>
+            <th>Typ účtu</th>
+        </tr>
+        {%for user in users %}
+
+        <tr> <td>{{user.jmeno}}</td> <td>{{user.prijmeni}}</td><td>{{user.prezdivka}}</td>
+            <td>{{user.vek}}</td><td>{{user.pohlaviS}}</td><td>{{user.mobil}}</td><td>{{user.email}}</td>
+            <td>{{user.typuctuS}}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+
 
 <!-- CREATE MISTO -->
 {% elseif content == 'vmisto' %}

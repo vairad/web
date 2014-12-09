@@ -41,6 +41,19 @@ function timeToData($timestamp){
     return $datum;
 }
 
+function pohlaviS($bool){
+    if($bool){
+        return "muž";
+    }
+    else{
+        return "žena";
+    }
+}
+
+function vek($dateDB){
+   $now = date("Y-m-d");
+    return $now-$dateDB;
+}
 
 // specialni vypis
 function printr($val)

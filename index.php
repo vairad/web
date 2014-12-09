@@ -56,6 +56,7 @@
         // nacist danou sablonu z adresare
     $template = $twig->loadTemplate(TEMPLATE);
 
+  //  printr($data);
 
     echo $template->render($data);
 ?>

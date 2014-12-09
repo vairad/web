@@ -54,7 +54,6 @@ class app
         $data["menu_admin"][$id]["aktiv"]="active";
         $data["content"]="text";
 
-        site:
         if($id=="vhra" && $prihl) {
             $this->appendNavbar("Vytvoř hru", "index.php?id=vhra");
             $this->stranaVytvorHru($do);
@@ -62,6 +61,10 @@ class app
         }elseif($id=="vmisto" && $prihl){
             $this->appendNavbar("Vytvoř místo", "index.php?id=vmisto");
             $this->stranaVytvorMisto($do);
+
+        }elseif($id=="uzivatele" && $prihl){
+            $this->appendNavbar("Seznam uživatelů", "index.php?id=uzivatele");
+            $this->stranaSeznamUziv($do);
 
         }elseif($id=="akce"){
             $this->appendNavbar("O akci", "index.php?id=akce");
@@ -259,6 +262,24 @@ class app
                     </p>';
     }
 
+    //===============================================================================================================
+
+    public  function stranaSeznamUziv($do){
+        global $data;
+
+        $data["nadpis"]="Seznam uživatelů";
+        $data["content"]="table_user";
+
+        $osobyDB = new osobyDB($this->GetConnection());
+        $data["users"]= $osobyDB->SelectAllOsobyInfo();
+
+        foreach($data["users"] as &$user){
+            $user["pohlaviS"] = pohlaviS($user["pohlavi"]);
+            $user["vek"]=vek($user["datnar"]);
+            $user["typuctuS"]= typustuS($user["typuctu"]);
+        }
+    }
+
     //==================================================================================================================
     //==================================================================================================================
     public function  setUpMenu(){
@@ -296,6 +317,9 @@ class app
 
         $data["menu_admin"]["vhra"]["text"]="Vytvor hru";
         $data["menu_admin"]["vhra"]["href"]="?id=vhra";
+
+        $data["menu_admin"]["uzivatele"]["text"]="Seznam uživatelů";
+        $data["menu_admin"]["uzivatele"]["href"]="?id=uzivatele";
     }
 
 
