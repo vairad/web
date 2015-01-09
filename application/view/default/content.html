@@ -83,7 +83,9 @@
         </tr>
         {%for place in places %}
         <tr> <td>{{place.nazev}}</td> <td>{{place.ulice}} {{place.cp}}</td><td>{{place.gps}}</td>
-            <td><button onclick="{{place.delA}}" class="btn btn-block btn-info">Smazat</button></td>
+            <td><button onclick="{{place.delA}}" class="btn btn-block btn-info">Smazat</button>
+                <button onclick="{{place.updateA}}" class="btn btn-block btn-info">Upravit</button>
+            </td>
         </tr>
         {% endfor %}
     </table>

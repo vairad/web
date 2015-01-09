@@ -39,13 +39,24 @@ class misto {
         $this->set_up["capacity"] = false;
     }
 
-    public function getItem(){
+    public function getItemDB(){
         $item["nazev"] = $this->getName();
         $item["ulice"] = $this->getStreet();
         $item["cp"] = $this->getCp();
         $item["gps"] = $this->getGps();
         $item["popis"] = $this->getText();
         $item["kapacita"] = $this->getCapacity();
+
+        return $item;
+    }
+
+    public function getItemForm(){
+        $item["name"] = $this->getName();
+        $item["street"] = $this->getStreet();
+        $item["cp"] = $this->getCp();
+        $item["gps"] = $this->getGps();
+        $item["text"] = $this->getText();
+        $item["capacity"] = $this->getCapacity();
 
         return $item;
     }
@@ -68,6 +79,26 @@ class misto {
       //  printr($debug);
         if($bool) {
            return $mista_db_class->InsertMisto($this);
+        }
+        return false;
+    }
+
+    /**
+     * @param mistaDB $mista_db_class
+     * @return bool
+     */
+    public function updateDB($mista_db_class, $id_mista){
+        $bool = true;
+        //  $debug[]= $bool;
+        // $debug["index"]= array();
+        foreach($this->set_up as $index ) {
+            $bool &= $index;
+            //      $debug[]=$bool;
+            //      $debug["index"][]=$index;
+        }
+        //  printr($debug);
+        if($bool) {
+            return $mista_db_class->UpdateMistobyID($id_mista, $this);
         }
         return false;
     }

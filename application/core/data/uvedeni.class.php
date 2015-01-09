@@ -36,13 +36,14 @@ class uvedeni {
         $this->set_up["start"] = false;
     }
 
-    public function getItem(){
+    public function getItemDB(){
         $item["zacatek"] = $this->getStart();
         $item["misto"] = $this->place->getID();
         $item["hra"] = $this->game->getID();
 
         return $item;
     }
+
 
     //===========================================================
 

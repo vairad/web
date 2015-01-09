@@ -197,34 +197,50 @@ class app
     public function stranaSpravaMist($do){
         global $data;
 
-        $show = @$_REQUEST["con"];
+        if($do == 'new' || $do == 'create') { //create case ================
+            $this->appendNavbar("Tvorba místa", "", true);
+            $this->stranaFormularMisto($do);
 
-        if($show == 'create') {
-            $this->appendNavbar("Nové místo", "index.php?id=vmisto&con=create#h1", true);
-            $this->stranaVytvorMisto($do);
-        }
-        else if($show == 'manage'){
-            $this->appendNavbar("Seznam všech míst", "index.php?id=vmisto&con=manage#h1", true);
-            $this->stranaSeznamMist($do);
-        }else if($do == 'delete'){
+
+        } else if($do == 'delete'){ //delete case ================
 
             /*smazat místo*/
             $mistaDB = new mistaDB($this->GetConnection());
             $result = $mistaDB->DeleteMistoByID((@$_REQUEST["val"]-456)); //magic hash number
-            if($result > 0){
+            if($result == 1){
                 $data["data"]["success"]="Místo bylo úspěšně smazáno.";
             }else{
-                $data["data"]["error"][]="Chyba při operaci s databází, místo nebylo smazáno.";
+                if(isset($result[0]) && $result[0] == 23000){ //check sql error value
+                    $data["data"]["error"][]="Nelze odstranit místo. Je používáno pro uvedení her.";
+                }else{
+                    $data["data"]["error"][]="Chyba při operaci s databází, místo nebylo smazáno.";
+                }
             }
-
-            /*zobrazit seznam*/
-            $this->appendNavbar("Seznam všech míst", "index.php?id=vmisto&con=manage#h1", true);
+                    //show list
+            $this->appendNavbar("Seznam všech míst", "", true);
             $this->stranaSeznamMist($do);
 
-        }else if($do == 'edit'){
 
+        } else if($do == 'manage'){ //list case ================
 
-        }else{
+            $this->appendNavbar("Seznam všech míst", "", true);
+            $this->stranaSeznamMist($do);
+
+        }else if($do == 'edit'){//edit case ================
+
+            $mistaDB = new mistaDB($this->GetConnection());
+            $item = $mistaDB->GetMistoByID(@$_REQUEST["val"]-456); //magic hash number
+            $misto = new misto();
+            $misto->mistoFromDb($item);
+            $formItem = $misto->getItemForm();
+
+            $data["place"] = array();
+            $data["place"] = $formItem;
+
+            $this->appendNavbar("Uprav místo", "", true);
+            $this->stranaFormularMisto($do);
+
+        }else{ //place menu case ================
             $data["nadpis"] = "Správa míst";
             $data["content"] = "smisto";
 
@@ -232,38 +248,65 @@ class app
 
             $data["a"] = array();
             $data["a"][0]["title"] = "Vytvořit nové místo";
-            $data["a"][0]["href"] = "index.php?id=vmisto&con=create#h1";
+            $data["a"][0]["href"] = "index.php?id=vmisto&do=new#h1";
             $data["a"][1]["title"] = "Seznam všech míst";
-            $data["a"][1]["href"] = "index.php?id=vmisto&con=manage#h1  ";
+            $data["a"][1]["href"] = "index.php?id=vmisto&do=manage#h1  ";
         }
 
     }
 
-    public function stranaVytvorMisto($do){
+    public function stranaFormularMisto($do){
         global $data;
 
-        $data["nadpis"]="Vytvor misto";
-        $data["content"]="vmisto";
+        if(isset($_REQUEST["val"])){
+            $data["nadpis"]="Uprav místo";
+            $data["content"]="vmisto";
+            $data["formSubmit"]="Uprav místo!";
 
-        if($do=="create"){
-            $misto = new misto();
-            require_once("check/placecheck.php");
-            $mista = new mistaDB($this->GetConnection());
-            $database = $misto->toDB($mista);
-            if($database == true){
-                $data["data"]["success"]="Místo bylo úspěšně vytvořeno";
-                //zobrazit prázdný formulář
-                unset($data["place"]);
+            $data["place"]["val"] = "&val=".$_REQUEST["val"];
+
+            if($do != 'edit') {
+                $misto = new misto();
+                require_once("check/placecheck.php");
+                $mista = new mistaDB($this->GetConnection());
+
+                $database = $misto->updateDB($mista, $_REQUEST["val"]-456);
+
+                if ($database == true) {
+                    $data["data"]["success"] = "Místo bylo úspěšně upraveno";
+                    //zobrazit prázdný formulář
+                    $this->stranaSeznamMist();
+                } else {
+                    if (!isset($data["data"]["error"][0])) {
+                        $data["data"]["error"][] = "Nebylo možné upravit místo.";
+                    }
+                }
             }
-            else {
-                if(!isset($data["data"]["error"][0])) {
-                    $data["data"]["error"][] = "Místo se stejným názvem již existuje";
+        }else{
+            $data["nadpis"]="Vytvor misto";
+            $data["content"]="vmisto";
+            $data["formSubmit"]="Vytvoř místo!";
+
+            if($do=="create"){
+                $misto = new misto();
+                require_once("check/placecheck.php");
+                $mista = new mistaDB($this->GetConnection());
+                $database = $misto->toDB($mista);
+                if($database == true){
+                    $data["data"]["success"]="Místo bylo úspěšně vytvořeno";
+                    //zobrazit prázdný formulář
+                    unset($data["place"]);
+                }
+                else {
+                    if(!isset($data["data"]["error"][0])) {
+                        $data["data"]["error"][] = "Místo se stejným názvem již existuje";
+                    }
                 }
             }
         }
     }
 
-    public function stranaSeznamMist($do){
+    public function stranaSeznamMist(){
         global $data;
 
         $data["nadpis"]="Seznam mist";
@@ -271,7 +314,7 @@ class app
 
         //pole uvedení do seznamu pod formulář
         $mistaDB = (new mistaDB($this->GetConnection()));
-        $mista = $mistaDB->LoadAllMistaInfo();
+        $mista = $mistaDB->LoadAllMista();
         $data["places"] = array();
         $data["places"] = $mista;
 
@@ -279,7 +322,14 @@ class app
         foreach ($data["places"] as &$value){
             $msg = "Opravdu chcete smazat místo: \\n"
                 .$value["nazev"]." (".$value["ulice"]." ".$value["cp"].")";
-            $value["delA"] = "confimElement(\"".$msg."\", \"vmisto\", ".($value["id_mista"]+456).")"; //magic hash number
+            $value["delA"] = "confimElement(\"".$msg."\", \"vmisto\", ".($value["id_mista"]+456).", \"delete\")"; //magic hash number
+        }
+
+        // vytvořeni tlačítek pro editaci
+        foreach ($data["places"] as &$value){
+            $msg = "Chcete upravit místo: \\n"
+                .$value["nazev"]." (".$value["ulice"]." ".$value["cp"].")";
+            $value["updateA"] = "confimElement(\"".$msg."\", \"vmisto\", ".($value["id_mista"]+456).", \"edit\")"; //magic hash number
         }
     }
 
@@ -376,7 +426,7 @@ class app
         foreach ($data["performances"] as &$value){
             $msg = "Opravdu chcete smazat uvedení: \\n"
                 .$value["zacatek"]." hra: ".$value["nazevHry"]." místo: ".$value["nazev"];
-            $value["delA"] = "confimElement(\"".$msg."\", \"vuved\", ".($value["id_uvedeni"]+456).")"; //magic hash number
+            $value["delA"] = "confimElement(\"".$msg."\", \"vuved\", ".($value["id_uvedeni"]+456).", \"delete\")"; //magic hash number
         }
 
     }

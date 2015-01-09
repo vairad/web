@@ -11,7 +11,7 @@ class uvedeniDB extends db
      * @param uvedeni $uvedeni
      */
     public function InsertUvedeni($uvedeni){
-        $item= $uvedeni->getItem();
+        $item= $uvedeni->getItemDB();
         // printr($item);
         return $this->DBInsert(TABLE_UVEDENI,$item);
     }

@@ -116,11 +116,11 @@
      });
  </script>
  <script>
-     function confimElement(label, type, id) {
+     function confimElement(label, type, id, vardo) {
          var r;
          r = confirm(label);
          if (r == true) {
-             window.location.href="?id="+type+"&do=delete&val="+id;
+             window.location.href="?id="+type+"&do="+vardo+"&val="+id;
          } else {
              //do nothing
          }
