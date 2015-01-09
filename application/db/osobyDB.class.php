@@ -49,10 +49,6 @@ class osobyDB extends db
     }
 
 
-    public function DeleteOsobaByID($predmet_id)
-    {
-
-    }
 
     public function SelectAllOsobyInfo()
     {

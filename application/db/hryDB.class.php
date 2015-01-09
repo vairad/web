@@ -44,7 +44,7 @@ class hryDB extends db {
      */
     public function getHraByID($hra_id)
     {
-        $where_arr[0]["column"]= "id";
+        $where_arr[0]["column"]= "id_hry";
         $where_arr[0]["value"]= "$hra_id";
         $where_arr[0]["symbol"]= "=";
 

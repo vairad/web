@@ -198,7 +198,9 @@ class db
 	 		$bind_param_number ++;
 	 		}
 	 		}
-	
+//********************/
+           // printr($statement);
+
 	 		// 4) provest dotaz
 	 		$statement->execute();
 	
@@ -482,10 +484,9 @@ class db
 
 
     /**
-     * Nacist 1 zaznam z tabulky v DB.
+     * Smazat 1 zaznam z tabulky v DB.
      *
      * @param string $table_name - jméno tabulky
-     * @param string $select_columns_string - jména sloupců oddělené čárkami, nebo jiné příkazy SQL
      * @param array $where_array - seznam podmínek<br/>
      * 							[] - column = sloupec; value - int nebo string nebo value_mysql = now(); symbol
      * @param string $limit_string - doplnit limit string
@@ -562,8 +563,7 @@ class db
         // 6) nacist data a vratit
         if ($mysql_pdo_error == false)
         {
-            $row = $statement->fetch(PDO::FETCH_ASSOC);
-            return $row;
+            return $statement->rowCount();
         }
         else
         {
@@ -572,8 +572,6 @@ class db
             echo "SQL dotaz: $query";
         }
     }
-
-
 
 
 	
@@ -618,7 +616,5 @@ class db
 		return $this->connection;
 	}
 }
-
-
 
 ?>

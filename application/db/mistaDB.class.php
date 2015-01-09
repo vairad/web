@@ -38,19 +38,19 @@ class mistaDB extends db
      */
 	public function GetMistoByID($misto_id)
 	{
-        $where_arr[0]["column"]= "id";
+        $where_arr[0]["column"]= "id_mista";
         $where_arr[0]["value"]= "$misto_id";
         $where_arr[0]["symbol"]= "=";
 
         $misto = $this->DBSelectOne(TABLE_MISTA, "*", $where_arr, $limit_string = "");
         return $misto;
 	}
-	
-	
+
+
 	public function LoadAllMista()
 	{
 		$table_name = TABLE_MISTA;
-		$select_columns_string = "*"; 
+		$select_columns_string = "*";
 		$where_array = array();
 		$limit_string = "";
 		$order_by_array = array();
@@ -61,6 +61,37 @@ class mistaDB extends db
 		// vratit data
 		return $mista;
 	}
+
+	/**
+	 * @param int $misto_id
+	 */
+	public function DeleteMistoByID($misto_id){
+		$where_arr[0]["column"]= "id_mista";
+		$where_arr[0]["value"]= "$misto_id";
+		$where_arr[0]["symbol"]= "=";
+
+		$uvedeni = $this->DBDeleteOne(TABLE_MISTA, $where_arr, $limit_string = "");
+		return $uvedeni;
+	}
+
+
+	public function LoadAllMistaInfo()
+	{
+		$table_name = TABLE_MISTA;
+		$select_columns_string = "*";
+		$where_arr = array();
+		$limit_string = "";
+		$order = array();
+
+		$order[0]["column"]="nazev";
+		$order[0]["sort"]="asc";
+
+		$mista = $this->DBSelectAll($table_name, $select_columns_string, $where_arr, $limit_string, $order);
+
+		return $mista;
+	}
+
+
 }
 
 

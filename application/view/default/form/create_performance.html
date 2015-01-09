@@ -1,0 +1,77 @@
+<form role="form" method="post">
+    <!-- hra -->
+    <div class="row">
+        <div class="col-md-offset-1 col-md-10">
+            <div class="input-group">
+                <span class="input-group-addon {% if per_fail.org == true  %} alert-danger {% endif %}">Hra</span>
+                <select name="game" class="form-control" required>
+                    {% for game in games %}
+                    <option value="{{game.id_hry}}" {{game.selected}}>{{game.nazev}}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <!-- misto -->
+    <div class="row">
+        <div class="col-md-offset-1 col-md-10">
+            <div class="input-group">
+                <span class="input-group-addon {% if per_fail.org == true  %} alert-danger {% endif %}">Místo</span>
+                <select name="place" class="form-control" required>
+                    {% for place in places %}
+                    <option value="{{place.id_mista}}" {{place.selected}}>{{place.nazev}}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <!-- délka  -->
+    <div class="row">
+        <div class="col-md-offset-1 col-md-10">
+            <div class="input-group">
+                <span class="input-group-addon {% if per_fail.start == true  %} alert-danger {% endif %}">
+                     <span class="glyphicon glyphicon-time"></span> </span>
+                <input type="text"
+                       placeholder="Datum"
+                       class="form-control datepicker2"
+                       required
+                       value="{{per.date}}"
+                       name="date"
+                        >
+                 <span class="input-group-addon {% if per_fail.start == true  %} alert-danger {% endif %}">
+                     Čas
+                 </span>
+                <input type="text"
+                       placeholder="HH"
+                       class="form-control"
+                       required
+                       maxlength="2"
+                       value="{{per.hours}}"
+                       name="hours"
+                        >
+                  <span class="input-group-addon {% if per_fail.start == true  %} alert-danger {% endif %}">
+                     :
+                 </span>
+                <input type="text"
+                       placeholder="MM"
+                       class="form-control"
+                       required
+                       maxlength="2"
+                       value="{{per.minutes}}"
+                       name="minutes"
+                        >
+
+
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-offset-5 col-md-2">
+            <input type="hidden" name="do" value="create">
+            <button type="submit"  class="btn btn-default" formaction="?id=vuved#h1">Uvést hru!</button>
+        </div>
+    </div>
+</form>

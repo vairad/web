@@ -47,10 +47,10 @@ else {
 
 //===================================================================================================================
 /* proměnná num_m  */
-if( !empty($_POST["num_m"]))
+if( is_numeric($_POST["num_m"]))
 {
     $num_m=trim($_POST["num_m"]);
-    if (is_numeric($num_m) and delka(1,$num_m,11) ){
+    if (delka(1,$num_m,11) ){
         $data["game"]["num_m"]=$num_m;
         $hra->setNumM($num_m);
         $hra->set_up["num_m"]=true;
@@ -71,10 +71,10 @@ else {
 //===================================================================================================================
 /* proměnná num_f  */
 
-if( !empty($_POST["num_f"]))
+if(is_numeric($_POST["num_f"]))
 {
     $num_f=trim($_POST["num_f"]);
-    if (is_numeric($num_f) and delka(1,$num_f,11) ){
+    if(delka(1,$num_f,11) ){
         $data["game"]["num_f"]=$num_f;
         $hra->setNumF($num_f);
         $hra->set_up["num_f"]=true;
@@ -88,16 +88,16 @@ if( !empty($_POST["num_f"]))
 else {
     $data["game_fail"]["num_f"]=1;
     $hra->set_up["num_f"]=true;
-    $err[]="Počet mužských rolí musí být zadán.";
+    $err[]="Počet ženských rolí musí být zadán.";
 }
 
 
 //===================================================================================================================
 /* proměnná num_h  */
-if( !empty($_POST["num_h"]))
+if( is_numeric($_POST["num_h"]))
 {
     $num_h=trim($_POST["num_h"]);
-    if (is_numeric($num_h) and delka(1,$num_h,11) ){
+    if(delka(1,$num_h,11) ){
         $data["game"]["num_h"]=$num_h;
         $hra->setNumH($num_h);
     }

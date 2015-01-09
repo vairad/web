@@ -18,11 +18,13 @@
 	require 'application/db/mistaDB.class.php';		// zajisti pristup ke konkretnim db tabulkam - objekt vetsinou zajisti pristup k cele sade souvisejicich tabulek
     require 'application/db/osobyDB.class.php';
     require 'application/db/hryDB.class.php';
+    require 'application/db/uvedeniDB.class.php';
 
     //datove struktury
     require 'application/core/data/hrac.class.php';
     require 'application/core/data/misto.class.php';
     require 'application/core/data/hra.class.php';
+    require 'application/core/data/uvedeni.class.php';
 
     // připojení twigu
     require_once("application/view/twig/lib/Twig/Autoloader.php");
@@ -45,7 +47,7 @@
     $app->setLogged();
     $app->zpracujPoz();
 
-
+    //printr($data);
 
     Twig_Autoloader::register();
 

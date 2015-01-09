@@ -23,7 +23,10 @@ function delka($a,$string,$b){
     if ( (strlen($string)<=$b) and (strlen($string)>=$a) ) return TRUE;
     else return FALSE;
 };
-
+/**
+ * @param $date strig
+ * @return bool|string
+ */
 function dateToData($date){
     $dateARR = explode(".", $date);
     $timestamp = mktime(0,0,0,$dateARR[1],$dateARR[0],$dateARR[2]);
@@ -35,6 +38,24 @@ function dateToData($date){
     }
 }
 
+/**
+ * @param $date strig dd.mm.yyyy.hh.mm
+ * @return bool false pokud selže  |string
+ */
+function DateTimeToTimestamp($date){
+    $dateARR = explode(".", $date);
+
+    if($dateARR[4] > 59 || $dateARR[4] < 0)return false; // standardní rozsah minut 0 - 59
+    if($dateARR[3] > 23 || $dateARR[3] < 0)return false; // standardni rozsah hodin 0 - 23
+
+    $timestamp = mktime($dateARR[3],$dateARR[4],0,$dateARR[1],$dateARR[0],$dateARR[2]);
+   return $timestamp;
+}
+
+/**
+ * @param $timestamp
+ * @return bool|string
+ */
 function timeToData($timestamp){
     $datum=date("Y-m-d H:i:s.u",$timestamp) ;
    // echo ($datum);
@@ -53,6 +74,18 @@ function pohlaviS($bool){
 function vek($dateDB){
    $now = date("Y-m-d");
     return $now-$dateDB;
+}
+
+function cze_datum($datetime) {
+    $datum=explode (" ", $datetime) ;
+    $denmesic=explode ("-", $datum[0]) ;
+    $hms=explode (":", $datum[1]) ;
+    $mesic=round($denmesic[1],0);
+    $den=round($denmesic[2],0);
+    $rok=$denmesic[0];
+    $hodina=$hms[0];
+    $minuta=$hms[1];
+    return "".$den.".".$mesic.".".$rok." ".$hodina.":".$minuta."";
 }
 
 // specialni vypis

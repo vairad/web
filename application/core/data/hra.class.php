@@ -1,6 +1,8 @@
 <?php
 
 class hra {
+    private $id;
+
     private $name, $text;
     private $num_m, $num_f, $num_h, $min;
     private $length, $cost;
@@ -10,6 +12,24 @@ class hra {
     public $set_up = array();
 
     //===========================================================
+
+    public function hraFromDb($item){
+        $this->setID($item["id_hry"]);
+        $this->setName($item["nazev"]);
+        $this->setText($item["popis"]);
+
+        $this->setNumM($item["pocet_m"]);
+        $this->setNumF($item["pocet_z"]);
+        $this->setNumH($item["pocet_h"]);
+        $this->setMin($item["min"]);
+
+        $this->setLength($item["delka"]);
+        $this->setCost($item["cena"]);
+
+        $this->setWeb($item["web"]);
+        $this->setOrg($item["organizator"]);
+    }
+
 
     public function hra()
     {
@@ -71,6 +91,15 @@ class hra {
     {
         $this->set_up["cost"] = true;
         $this->cost = $cost;
+    }
+
+    /**
+     * @param int $cost
+     */
+    public function setID($id)
+    {
+        $this->set_up["id"] = true;
+        $this->id = $id;
     }
 
     /**
@@ -156,6 +185,14 @@ class hra {
 
 
     //==================================================================
+
+    /**
+     * @return mixed
+     */
+    public function getID()
+    {
+        return $this->id;
+    }
 
     /**
      * @return mixed

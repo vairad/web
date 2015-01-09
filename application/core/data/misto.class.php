@@ -7,6 +7,8 @@
  */
 
 class misto {
+    private $id;
+
     private $name;
     private $street, $cp;
     private $gps;
@@ -16,6 +18,16 @@ class misto {
     public $set_up = array();
 
     //===========================================================
+
+    public function mistoFromDb($item){
+        $this->setID($item["id_mista"]);
+        $this->setCapacity($item["kapacita"]);
+        $this->setCp($item["cp"]);
+        $this->setGps($item["gps"]);
+        $this->setName($item["nazev"]);
+        $this->setStreet($item["ulice"]);
+        $this->setText($item["popis"]);
+    }
 
     public function misto()
     {
@@ -61,6 +73,14 @@ class misto {
     }
 
     //===========================================================
+
+    /**
+     * @param int $id
+     */
+    public function setID($id){
+        $this->set_up["id"] = true;
+        $this->id = $id;
+    }
 
     /**
      * @param int $capacity
@@ -124,6 +144,14 @@ class misto {
         return $this->capacity;
     }
 
+
+    /**
+     * @return int
+     */
+    public function getID()
+    {
+        return $this->id;
+    }
     /**
      * @return int
      */
