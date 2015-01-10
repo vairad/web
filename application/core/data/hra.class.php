@@ -47,7 +47,7 @@ class hra {
     }
 
 
-    public function getItem(){
+    public function getItemDB(){
         $item["nazev"] = $this->getName();
         $item["popis"] = $this->getText();
         $item["delka"] = $this->getLength();
@@ -57,6 +57,22 @@ class hra {
         $item["pocet_h"] = $this->getNumH();
         $item["min"] =  $this->getMin();
         $item["organizator"] = $this->getOrg();
+        $item["web"] = $this->getWeb();
+
+        return $item;
+    }
+
+    public function getItemForm(){
+        $item["name"] = $this->getName();
+        $item["text"] = $this->getText();
+        $item["length"] = $this->getLength();
+        $item["cost"] = $this->getCost();
+        $item["num_m"] = $this->getNumM();
+        $item["num_f"] = $this->getNumF();
+        $item["num_h"] = $this->getNumH();
+        $item["min_h"] =  $this->getMin();
+        $item["org"] = $this->getOrg();
+        $item["web"] = $this->getWeb();
 
         return $item;
     }
@@ -64,10 +80,10 @@ class hra {
     //===========================================================
 
     /**
-     * @param hryDB $mista_db_class
+     * @param hryDB $hra_db_class
      * @return bool
      */
-    public function toDB($mista_db_class){
+    public function toDB($hra_db_class){
         $bool = true;
              //  $debug[]= $bool;
              // $debug["index"]= array();
@@ -78,7 +94,27 @@ class hra {
         }
              //  printr($debug);
         if($bool) {
-            return $mista_db_class->InsertHra($this);
+            return $hra_db_class->InsertHra($this);
+        }
+        return false;
+    }
+
+    /**
+     * @param hryDB $hra_db_class
+     * @return bool
+     */
+    public function updateDB($hra_db_class, $id_game){
+        $bool = true;
+        //  $debug[]= $bool;
+        // $debug["index"]= array();
+        foreach($this->set_up as $index ) {
+            $bool &= $index;
+            //      $debug[]=$bool;
+            //      $debug["index"][]=$index;
+        }
+        //  printr($debug);
+        if($bool) {
+            return $hra_db_class->UpdateHrabyId($id_game, $this);
         }
         return false;
     }

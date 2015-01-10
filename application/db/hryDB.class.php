@@ -20,7 +20,7 @@ class hryDB extends db {
      */
     public function InsertHra($hra)
     {
-        $item = $hra->getItem();
+        $item = $hra->getItemDB();
        // printr($item);
         return $this->DBInsert(TABLE_HRY,$item);
     }
@@ -53,7 +53,7 @@ class hryDB extends db {
     }
 
 
-    public function LoadAlHry()
+    public function LoadAllHry()
     {
         $table_name = TABLE_HRY;
         $select_columns_string = "*";
@@ -68,6 +68,29 @@ class hryDB extends db {
 
         // vratit data
         return $hry;
+    }
+
+    public function DeleteHraByID($hra_id){
+        $where_arr[0]["column"]= "id_hry";
+        $where_arr[0]["value"]= "$hra_id";
+        $where_arr[0]["symbol"]= "=";
+
+        $result = $this->DBDeleteOne(TABLE_HRY, $where_arr, $limit_string = "");
+        return $result;
+    }
+
+    /**
+     * @param hra $hra
+     * @param $hra_id id_hry
+     */
+    public function UpdateHrabyID($hra_id, $hra){
+        $item = $hra->getItemDB();
+
+        $where_str= "id_hry = $hra_id";
+
+        $limit_string = "";
+
+        return $this->DBUpdate(TABLE_HRY, $item, $where_str, $limit_string);
     }
 
 } 

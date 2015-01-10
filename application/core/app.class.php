@@ -56,7 +56,7 @@ class app
 
         if($id=="vhra" && $prihl) {
             $this->appendNavbar("Vytvoř hru", "index.php?id=vhra");
-            $this->stranaVytvorHru($do);
+            $this->stranaSpravaHer($do);
 
         }elseif($id=="vmisto" && $prihl){
             $this->appendNavbar("Správa míst", "index.php?id=vmisto");
@@ -76,13 +76,24 @@ class app
 
         }elseif($id=="hry"){
             $this->appendNavbar("Uváděné hry", "index.php?id=hry");
-            $data["nadpis"]="Hry";
+
+            if(isset($_REQUEST["val"])){
+                $val = @$_REQUEST["val"];
+            }else{
+                $val = "none";
+            }
+            $this->stranaHra($val);
 
         }elseif($id=="letos"){
             $this->appendNavbar("Letošní ročník", "index.php?id=letos");
             $data["nadpis"]="Letošní ročník";
+            $data["content"]="text";
+            $data["obsah"]='   <p class="text-justify">šablonou ipsum dolor sit amet, consectetur adipiscing elit. Nam sodales arcu non fermentum vestibulum. Sed sed cursus risus. Donec porta urna in tellus sodales, ut congue velit blandit. In porttitor vulputate enim, vel viverra nulla mattis eu. Fusce mollis, diam egestas fringilla lobortis, tellus erat sodales ipsum, vitae auctor arcu lectus nec justo. Sed rhoncus, ex in condimentum rhoncus, velit est ultricies urna, sed posuere mauris lectus ac dui. Nullam tincidunt ligula nec congue commodo. Praesent pellentesque luctus pharetra. Maecenas at blandit nisi. Etiam vitae nulla lectus. Quisque sed augue elementum nisl tincidunt vulputate nec a est.
+                    </p>
+                    <p class="text-justify">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam sodales arcu non fermentum vestibulum. Sed sed cursus risus. Donec porta urna in tellus sodales, ut congue velit blandit. In porttitor vulputate enim, vel viverra nulla mattis eu. Fusce mollis, diam egestas fringilla lobortis, tellus erat sodales ipsum, vitae auctor arcu lectus nec justo. Sed rhoncus, ex in condimentum rhoncus, velit est ultricies urna, sed posuere mauris lectus ac dui. Nullam tincidunt ligula nec congue commodo. Praesent pellentesque luctus pharetra. Maecenas at blandit nisi. Etiam vitae nulla lectus. Quisque sed augue elementum nisl tincidunt vulputate nec a est.
+                    </p>';
 
-        }elseif($id=="reg"){
+        }elseif($id=="reg" && !$prihl){
             $this->appendNavbar("Registrace", "index.php?id=reg");
             $this->stranaRegistrace($do);
 
@@ -115,6 +126,7 @@ class app
             $data["user"]["surname"]=$_SESSION[MY_SES]["user"]["surname"];
         }else{
             $data["logged"]=false;
+            $_SESSION[MY_SES]["user"]["flag"]=false;
         }
     }
 
@@ -147,11 +159,122 @@ class app
     //===============================================================================================================
     //===============================================================================================================
 
-    public function stranaVytvorHru($do){
+    public function stranaHra($val){
+        if($val == 'none'){
+            $this->seznamHer();
+        }else{
+            jendaHra($val);
+        }
+    }
+
+    public function seznamHer(){
         global $data;
 
-        $data["nadpis"] = "Vytvor hru";
-        $data["content"] = "vhra";
+        $data["nadpis"]="Uváděné hry";
+        $data["content"]="seznamHer";
+
+        //pole her
+        $hryDB = (new hryDB($this->GetConnection()));
+        $hry = $hryDB->LoadAllHry();
+        $data["games"] = array();
+        $data["games"] = $hry;
+    }
+
+    //===============================================================================================================
+    //===============================================================================================================
+
+
+    public function  stranaSpravaHer($do){
+        global $data;
+
+        if($do == 'new' || $do == 'create') { //create case ================
+            $this->appendNavbar("Tvorba hry", "", true);
+            $this->stranaFormularHra($do);
+
+
+        } else if($do == 'delete'){ //delete case ================
+
+            /*smazat místo*/
+            $hryDB = new hryDB($this->GetConnection());
+            $result = $hryDB->DeleteHraByID((@$_REQUEST["val"]-456)); //magic hash number
+            if($result == 1){
+                $data["data"]["success"]="Hra byla úspěšně smazána";
+            }else{
+                if(isset($result[0]) && $result[0] == 23000){ //check sql error value
+                    $data["data"]["error"][]="Nelze odstranit hru. Je naplánované její uvedení.";
+                }else{
+                    $data["data"]["error"][]="Chyba při operaci s databází, hra nebyla smazána.";
+                }
+            }
+            //show list
+            $this->appendNavbar("Seznam všech her", "", true);
+            $this->stranaSeznamHer($do);
+
+
+        } else if($do == 'manage'){ //list case ================
+
+            $this->appendNavbar("Seznam všech her", "", true);
+            $this->stranaSeznamHer($do);
+
+        }else if($do == 'edit'){//edit case ================
+
+            $hryDB = new hryDB($this->GetConnection());
+            $item = $hryDB->GetHraByID(@$_REQUEST["val"]-456); //magic hash number
+            $hra = new hra();
+            $hra->hraFromDb($item);
+            $formItem = $hra->getItemForm();
+
+            $data["game"] = array();
+            $data["game"] = $formItem;
+
+            $this->appendNavbar("Uprav hru", "", true);
+            $this->stranaFormularHra($do);
+
+        }else{ //place menu case ================
+            $data["nadpis"] = "Správa her";
+            $data["content"] = "smisto";
+
+            $data["info"] = "Pro spravování her zvolte jednu z možností.";
+
+            $data["a"] = array();
+            $data["a"][0]["title"] = "Vytvořit novou hru";
+            $data["a"][0]["href"] = "index.php?id=vhra&do=new#h1";
+            $data["a"][1]["title"] = "Seznam všech her";
+            $data["a"][1]["href"] = "index.php?id=vhra&do=manage#h1  ";
+        }
+
+    }
+
+    public function stranaSeznamHer(){
+        global $data;
+
+        $data["nadpis"]="Seznam her";
+        $data["content"]="lhra";
+
+        //pole uvedení do seznamu pod formulář
+        $hryDB = (new hryDB($this->GetConnection()));
+        $hry = $hryDB->LoadAllHry();
+        $data["games"] = array();
+        $data["games"] = $hry;
+
+        // vytvořeni tlačítek pro smazání
+        foreach ($data["games"] as &$value){
+            $msg = "Opravdu chcete smazat hru: \\n"
+                .$value["nazev"];
+            $value["delA"] = "confimElement(\"".$msg."\", \"vhra\", ".($value["id_hry"]+456).", \"delete\")"; //magic hash number
+        }
+
+        // vytvořeni tlačítek pro editaci
+        foreach ($data["games"] as &$value){
+            $msg = "Chcete upravit hru: \\n"
+                .$value["nazev"];
+            $value["updateA"] = "confimElement(\"".$msg."\", \"vhra\", ".($value["id_hry"]+456).", \"edit\")"; //magic hash number
+        }
+    }
+
+
+    public function stranaFormularHra($do){
+        global $data;
 
         //pole organizátorů do formuláře
         $osobyDB = new osobyDB($this->GetConnection());
@@ -159,36 +282,67 @@ class app
         $data["orgove"] = array();
         $data["orgove"] = $orgove;
 
-        // printr($_POST);
-        // die;
-        if($do=="create"){
-            //nastavení minule zvoleného
-            if(isset($_POST["org"])) {
-                for ($i = 0; $i< count($data["orgove"]); $i++) {
-                    if ($data["orgove"][$i]["id_osoby"] == ($_POST["org"]-123)) { //magic 123 hash number
-                        $data["orgove"][$i]["selected"] = "selected";
-                    };
-                }
-            }
-            // kontrola dat a uložení do databáze
-            $hra = new hra();
-            require_once("check/gamecheck.php");
-            $hry = new hryDB($this->GetConnection());
-            $database = $hra->toDB($hry);
-
-            // výpis uživateli
-            if($database == true){
-                $data["data"]["success"]="Hra byla úspěšně vytvořena";
-                //zobrazit prázdný formulář
-                unset($data["game"]);
-            }
-            else {
-                if(!isset($data["data"]["error"][0])) {
-                    $data["data"]["error"][] = "Hra se stejným názvem již existuje";
+        //nastavení minule zvoleného
+        if(isset($_POST["org"])) {
+            for ($i = 0; $i< count($data["orgove"]); $i++) {
+                if ($data["orgove"][$i]["id_osoby"] == ($_POST["org"]-123)) { //magic 123 hash number
+                    $data["orgove"][$i]["selected"] = "selected";
                 }
             }
         }
 
+        if(isset($_REQUEST["val"])){
+            $data["nadpis"]="Uprav hru";
+            $data["content"]="vhra";
+            $data["formSubmit"]="Uprav hru!";
+
+            $data["game"]["val"] = "&val=".$_REQUEST["val"];
+
+            if($do != 'edit') {
+                $hra = new hra();
+                require_once("check/gamecheck.php");
+                $hryDB = new hryDB($this->GetConnection());
+
+                $database = $hra->updateDB($hryDB, $_REQUEST["val"]-456);
+
+                if ($database == true) {
+                    $data["data"]["success"] = "Hra byla úspěšně upravena";
+                    //zobrazit prázdný formulář
+                    $this->stranaSeznamHer();
+                } else {
+                    if (!isset($data["data"]["error"][0])) {
+                        $data["data"]["error"][] = "Nebylo možné upravit hru.";
+                    }
+                }
+            }
+        }else{
+
+            $data["nadpis"] = "Vytvoř hru";
+            $data["content"] = "vhra";
+            $data["formSubmit"]="Vytvoř hru!";
+
+            // printr($_POST);
+            // die;
+            if($do=="create"){
+                // kontrola dat a uložení do databáze
+                $hra = new hra();
+                require_once("check/gamecheck.php");
+                $hry = new hryDB($this->GetConnection());
+                $database = $hra->toDB($hry);
+
+                // výpis uživateli
+                if($database == true){
+                    $data["data"]["success"]="Hra byla úspěšně vytvořena";
+                    //zobrazit prázdný formulář
+                    unset($data["game"]);
+                }
+                else {
+                    if(!isset($data["data"]["error"][0])) {
+                        $data["data"]["error"][] = "Hra se stejným názvem již existuje";
+                    }
+                }
+            }
+        }
     }
 
     //===============================================================================================================
@@ -345,7 +499,7 @@ class app
 
         //pole her do formuláře
         $hryDB = new hryDB($this->GetConnection());
-        $hry = $hryDB->LoadAlHry();
+        $hry = $hryDB->LoadAllHry();
         $data["games"] = array();
         $data["games"] = $hry;
 
@@ -468,7 +622,7 @@ class app
         }
 
 
-        $data["nadpis"]="Index";
+        $data["nadpis"]="Pivko";
         $data["content"]="text";
         $data["obsah"]='   <p class="text-justify">šablonou ipsum dolor sit amet, consectetur adipiscing elit. Nam sodales arcu non fermentum vestibulum. Sed sed cursus risus. Donec porta urna in tellus sodales, ut congue velit blandit. In porttitor vulputate enim, vel viverra nulla mattis eu. Fusce mollis, diam egestas fringilla lobortis, tellus erat sodales ipsum, vitae auctor arcu lectus nec justo. Sed rhoncus, ex in condimentum rhoncus, velit est ultricies urna, sed posuere mauris lectus ac dui. Nullam tincidunt ligula nec congue commodo. Praesent pellentesque luctus pharetra. Maecenas at blandit nisi. Etiam vitae nulla lectus. Quisque sed augue elementum nisl tincidunt vulputate nec a est.
                     </p>
@@ -517,8 +671,11 @@ class app
         $data["menu"]["letos"]["text"]="Letošní ročník";
         $data["menu"]["letos"]["href"]="?id=letos";
 
-        $data["menu"]["reg"]["text"]="Registrace";
-        $data["menu"]["reg"]["href"]="?id=reg";
+
+        if(!isset($_SESSION[MY_SES]["user"]["flag"]) || $_SESSION[MY_SES]["user"]["flag"] == false) {
+            $data["menu"]["reg"]["text"] = "Registrace";
+            $data["menu"]["reg"]["href"] = "?id=reg";
+        }
     }
     //==================================================================================================================
     private function userMenu(){
@@ -533,7 +690,7 @@ class app
         $data["menu_admin"]["vmisto"]["text"]="Správa míst";
         $data["menu_admin"]["vmisto"]["href"]="?id=vmisto";
 
-        $data["menu_admin"]["vhra"]["text"]="Vytvoř hru";
+        $data["menu_admin"]["vhra"]["text"]="Správa her";
         $data["menu_admin"]["vhra"]["href"]="?id=vhra";
 
         $data["menu_admin"]["vuved"]["text"]="Správa uvedení";
