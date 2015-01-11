@@ -34,6 +34,15 @@ class osobyDB extends db
         return $this->DBSelectOne(TABLE_OSOBY,"*",$where_arr);
     }
 
+    public function GetOsobaName($id)
+    {
+        $where_arr[0]["column"]= "id_osoby";
+        $where_arr[0]["value"]= "$id";
+        $where_arr[0]["symbol"]= "=";
+
+        return $this->DBSelectOne(TABLE_OSOBY,"jmeno, prijmeni, prezdivka",$where_arr);
+    }
+
     /**
      * @param int $rights_val
      * @return array[]

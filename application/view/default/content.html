@@ -125,4 +125,26 @@
     <a href="index.php?id=hry&val={{game.id_hry}}#h1" class="linkGame"><span>{{game.nazev}}</span></a>
 {% endfor %}
 </div>
+<!-- JEDNA HER -->
+{% elseif content == 'infoHra' %}
+<div class="row">
+    <div class="well well-sm col-xs-offset-1 col-xs-7">
+        <p><strong>Uvádějící:</strong> {{game.organizator}}</p>
+        <p><strong>Role:</strong> mužské:<strong>{{game.pocet_m}}</strong> ženské:<strong>{{game.pocet_z}}</strong> obojetné:<strong>{{game.pocet_h}}</strong></p>
+        <p><strong>Cena:</strong> {{game.cena}}Kč  <strong>Délka hry:</strong> {{game.delka}} minut</p>
+    </div>
+    <img src="vzhled/images/hry/{{game.id_hry}}.jpg" alt="IDG Graf nenalezen (Imerze, Drama, Gaming)" class="col-xs-offset-1 col-xs-2" />
+</div>
+<div class="row">
+    <div class="well well-sm col-xs-offset-1 col-xs-10">
+        <strong>Požadavky na hráče:</strong>
+        <p>Nerušící oděv alespoň trochu ladící do předválečného období - ženy sukně a halenku/košili, pánové košili a slušné kalhoty.</p>
+        <p>18+</p>
+    </div>
+</div>
+<div class="row">
+    <div class="well col-xs-offset-1 col-xs-10">
+        <strong>Anotace:</strong> {{game.popis | raw}}
+    </div>
+</div>
 {% endif %}

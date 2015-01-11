@@ -188,6 +188,10 @@ class app
 
         $this->appendNavbar($data["game"]["nazev"], "", true);
 
+        $osobyDB = new osobyDB($this->GetConnection());
+        $org = $osobyDB->GetOsobaName($data["game"]["organizator"]);
+
+        $data["game"]["organizator"] = $org["jmeno"]." \"".$org["prezdivka"]."\" ".$org["prijmeni"];
         $data["nadpis"]=$data["game"]["nazev"];
         $data["content"]="infoHra";
 
@@ -585,7 +589,8 @@ class app
         }
 
         //pole uvedení do seznamu pod formulář
-        $uvedeni = (new uvedeniDB($this->GetConnection()))->LoadAllUvedeniInfo();
+        $uvedeniDB = (new uvedeniDB($this->GetConnection()));
+        $uvedeni = $uvedeniDB->LoadAllUvedeniInfo();
         $data["performances"] = array();
         $data["performances"] = $uvedeni;
 
