@@ -163,7 +163,7 @@ class app
         if($val == 'none'){
             $this->seznamHer();
         }else{
-            jendaHra($val);
+            $this->jendaHra($val);
         }
     }
 
@@ -178,6 +178,19 @@ class app
         $hry = $hryDB->LoadAllHry();
         $data["games"] = array();
         $data["games"] = $hry;
+    }
+
+    public function jendaHra($val){
+        global $data;
+
+        $hryDB = (new hryDB($this->GetConnection()));
+        $data["game"] =  $hryDB->getHraByID($val);
+
+        $this->appendNavbar($data["game"]["nazev"], "", true);
+
+        $data["nadpis"]=$data["game"]["nazev"];
+        $data["content"]="infoHra";
+
     }
 
     //===============================================================================================================

@@ -122,7 +122,7 @@
 {% elseif content == 'seznamHer' %}
 <div class="well">
 {%for game in games %}
-    <a href="index.php?id=hry&val={{game.id_hry}}#h1"><span class="linkGame">{{game.nazev}}</span></a>
+    <a href="index.php?id=hry&val={{game.id_hry}}#h1" class="linkGame"><span>{{game.nazev}}</span></a>
 {% endfor %}
 </div>
 {% endif %}
