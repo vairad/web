@@ -16,18 +16,19 @@
 </div>
 {% endif %}
 
-
 <!-- NADPIS H1 -->
 <h1 id="h1">{{nadpis}}</h1>
-
+<h4>{{podtitul}}</h4>
+<!-- sPROSTÝ TEXT V HTML -->
 {% if content == 'text' %}
- <!-- sPROSTÝ TEXT V HTML -->
-    {{obsah | raw}}
+{{obsah | raw}}
+
 
 <!-- REGISTRAČNÍ FORMULÁŘ -->
 {% elseif content == 'regform' %}
-    <p>{{info}}</p>
-    {% include 'default/form/regform.html' %}
+<p>{{info}}</p>
+{% include 'default/form/regform.html' %}
+
 
 <!-- TABULKA UŽIVATELŮ -->
 {% elseif content == 'table_user' %}
@@ -47,12 +48,37 @@
     </table>
 </div>
 
+<!-- JEDNA HRA -->
+{% elseif content == 'infoHra' %}
+<div class="row">
+    <div class="well well-sm col-xs-offset-1 col-xs-7">
+        <p><strong>Uvádějící:</strong> {{game.organizator}}</p>
+        <p><strong>Role:</strong> mužské:<strong>{{game.pocet_m}}</strong> ženské:<strong>{{game.pocet_z}}</strong> obojetné:<strong>{{game.pocet_h}}</strong></p>
+        <p><strong>Cena:</strong> {{game.cena}}Kč  <strong>Délka hry:</strong> {{game.delka}} minut</p>
+        <p><strong>WEB:</strong> <a href="{{game.web}}">{{game.web}}</a></p>
+    </div>
+    <img src="vzhled/images/hry/{{game.id_hry}}.jpg" alt="IDG Graf nenalezen (Imerze, Drama, Gaming)" class="col-xs-offset-1 col-xs-2" />
+</div>
+<!--
+<div class="row">
+    <div class="well well-sm col-xs-offset-1 col-xs-10">
+        <strong>Požadavky na hráče:</strong>
+        <p>Nerušící oděv alespoň trochu ladící do předválečného období - ženy sukně a halenku/košili, pánové košili a slušné kalhoty.</p>
+        <p>18+</p>
+    </div>
+</div> -->
+<div class="row">
+    <div class="well col-xs-offset-1 col-xs-10">
+        <strong>Anotace:</strong> {{game.popis | raw}}
+    </div>
+</div>
+
 <!-- CREATE UVEDENI -->
 {% elseif content == 'vuved' %}
-    <h2>{{titleform}}</h2>
-        <p>{{info}}</p>
+<h2>{{titleform}}</h2>
+<p>{{info}}</p>
 {% include 'default/form/create_performance.html' %}
-    <h2>{{titlelist}}</h2>
+<h2>{{titlelist}}</h2>
 <div class="table-responsive">
     <table class="table table-striped table-bordered">
         <tr> <th>Čas začátku</th><th>Hra</th><th>Místo</th>
@@ -60,7 +86,7 @@
         {%for performance in performances %}
 
         <tr> <td>{{performance.zacatek}}</td> <td>{{performance.nazevHry}}</td><td>{{performance.nazev}}</td>
-                                <td><button onclick="{{performance.delA}}" class="btn btn-block btn-info">Smazat</button></td>
+            <td><button onclick="{{performance.delA}}" class="btn btn-block btn-info">Smazat</button></td>
         </tr>
         {% endfor %}
     </table>
@@ -90,14 +116,20 @@
         {% endfor %}
     </table>
 </div>
+
+
 <!-- CREATE MISTO -->
 {% elseif content == 'vmisto' %}
-    <p>{{info}}</p>
-    {% include 'default/form/create_misto.html' %}
+<p>{{info}}</p>
+{% include 'default/form/create_misto.html' %}
+
+
 <!-- CREATE HRA -->
 {% elseif content == 'vhra' %}
-    <p>{{info}}</p>
-    {% include 'default/form/create_hra.html' %}
+<p>{{info}}</p>
+{% include 'default/form/create_hra.html' %}
+
+
 <!-- LIST HRA -->
 {% elseif content == 'lhra' %}
 <div class="table-responsive">
@@ -106,11 +138,11 @@
         </tr>
         {%for game in games %}
         <tr> <td>{{game.nazev}}</td>
-                <td>{{game.pocet_m}}</td>
-                    <td>{{game.pocet_z}}</td>
-                        <td>{{game.pocet_h}}</td>
-                            <td>{{game.delka}}</td>
-                                <td>{{game.cena}}</td>
+            <td>{{game.pocet_m}}</td>
+            <td>{{game.pocet_z}}</td>
+            <td>{{game.pocet_h}}</td>
+            <td>{{game.delka}}</td>
+            <td>{{game.cena}}</td>
             <td><button onclick="{{game.delA}}" class="btn btn-sm btn-info">Smazat</button>
                 <button onclick="{{game.updateA}}" class="btn btn-sm btn-info">Upravit</button>
             </td>
@@ -118,14 +150,18 @@
         {% endfor %}
     </table>
 </div>
+
+
 <!-- SEZNAM HER -->
 {% elseif content == 'seznamHer' %}
 <div class="well">
-{%for game in games %}
+    {%for game in games %}
     <a href="index.php?id=hry&val={{game.id_hry}}#h1" class="linkGame"><span>{{game.nazev}}</span></a>
-{% endfor %}
+    {% endfor %}
 </div>
-<!-- JEDNA HER -->
+
+
+<!-- JEDNA HRA -->
 {% elseif content == 'infoHra' %}
 <div class="row">
     <div class="well well-sm col-xs-offset-1 col-xs-7">
@@ -146,5 +182,37 @@
     <div class="well col-xs-offset-1 col-xs-10">
         <strong>Anotace:</strong> {{game.popis | raw}}
     </div>
+</div>
+
+<!-- PRIHLASOVANI -->
+{% elseif content == 'prihl' %}
+<div class="row">
+    {%for performance in performances %}
+    <div class="well well-sm col-xs-offset-1 col-ld-4 col-md-4 col-xs-10">
+        <form method="post" action="index.php?id=prihl">
+            <h3><a href="index.php?id=hry&amp;val={{performance.id_hry}}">{{performance.nazevHry}}</a></h3>
+            <p><strong>Začátek:</strong> {{performance.zacatek}} ({{performance.delka}} minut)</p>
+            <p><strong>Místo:</strong> <a href="index.php?id=misto&amp;val={{performance.id_mista}}">{{performance.nazev}}</a></p>
+            <input type="hidden" name="action" value="{{performance.action}}">
+            <input type="hidden" name="val" value="{{performance.id_uvedeni}}">
+            <button type="submit" class="btn btn-sm btn-default center-block" {{performance.disabled}}>{{performance.submitVal}}</button>
+        </form>
+    </div>
+    {% endfor %}
+</div>
+<!-- LIST UVEDENI -->
+{% elseif content == 'orglist' %}
+<div class="table-responsive">
+    <table class="table table-striped table-bordered">
+        <tr> <th>Čas začátku</th><th>Hra</th><th>Místo</th>
+        </tr>
+        {%for performance in performances %}
+        <tr> <td>{{performance.zacatek}}</td>
+            <td><a href="index.php?id=hry&amp;={{performance.id_hry}}">{{performance.nazevHry}}</a></td>
+            <td><a href="index.php?id=misto&amp;={{performance.id_mista}}">{{performance.nazev}}</a></td>
+            <td><a href="index.php?id=orghry&amp;val={{performance.id_uvedeni}}">Seznam hráčů</a></td>
+        </tr>
+        {% endfor %}
+    </table>
 </div>
 {% endif %}

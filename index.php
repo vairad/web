@@ -19,6 +19,7 @@
     require 'application/db/osobyDB.class.php';
     require 'application/db/hryDB.class.php';
     require 'application/db/uvedeniDB.class.php';
+    require 'application/db/prihlaskyDB.class.php';
 
     //datove struktury
     require 'application/core/data/hrac.class.php';
@@ -47,7 +48,7 @@
     $app->setLogged();
     $app->zpracujPoz();
 
-    //printr($data);
+   //printr($data);
 
     Twig_Autoloader::register();
 

@@ -43,7 +43,7 @@ class mistaDB extends db
 		$where_arr[0]["value"]= "$misto_id";
 		$where_arr[0]["symbol"]= "=";
 
-		$uvedeni = $this->DBDeleteOne(TABLE_MISTA, $where_arr, $limit_string = "");
+		$uvedeni = $this->DBDelete(TABLE_MISTA, $where_arr, $limit_string = "");
 		return $uvedeni;
 	}
 

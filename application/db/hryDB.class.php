@@ -75,7 +75,7 @@ class hryDB extends db {
         $where_arr[0]["value"]= "$hra_id";
         $where_arr[0]["symbol"]= "=";
 
-        $result = $this->DBDeleteOne(TABLE_HRY, $where_arr, $limit_string = "");
+        $result = $this->DBDelete(TABLE_HRY, $where_arr, $limit_string = "");
         return $result;
     }
 

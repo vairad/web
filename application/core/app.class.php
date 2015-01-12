@@ -31,6 +31,10 @@ class app
         $this->db->Connect();
     }
 
+
+    /**
+    Zpracuj url = vypočti vše potřebné
+     */
     public function zpracujPoz(){
         global $data;
 
@@ -44,8 +48,10 @@ class app
 
        // printr($_POST);
 
-        $prihl = isset($_SESSION[MY_SES]) && $_SESSION[MY_SES]["user"]["flag"]==true;
 
+        // kontrolá práv
+        $admin = isset($_SESSION[MY_SES]["user"]["rights"]) && $_SESSION[MY_SES]["user"]["rights"]>90;
+        $prihl = isset($_SESSION[MY_SES]["user"]["flag"]) && $_SESSION[MY_SES]["user"]["flag"]==true;
       //  printr($prihl);
 
         $data["title"]="Semestrání práce WEB";
@@ -54,25 +60,51 @@ class app
         $data["menu_admin"][$id]["aktiv"]="active";
         $data["content"]="text";
 
-        if($id=="vhra" && $prihl) {
+        if($id=="vhra" && $admin) {
             $this->appendNavbar("Vytvoř hru", "index.php?id=vhra");
             $this->stranaSpravaHer($do);
 
-        }elseif($id=="vmisto" && $prihl){
+        }elseif($id=="vmisto" && $admin){
             $this->appendNavbar("Správa míst", "index.php?id=vmisto");
             $this->stranaSpravaMist($do);
 
-        }elseif($id=="vuved" && $prihl){
+        }elseif($id=="vuved" && $admin){
             $this->appendNavbar("Správa uvedení", "index.php?id=vuved");
             $this->stranaVytvorUvedeni($do);
 
-        }elseif($id=="uzivatele" && $prihl){
+        }elseif($id=="uzivatele" && $admin){
             $this->appendNavbar("Seznam uživatelů", "index.php?id=uzivatele", true);
             $this->stranaSeznamUziv($do);
+
+        }elseif($id=="prihl" && $prihl){
+            $this->appendNavbar("Přihlašování na hry", "index.php?id=prihl");
+            $data["nadpis"]="Přihlašování na hry";
+            $this->stranaPrihlasovani();
+
+        }elseif($id=="mujprog" && $prihl){
+            $this->appendNavbar("Můj program", "index.php?id=mujprog");
+            $data["nadpis"]="Můj program";
+            $data["content"]="text";
+            $data["obsah"]='   <p class="text-justify">Zde budou konkrétní informace o programu uživatele. Sit amet, consectetur adipiscing elit. Nam sodales arcu non fermentum vestibulum. Sed sed cursus risus. Donec porta urna in tellus sodales, ut congue velit blandit. In porttitor vulputate enim, vel viverra nulla mattis eu. Fusce mollis, diam egestas fringilla lobortis, tellus erat sodales ipsum, vitae auctor arcu lectus nec justo. Sed rhoncus, ex in condimentum rhoncus, velit est ultricies urna, sed posuere mauris lectus ac dui. Nullam tincidunt ligula nec congue commodo. Praesent pellentesque luctus pharetra. Maecenas at blandit nisi. Etiam vitae nulla lectus. Quisque sed augue elementum nisl tincidunt vulputate nec a est.
+                    </p>';
+
+        }elseif($id=="mujucet" && $prihl){
+            $this->appendNavbar("Můj účet", "index.php?id=mujucet");
+            $data["nadpis"]="Můj účet";
+
+        }elseif($id=="orghry" && $prihl){
+            $this->appendNavbar("Mé hry", "index.php?id=orghry");
+            $data["nadpis"]="Mé hry";
+            $this->stranaMeHry();
 
         }elseif($id=="akce"){
             $this->appendNavbar("O akci", "index.php?id=akce");
             $data["nadpis"]="Akce";
+            $data["content"]="text";
+            $data["obsah"]='   <p class="text-justify">Zde budou obecné informace o akci. Sit amet, consectetur adipiscing elit. Nam sodales arcu non fermentum vestibulum. Sed sed cursus risus. Donec porta urna in tellus sodales, ut congue velit blandit. In porttitor vulputate enim, vel viverra nulla mattis eu. Fusce mollis, diam egestas fringilla lobortis, tellus erat sodales ipsum, vitae auctor arcu lectus nec justo. Sed rhoncus, ex in condimentum rhoncus, velit est ultricies urna, sed posuere mauris lectus ac dui. Nullam tincidunt ligula nec congue commodo. Praesent pellentesque luctus pharetra. Maecenas at blandit nisi. Etiam vitae nulla lectus. Quisque sed augue elementum nisl tincidunt vulputate nec a est.
+                    </p>
+                    <p class="text-justify">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam sodales arcu non fermentum vestibulum. Sed sed cursus risus. Donec porta urna in tellus sodales, ut congue velit blandit. In porttitor vulputate enim, vel viverra nulla mattis eu. Fusce mollis, diam egestas fringilla lobortis, tellus erat sodales ipsum, vitae auctor arcu lectus nec justo. Sed rhoncus, ex in condimentum rhoncus, velit est ultricies urna, sed posuere mauris lectus ac dui. Nullam tincidunt ligula nec congue commodo. Praesent pellentesque luctus pharetra. Maecenas at blandit nisi. Etiam vitae nulla lectus. Quisque sed augue elementum nisl tincidunt vulputate nec a est.
+                    </p>';
 
         }elseif($id=="hry"){
             $this->appendNavbar("Uváděné hry", "index.php?id=hry");
@@ -88,12 +120,12 @@ class app
             $this->appendNavbar("Letošní ročník", "index.php?id=letos");
             $data["nadpis"]="Letošní ročník";
             $data["content"]="text";
-            $data["obsah"]='   <p class="text-justify">šablonou ipsum dolor sit amet, consectetur adipiscing elit. Nam sodales arcu non fermentum vestibulum. Sed sed cursus risus. Donec porta urna in tellus sodales, ut congue velit blandit. In porttitor vulputate enim, vel viverra nulla mattis eu. Fusce mollis, diam egestas fringilla lobortis, tellus erat sodales ipsum, vitae auctor arcu lectus nec justo. Sed rhoncus, ex in condimentum rhoncus, velit est ultricies urna, sed posuere mauris lectus ac dui. Nullam tincidunt ligula nec congue commodo. Praesent pellentesque luctus pharetra. Maecenas at blandit nisi. Etiam vitae nulla lectus. Quisque sed augue elementum nisl tincidunt vulputate nec a est.
+            $data["obsah"]='   <p class="text-justify">Zde budou konkrétní informace o letošním ročníku, consectetur adipiscing elit. Nam sodales arcu non fermentum vestibulum. Sed sed cursus risus. Donec porta urna in tellus sodales, ut congue velit blandit. In porttitor vulputate enim, vel viverra nulla mattis eu. Fusce mollis, diam egestas fringilla lobortis, tellus erat sodales ipsum, vitae auctor arcu lectus nec justo. Sed rhoncus, ex in condimentum rhoncus, velit est ultricies urna, sed posuere mauris lectus ac dui. Nullam tincidunt ligula nec congue commodo. Praesent pellentesque luctus pharetra. Maecenas at blandit nisi. Etiam vitae nulla lectus. Quisque sed augue elementum nisl tincidunt vulputate nec a est.
                     </p>
                     <p class="text-justify">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam sodales arcu non fermentum vestibulum. Sed sed cursus risus. Donec porta urna in tellus sodales, ut congue velit blandit. In porttitor vulputate enim, vel viverra nulla mattis eu. Fusce mollis, diam egestas fringilla lobortis, tellus erat sodales ipsum, vitae auctor arcu lectus nec justo. Sed rhoncus, ex in condimentum rhoncus, velit est ultricies urna, sed posuere mauris lectus ac dui. Nullam tincidunt ligula nec congue commodo. Praesent pellentesque luctus pharetra. Maecenas at blandit nisi. Etiam vitae nulla lectus. Quisque sed augue elementum nisl tincidunt vulputate nec a est.
                     </p>';
 
-        }elseif($id=="reg" && !$prihl){
+        }elseif($id=="reg" && !$admin){
             $this->appendNavbar("Registrace", "index.php?id=reg");
             $this->stranaRegistrace($do);
 
@@ -104,6 +136,7 @@ class app
         }
     }
 
+    //===============================================================================================================
     //===============================================================================================================
 
     public function setFooter(){
@@ -145,6 +178,7 @@ class app
             $_SESSION[MY_SES]["user"]["surname"]="".$user["prijmeni"];
             $_SESSION[MY_SES]["user"]["id"]=0 + $user["id_osoby"];
             $_SESSION[MY_SES]["user"]["rights"]=0 + $user["typuctu"];
+            $_SESSION[MY_SES]["user"]["pohlavi"]=0 + $user["pohlavi"];
         }
     }
 
@@ -505,6 +539,7 @@ class app
     }
 
     //===============================================================================================================
+    //===============================================================================================================
 
     public function stranaVytvorUvedeni($do){
         global $data;
@@ -603,6 +638,7 @@ class app
 
     }
     //===============================================================================================================
+    //===============================================================================================================
 
     public function stranaRegistrace($do){
         global $data;
@@ -631,7 +667,11 @@ class app
     }
 
     //===============================================================================================================
+    //===============================================================================================================
 
+    /**
+     * Zobrazí  stranu index
+     * */
     public function stranaIndex(){
         global $data;
 
@@ -642,7 +682,7 @@ class app
 
         $data["nadpis"]="Pivko";
         $data["content"]="text";
-        $data["obsah"]='   <p class="text-justify">šablonou ipsum dolor sit amet, consectetur adipiscing elit. Nam sodales arcu non fermentum vestibulum. Sed sed cursus risus. Donec porta urna in tellus sodales, ut congue velit blandit. In porttitor vulputate enim, vel viverra nulla mattis eu. Fusce mollis, diam egestas fringilla lobortis, tellus erat sodales ipsum, vitae auctor arcu lectus nec justo. Sed rhoncus, ex in condimentum rhoncus, velit est ultricies urna, sed posuere mauris lectus ac dui. Nullam tincidunt ligula nec congue commodo. Praesent pellentesque luctus pharetra. Maecenas at blandit nisi. Etiam vitae nulla lectus. Quisque sed augue elementum nisl tincidunt vulputate nec a est.
+        $data["obsah"]='   <p class="text-justify">Obecný uvítací text, consectetur adipiscing elit. Nam sodales arcu non fermentum vestibulum. Sed sed cursus risus. Donec porta urna in tellus sodales, ut congue velit blandit. In porttitor vulputate enim, vel viverra nulla mattis eu. Fusce mollis, diam egestas fringilla lobortis, tellus erat sodales ipsum, vitae auctor arcu lectus nec justo. Sed rhoncus, ex in condimentum rhoncus, velit est ultricies urna, sed posuere mauris lectus ac dui. Nullam tincidunt ligula nec congue commodo. Praesent pellentesque luctus pharetra. Maecenas at blandit nisi. Etiam vitae nulla lectus. Quisque sed augue elementum nisl tincidunt vulputate nec a est.
                     </p>
                     <p class="text-justify">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam sodales arcu non fermentum vestibulum. Sed sed cursus risus. Donec porta urna in tellus sodales, ut congue velit blandit. In porttitor vulputate enim, vel viverra nulla mattis eu. Fusce mollis, diam egestas fringilla lobortis, tellus erat sodales ipsum, vitae auctor arcu lectus nec justo. Sed rhoncus, ex in condimentum rhoncus, velit est ultricies urna, sed posuere mauris lectus ac dui. Nullam tincidunt ligula nec congue commodo. Praesent pellentesque luctus pharetra. Maecenas at blandit nisi. Etiam vitae nulla lectus. Quisque sed augue elementum nisl tincidunt vulputate nec a est.
                     </p>
@@ -652,6 +692,7 @@ class app
                     </p>';
     }
 
+    //===============================================================================================================
     //===============================================================================================================
 
     public  function stranaSeznamUziv($do){
@@ -672,12 +713,126 @@ class app
 
     //==================================================================================================================
     //==================================================================================================================
+
+    public function stranaPrihlasovani(){
+        global $data;
+        $data["content"] = "prihl";
+
+        $uvedeniDB = new uvedeniDB($this->GetConnection());
+        $prihlaskyDB = new prihlaskyDB($this->GetConnection());
+        $uziv = $_SESSION[MY_SES]["user"]["id"];
+
+        if(isset($_POST["action"]) && $_POST["action"] == 'prihl'){
+            if($uvedeniDB->setFlag($_POST["val"])){
+                if($prihlaskyDB->prihlas($uziv, $_POST["val"]) == true){
+                    $data["data"]["success"] = "Byl jste úspěšně přihlášen";
+                }else{
+                    $data["data"]["error"][] = "Přihlášení nebylo provedeno.";
+                }
+                $uvedeniDB->unsetFlag($_POST["val"]);
+            }
+        }
+        if(isset($_POST["action"]) && $_POST["action"] == 'odhlas'){
+            if($uvedeniDB->setFlag($_POST["val"])){
+                if($prihlaskyDB->odhlas($uziv, $_POST["val"])){
+                    $data["data"]["success"] = "Byl jste úspěšně odhlášen.";
+                }else{
+                    $data["data"]["error"][] = "Odhlášení nebylo provedeno.";
+                }
+                $uvedeniDB->unsetFlag($_POST["val"]);
+            }
+        }
+
+
+        $data["performances"] = $uvedeniDB->LoadAllUvedeniInfo();
+
+
+        // vytvořeni tlačítek pro smazání
+        foreach ($data["performances"] as &$value){
+            $id_u = $value["id_uvedeni"];
+           if($prihlaskyDB->prihlasen($uziv, $id_u)){
+                $value["disabled"] = "";
+                $value["submitVal"] = "Odhlásit";
+                $value["action"] = "odhlas";
+
+           }elseif($prihlaskyDB->obsazeno($id_u)){
+               $value["disabled"] = "disabled";
+               $value["submitVal"] = "Hra je obsazena.";
+               $value["action"] = "no";
+
+           }elseif($prihlaskyDB->nestihnes($uziv, $id_u)){
+
+               $value["disabled"] = "disabled";
+               $value["submitVal"] = "Tuto hru nestihneš!";
+               $value["action"] = "no";
+           }else{
+
+               $value["disabled"] = "";
+               $value["submitVal"] = "Přihlaš";
+               $value["action"] = "prihl";
+           }
+
+
+        }
+
+
+    }
+
+    //==================================================================================================================
+    //==================================================================================================================
+
+    public function stranaMeHry(){
+        global $data;
+
+        if(isset($_GET["val"]) && is_numeric($_GET["val"])){
+            $data["content"] = 'table_user';
+
+            $uvedeniDB = new uvedeniDB($this->GetConnection());
+            $uvedeni = $uvedeniDB->GetUvedeniInfoByID($_GET["val"]);
+
+            $data["nadpis"] = $uvedeni["nazevHry"];
+            $data["podtitul"] = $uvedeni["zacatek"]." - ".$uvedeni["nazev"];
+
+            $prihlaskyDB = new prihlaskyDB($this->GetConnection());
+            $data["users"] = $prihlaskyDB->prihlaseni($_GET["val"]);
+
+            foreach($data["users"] as &$user){
+                $user["pohlaviS"] = pohlaviS($user["pohlavi"]);
+                $user["vek"]=vek($user["datnar"]);
+                $user["typuctuS"]= typustuS($user["typuctu"]);
+            }
+
+            return;
+        }
+
+        $data["content"] = "orglist";
+
+        $uvedeniDB = new uvedeniDB($this->GetConnection());
+        $uvedeni = $uvedeniDB->GetUvedeniByOrg($_SESSION[MY_SES]["user"]["id"]);
+        if($_SESSION[MY_SES]["user"]["rights"]==99){
+            $uvedeni = $uvedeniDB->LoadAllUvedeniInfo();
+        }
+
+        $data["performances"] = $uvedeni;
+
+    }
+
+    //==================================================================================================================
+    //==================================================================================================================
+
+    /**
+    Do pole global nastaví menu
+     */
+
     public function  setUpMenu(){
         $this->Menu();
         $this->userMenu();
         $this->AdminMenu();
     }
     //==================================================================================================================
+    /**
+     * Připraví návštěvnické menu
+     * */
     private function Menu(){
         global $data;
         $data["menu"]["akce"]["text"]="O akci";
@@ -696,12 +851,27 @@ class app
         }
     }
     //==================================================================================================================
+    /**
+     * Připraví uživatelské menu
+     * */
     private function userMenu(){
         global $data;
-        $data["menu_member"]["mujucet"]["text"]="Můj účet";
-        $data["menu_member"]["mujucet"]["href"]="?id=mujucet";
+
+        $data["menu_member"]["prihl"]["text"]="Přihlašování na hry";
+        $data["menu_member"]["prihl"]["href"]="?id=prihl";
+
+        $data["menu_member"]["mujprog"]["text"]="Můj program";
+        $data["menu_member"]["mujprog"]["href"]="?id=mujprog";
+
+        if(!isset($_SESSION[MY_SES]["user"]["rights"]) || $_SESSION[MY_SES]["user"]["rights"] > 49) {
+            $data["menu_member"]["mojehry"]["text"] = "Moje hry";
+            $data["menu_member"]["mojehry"]["href"] = "?id=orghry";
+        }
     }
     //==================================================================================================================
+    /**
+     * Připraví administrátorské menu
+     * */
     private function AdminMenu(){
         global $data;
 
@@ -720,6 +890,10 @@ class app
 
 
     //==================================================================================================================
+
+   /**
+    * připojí na konec pole navigační lišty další prvek
+   */
     private function appendNavbar($title, $href, $last = false){
         global $data;
 
@@ -740,6 +914,9 @@ class app
     }
 
     //================================================
+    /**
+    Vyčistí pole navigační lišty
+     */
     private function resetNavbar(){
         global $data;
 
