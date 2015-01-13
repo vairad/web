@@ -21,7 +21,7 @@ class db
 	public function DBSelectOne($table_name, $select_columns_string, $where_array, $limit_string = "")
 	{
 		// PDO - MySQL
-		////printr($where_array);
+		//////printr($where_array);
 			
 		// vznik chyby v PDO
 		$mysql_pdo_error = false;
@@ -52,7 +52,7 @@ class db
 	
 			// 1) pripravit dotaz s dotaznikama
 			$query = "select $select_columns_string from `".$table_name."` $where_pom $limit_string;";
-			////echo "$query <br/>";
+			//////echo "$query <br/>";
 
 			// 2) pripravit si statement
 			$statement = $this->connection->prepare($query);
@@ -66,7 +66,7 @@ class db
 					if (key_exists("value", $item))
 					{
 						$value = $item["value"];
-						////echo "navazuju value: $value jako number: $bind_param_number";
+						//////echo "navazuju value: $value jako number: $bind_param_number";
 							
 						$statement->bindValue($bind_param_number, $value);  // vzdy musim dat value, abych si nesparoval promennou (to nechci)
 						$bind_param_number ++;
@@ -78,7 +78,7 @@ class db
 	
 				// 5) kontrola chyb
 				$errors = $statement->errorInfo();
-				////printr($errors);
+				//////printr($errors);
 					
 				if ($errors[0] + 0 > 0)
 				{
@@ -94,9 +94,9 @@ class db
 				}
 				else
 				{
-					echo "Chyba v dotazu - PDOStatement::errorInfo(): ";
-					printr($errors);
-					echo "SQL dotaz: $query";
+					//echo "Chyba v dotazu - PDOStatement::errorInfo(): ";
+					//printr($errors);
+					//echo "SQL dotaz: $query";
 					return false;
 				}
 	}
@@ -117,8 +117,8 @@ class db
 	 {
 	 	// PDO - MySQL
 	
-	 	////echo "metoda DBSelectAll"; 
-	 	////printr($this->connection);
+	 	//////echo "metoda DBSelectAll"; 
+	 	//////printr($this->connection);
 	 	//exit;
 	 	
 	 	// vznik chyby v PDO
@@ -136,7 +136,7 @@ class db
 	 		// pokud neexistuje klic column, tak preskocit
 	 		if (!key_exists("column", $item))
 	 		{
-	 				//echo "asi chyba v metode DBSelectAll - chybi klic column <br/>";
+	 				////echo "asi chyba v metode DBSelectAll - chybi klic column <br/>";
 					continue;
 	 				}
 	 					
@@ -149,7 +149,7 @@ class db
 					$value_pom = $item["value_mysql"]; 		// je to systemove, vlozit rovnou - POZOR na SQL injection, tady to muze projit
 	
 	
-	 				////echo "`$column` $symbol  $value_pom ";
+	 				//////echo "`$column` $symbol  $value_pom ";
 	 				$where_pom .= "`$column` $symbol  $value_pom ";
 	 	}
 	
@@ -179,7 +179,7 @@ class db
 	
 	 		// 1) pripravit dotaz s dotaznikama
 	 		$query = "select $select_columns_string from `".$table_name."` $where_pom $order_by_pom $limit_string;";
-	 		////echo $query;
+	 		//////echo $query;
 
 
 	
@@ -195,21 +195,21 @@ class db
 	 		if (key_exists("value", $item))
 	 		{
 	 		$value = $item["value"];
-	 		////echo "navazuju value: $value";
+	 		//////echo "navazuju value: $value";
 	 			
 	 		$statement->bindValue($bind_param_number, $value);  // vzdy musim dat value, abych si nesparoval promennou (to nechci)
 	 		$bind_param_number ++;
 	 		}
 	 		}
 //********************/
-           // //printr($statement);
+           // ////printr($statement);
 
 	 		// 4) provest dotaz
 	 		$statement->execute();
 	
 	 		// 5) kontrola chyb
 	 		$errors = $statement->errorInfo();
-	 		////printr($errors);
+	 		//////printr($errors);
 	 			
 	 		if ($errors[0] + 0 > 0)
 	 		{
@@ -225,9 +225,9 @@ class db
 	 	}
 	 	else
 	 	{
-	 		echo "Chyba v dotazu - PDOStatement::errorInfo(): ";
-	 		printr($errors);
-			echo "SQL dotaz: $query";
+	 		//echo "Chyba v dotazu - PDOStatement::errorInfo(): ";
+	 		//printr($errors);
+			//echo "SQL dotaz: $query";
             return null;
 	 	}
 	 }
@@ -280,7 +280,7 @@ class db
 	
 	 		// 5) kontrola chyb
 	 		$errors = $statement->errorInfo();
-	 		////printr($errors);
+	 		//////printr($errors);
 	
 	 		if ($errors[0] + 0 > 0)
 	 		{
@@ -296,9 +296,9 @@ class db
 	 		}
 	 		else
 	 			{
-	 				echo "Chyba v dotazu - PDOStatement::errorInfo(): ";
-	 				printr($errors);
-	 				echo "SQL dotaz: $query";
+	 				//echo "Chyba v dotazu - PDOStatement::errorInfo(): ";
+	 				//printr($errors);
+	 				//echo "SQL dotaz: $query";
                     return false;
 				}
 	}
@@ -339,7 +339,7 @@ class db
 
             // 1) pripravit dotaz s dotaznikama
                         $query = "insert into `$table_name` ($insert_columns) values ($insert_values);";
-                        // //echo $query;
+                        // ////echo $query;
 
                         // 2) pripravit si statement
                         $statement = $this->connection->prepare($query);
@@ -353,7 +353,7 @@ class db
                                 if (key_exists("value", $row))
                                 {
                                     $value = $row["value"];
-                                    ////echo "navazuju value: $value";
+                                    //////echo "navazuju value: $value";
 
                                     $statement->bindValue($bind_param_number, $value);  // vzdy musim dat value, abych si nesparoval promennou (to nechci)
                                     $bind_param_number ++;
@@ -365,7 +365,7 @@ class db
 
                             // 5) kontrola chyb
                             $errors = $statement->errorInfo();
-                            ////printr($errors);
+                            //////printr($errors);
 
                             if ($errors[0] + 0 > 0)
                             {
@@ -381,9 +381,9 @@ class db
                             }
                             else
                             {
-                                echo "Chyba v dotazu - PDOStatement::errorInfo(): ";
-                                printr($errors);
-                                echo "SQL dotaz: $query";
+                                //echo "Chyba v dotazu - PDOStatement::errorInfo(): ";
+                                //printr($errors);
+                                //echo "SQL dotaz: $query";
             				}
 	}
 
@@ -425,7 +425,7 @@ class db
 
 		// 5) kontrola chyb
 		$errors = $statement->errorInfo();
-		////printr($errors);
+		//////printr($errors);
 
 		if ($errors[0] + 0 > 0)
 		{
@@ -440,9 +440,9 @@ class db
 		}
 		else
 		{
-			echo "Chyba v dotazu - PDOStatement::errorInfo(): ";
-			printr($errors);
-			echo "SQL dotaz: $query";
+			//echo "Chyba v dotazu - PDOStatement::errorInfo(): ";
+			//printr($errors);
+			//echo "SQL dotaz: $query";
 			return false;
 		}
 
@@ -462,7 +462,7 @@ class db
     public function DBDelete($table_name, $where_array, $limit_string = "")
     {
         // PDO - MySQL
-        ////printr($where_array);
+        //////printr($where_array);
 
         // vznik chyby v PDO
         $mysql_pdo_error = false;
@@ -493,7 +493,7 @@ class db
 
         // 1) pripravit dotaz s dotaznikama
         $query = "delete from `".$table_name."` $where_pom $limit_string;";
-        ////echo "$query <br/>";
+        //////echo "$query <br/>";
 
         // 2) pripravit si statement
         $statement = $this->connection->prepare($query);
@@ -507,7 +507,7 @@ class db
                 if (key_exists("value", $item))
                 {
                     $value = $item["value"];
-                    ////echo "navazuju value: $value jako number: $bind_param_number";
+                    //////echo "navazuju value: $value jako number: $bind_param_number";
 
                     $statement->bindValue($bind_param_number, $value);  // vzdy musim dat value, abych si nesparoval promennou (to nechci)
                     $bind_param_number ++;
@@ -519,7 +519,7 @@ class db
 
         // 5) kontrola chyb
         $errors = $statement->errorInfo();
-        ////printr($errors);
+        //////printr($errors);
 
         if ($errors[0] + 0 > 0)
         {
@@ -534,9 +534,9 @@ class db
         }
         else
         {
-            echo "Chyba v dotazu - PDOStatement::errorInfo(): ";
-            printr($errors);
-            echo "SQL dotaz: $query";
+            //echo "Chyba v dotazu - PDOStatement::errorInfo(): ";
+            //printr($errors);
+            //echo "SQL dotaz: $query";
 			return $errors;
         }
     }
@@ -562,7 +562,7 @@ class db
 	
 		} catch (PDOException $e)
 		{
-			print "Error!: " . $e->getMessage() . "<br/>";
+			//print "Error!: " . $e->getMessage() . "<br/>";
 			die();
 		}
 	} // konec Connect
