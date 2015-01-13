@@ -114,7 +114,8 @@ class hra {
         }
         //  printr($debug);
         if($bool) {
-            return $hra_db_class->UpdateHrabyId($id_game, $this);
+            $bool = $hra_db_class->UpdateHrabyId($id_game, $this) > 0;
+            return $bool ;
         }
         return false;
     }

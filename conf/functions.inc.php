@@ -88,6 +88,14 @@ function cze_datum($datetime) {
     return "".$den.".".$mesic.".".$rok." ".$hodina.":".$minuta."";
 }
 
+
+function googleGPS($strGPS) {
+    $strGPS = mb_eregi_replace ( "°" , "%C2%B0" , $strGPS );
+    $strGPS =  mb_eregi_replace ( ", " , "%2C%20" , $strGPS );
+    $strGPS = mb_eregi_replace ( "\"" , "%22" , $strGPS );
+    return $strGPS;
+}
+
 // specialni vypis
 function printr($val)
 {

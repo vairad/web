@@ -21,6 +21,9 @@ class osobyDB extends db
       return $this->DBInsert(TABLE_OSOBY, $item);
     }
 
+    /**
+     * @return bool | item osoba
+     * */
     public function GetOsobaByLogin($mail,$pass)
     {
         $where_arr[0]["column"]= "email";

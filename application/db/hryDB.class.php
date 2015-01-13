@@ -90,6 +90,8 @@ class hryDB extends db {
 
         $limit_string = "";
 
+        //TODO check
+
         return $this->DBUpdate(TABLE_HRY, $item, $where_str, $limit_string);
     }
 

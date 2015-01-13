@@ -1,8 +1,12 @@
 <?php
-    /** @var array[] poměnná pro data předaná šabloně*/
-    $data = array();
 
     session_start();
+
+    /** @var array[] poměnná pro data předaná šabloně*/
+    $data = array();
+    //preparation of database arrays
+    $data["data"] = array();
+    $data["data"]["error"] = array();
 
 	// nacist konfiguraci
 	require 'conf/config.inc.php';
@@ -35,10 +39,7 @@
 	// pripojit k db
 	$app->Connect();
 
-    $app->setUpMenu();
-    $app->setFooter();
-
-    if(isset($_POST["do"]) && ($_POST["do"])=="login"){
+    if(isset($_GET["do"]) && ($_GET["do"])=="login"){
         $app->login();
     }
     if(@$_REQUEST["do"] =="logout"){
@@ -46,9 +47,13 @@
     }
 
     $app->setLogged();
+
+    $app->setUpMenu();
+    $app->setFooter();
+
     $app->zpracujPoz();
 
-   //printr($data);
+  // printr($data);
 
     Twig_Autoloader::register();
 

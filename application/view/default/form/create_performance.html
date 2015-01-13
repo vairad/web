@@ -5,6 +5,7 @@
             <div class="input-group">
                 <span class="input-group-addon {% if per_fail.org == true  %} alert-danger {% endif %}">Hra</span>
                 <select name="game" class="form-control" required>
+                    <option value="">...</option>
                     {% for game in games %}
                     <option value="{{game.id_hry}}" {{game.selected}}>{{game.nazev}}</option>
                     {% endfor %}
@@ -19,6 +20,7 @@
             <div class="input-group">
                 <span class="input-group-addon {% if per_fail.org == true  %} alert-danger {% endif %}">Místo</span>
                 <select name="place" class="form-control" required>
+                    <option value="">...</option>
                     {% for place in places %}
                     <option value="{{place.id_mista}}" {{place.selected}}>{{place.nazev}}</option>
                     {% endfor %}

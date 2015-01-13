@@ -98,7 +98,8 @@ class misto {
         }
         //  printr($debug);
         if($bool) {
-            return $mista_db_class->UpdateMistobyID($id_mista, $this);
+            $bool = $mista_db_class->UpdateMistobyID($id_mista, $this) > 0;
+            return true;
         }
         return false;
     }

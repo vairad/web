@@ -1,7 +1,7 @@
 <form role="form" method="post">
    <!-- název -->
     <div class="row">
-        <div class="form-group" id="basic">
+        <div class="form-group" >
             <div class="col-md-offset-1 col-md-10">
                 <div class="input-group">
                     <span class="input-group-addon {% if game_fail.name == true  %} alert-danger {% endif %} ">Název hry</span>
@@ -20,7 +20,7 @@
     <!-- muzi zeny herm minimum -->
     <div class="row">
 
-        <div class="form-group" id="basic">
+        <div class="form-group" >
             <div class="col-md-offset-1 col-md-2">
                 <div class="input-group">
                     <span class="input-group-addon {% if game_fail.num_m == true  %} alert-danger {% endif %}">
@@ -137,6 +137,7 @@
             <div class="input-group">
                 <span class="input-group-addon {% if game_fail.org == true  %} alert-danger {% endif %}">Organizátor</span>
                 <select name="org" class="form-control" required>
+                    <option value="">...</option>
                     {% for org in orgove %}
                     <option value="{{org.id_osoby+123}}" {{org.selected}}>{{org.jmeno}} {{org.prijmeni}} ({{org.prezdivka}})</option>
                     {% endfor %}

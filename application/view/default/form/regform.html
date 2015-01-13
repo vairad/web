@@ -163,17 +163,14 @@
     </div>
     <div class="row">
         <div class="col-md-offset-1 col-md-10">
-            <div class="input-group">
-                <span class="input-group-addon {% if reg_fail.rights == true  %} alert-danger {% endif %}">
+              <span class="form-control input-group">
                     <input type="checkbox"
-                           class="input-group-addon"
-                           name="rights"
-                           required
-                           {{reg.rights}}
-                            >
-                </span>
-                <span class="form-control">Dávám blah blah lbah PIlieiosafv aopdsivn apfos na </span>
-            </div>
+                       class=" {% if reg_fail.rights == true  %} alert-danger {% endif %}"
+                       name="rights"
+                       required
+                       {{reg.rights}}
+                        >
+                    Dávám blah blah lbah PIlieiosafv aopdsivn apfos na </span>
         </div>
     </div>
     <div class="row">

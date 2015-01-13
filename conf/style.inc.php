@@ -18,6 +18,6 @@ $data["bootstrap_dp_locale"]=VIEW."/bootstrap-datepicker/locales/bootstrap-datep
 define('TEMPLATE', NAME.".html");
 $data["my_css"]=VIEW."/".NAME.".css";
 $data["header_img"]=VIEW."/picture/".NAME."_header.png";
-
+$data["favico"]=VIEW."/picture/".NAME."_favicon.png";
 
 ?>

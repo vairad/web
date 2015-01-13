@@ -57,6 +57,8 @@ class mistaDB extends db
 
 		$limit_string = "";
 
+
+		//TODO check
 		return $this->DBUpdate(TABLE_MISTA, $item, $where_str, $limit_string);
 	}
 

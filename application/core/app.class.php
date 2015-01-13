@@ -44,7 +44,6 @@ class app
         $id = @$_REQUEST["id"];
 
         $do = @$_REQUEST["do"];
-        $data["data"]["error"]=array();
 
        // printr($_POST);
 
@@ -91,6 +90,10 @@ class app
         }elseif($id=="mujucet" && $prihl){
             $this->appendNavbar("Můj účet", "index.php?id=mujucet");
             $data["nadpis"]="Můj účet";
+
+        }elseif($id=="misto" && $prihl){
+            $this->appendNavbar("Detail místa", "", true);
+            $this->stranaMisto(@$_REQUEST["val"]);
 
         }elseif($id=="orghry" && $prihl){
             $this->appendNavbar("Mé hry", "index.php?id=orghry");
@@ -165,9 +168,13 @@ class app
 
     public function login(){
         global $data;
+
         $osoby = new osobyDB($this->GetConnection());
         $user = $osoby->GetOsobaByLogin(trim($_POST["login"]), trim($_POST["pass"]));
-        if(!isset($user["jmeno"])){
+
+
+        if(!isset($user["jmeno"]) || $user["jmeno"]==""){
+            $data["data"]["error"] = array();
             $data["data"]["error"][]="Špatná kombinace jména a hesla.";
         }else{
             $data["data"]["success"]="Přihlášení bylo úspěšné";
@@ -184,8 +191,9 @@ class app
 
     public function logout(){
         global $data;
-        unset( $_SESSION[MY_SES]["user"]);
-        unset( $_SESSION[MY_SES]);
+        $_SESSION[MY_SES] = array();
+        unset($_SESSION[MY_SES]["user"]);
+        unset($_SESSION[MY_SES]);
         session_unset();
         $data["data"]["success"]="Odhlášení proběhlo úspěšně.";
     }
@@ -228,6 +236,44 @@ class app
         $data["game"]["organizator"] = $org["jmeno"]." \"".$org["prezdivka"]."\" ".$org["prijmeni"];
         $data["nadpis"]=$data["game"]["nazev"];
         $data["content"]="infoHra";
+
+    }
+
+    //===============================================================================================================
+    //===============================================================================================================
+
+    public function stranaMisto($val){
+        if($val == 'none'){
+            $this->seznamMist();
+        }else{
+            $this->jendoMisto($val);
+        }
+    }
+
+    public function seznamMist(){
+        global $data;
+
+        $data["nadpis"]="Reálná místa";
+        $data["content"]="seznamMist";
+
+        //pole her
+        $mistaDB = (new mistaDB($this->GetConnection()));
+        $hry = $mistaDB->LoadAllMista();
+        $data["places"] = array();
+        $data["places"] = $hry;
+    }
+
+    public function jendoMisto($val){
+        global $data;
+
+        $mistaDB = (new mistaDB($this->GetConnection()));
+        $data["place"] =  $mistaDB->getMistoByID($val);
+
+        $data["place"]["googleGPS"]=googleGPS($data["place"]["gps"]);
+        $this->appendNavbar($data["place"]["nazev"], "", true);
+
+        $data["nadpis"]=$data["place"]["nazev"];
+        $data["content"]="infoMisto";
 
     }
 
@@ -289,9 +335,9 @@ class app
 
             $data["a"] = array();
             $data["a"][0]["title"] = "Vytvořit novou hru";
-            $data["a"][0]["href"] = "index.php?id=vhra&do=new#h1";
+            $data["a"][0]["href"] = "index.php?id=vhra&do=new#body";
             $data["a"][1]["title"] = "Seznam všech her";
-            $data["a"][1]["href"] = "index.php?id=vhra&do=manage#h1  ";
+            $data["a"][1]["href"] = "index.php?id=vhra&do=manage#body  ";
         }
 
     }
@@ -453,9 +499,9 @@ class app
 
             $data["a"] = array();
             $data["a"][0]["title"] = "Vytvořit nové místo";
-            $data["a"][0]["href"] = "index.php?id=vmisto&do=new#h1";
+            $data["a"][0]["href"] = "index.php?id=vmisto&do=new#body";
             $data["a"][1]["title"] = "Seznam všech míst";
-            $data["a"][1]["href"] = "index.php?id=vmisto&do=manage#h1  ";
+            $data["a"][1]["href"] = "index.php?id=vmisto&do=manage#body  ";
         }
 
     }
@@ -700,6 +746,7 @@ class app
 
         $data["nadpis"]="Seznam uživatelů";
         $data["content"]="table_user";
+        $data["admin"] = 'typ';
 
         $osobyDB = new osobyDB($this->GetConnection());
         $data["users"]= $osobyDB->SelectAllOsobyInfo();
@@ -723,23 +770,28 @@ class app
         $uziv = $_SESSION[MY_SES]["user"]["id"];
 
         if(isset($_POST["action"]) && $_POST["action"] == 'prihl'){
-            if($uvedeniDB->setFlag($_POST["val"])){
+
+            if($uvedeniDB->setFlag($_POST["val"]) == true){
                 if($prihlaskyDB->prihlas($uziv, $_POST["val"]) == true){
                     $data["data"]["success"] = "Byl jste úspěšně přihlášen";
                 }else{
                     $data["data"]["error"][] = "Přihlášení nebylo provedeno.";
                 }
                 $uvedeniDB->unsetFlag($_POST["val"]);
+            }else{
+                $data["data"]["error"][] = "Omlováme se. Došlo ke kolizi přihlášení, nebo je hra blokována. Zkuste obnovit stránku (F5).";
             }
         }
         if(isset($_POST["action"]) && $_POST["action"] == 'odhlas'){
-            if($uvedeniDB->setFlag($_POST["val"])){
+            if($uvedeniDB->setFlag($_POST["val"]) == true){
                 if($prihlaskyDB->odhlas($uziv, $_POST["val"])){
                     $data["data"]["success"] = "Byl jste úspěšně odhlášen.";
                 }else{
                     $data["data"]["error"][] = "Odhlášení nebylo provedeno.";
                 }
                 $uvedeniDB->unsetFlag($_POST["val"]);
+            }else{
+                $data["data"]["error"][] = "Omlováme se. Došlo ke kolizi přihlášení, nebo je hra blokována. Zkuste obnovit stránku (F5).";
             }
         }
 
@@ -757,8 +809,34 @@ class app
 
            }elseif($prihlaskyDB->obsazeno($id_u)){
                $value["disabled"] = "disabled";
-               $value["submitVal"] = "Hra je obsazena.";
+               $value["submitVal"] = "Hra je plně obsazena.";
                $value["action"] = "no";
+
+           }elseif($_SESSION[MY_SES]["user"]["pohlavi"] == 1){
+
+               if($prihlaskyDB->obsazenoM($id_u) && $prihlaskyDB->obsazenoH($id_u)) {
+                    $value["disabled"] = "disabled";
+                    $value["submitVal"] = "Mužské role obsazeny.";
+                    $value["action"] = "no";
+                }else{
+                            // zbývají obojetná místa
+                    $value["disabled"] = "";
+                    $value["submitVal"] = "Přihlaš";
+                    $value["action"] = "prihl";
+                }
+
+           }elseif($_SESSION[MY_SES]["user"]["pohlavi"] == 0){
+
+               if($prihlaskyDB->obsazenoZ($id_u) && $prihlaskyDB->obsazenoH($id_u)) {
+                   $value["disabled"] = "disabled";
+                   $value["submitVal"] = "Ženské role obsazeny.";
+                   $value["action"] = "no";
+               }else{
+                   // zbývají obojetná místa
+                   $value["disabled"] = "";
+                   $value["submitVal"] = "Přihlaš";
+                   $value["action"] = "prihl";
+               }
 
            }elseif($prihlaskyDB->nestihnes($uziv, $id_u)){
 
@@ -863,7 +941,7 @@ class app
         $data["menu_member"]["mujprog"]["text"]="Můj program";
         $data["menu_member"]["mujprog"]["href"]="?id=mujprog";
 
-        if(!isset($_SESSION[MY_SES]["user"]["rights"]) || $_SESSION[MY_SES]["user"]["rights"] > 49) {
+        if(isset($_SESSION[MY_SES]["user"]["rights"]) && $_SESSION[MY_SES]["user"]["rights"] > 49) {
             $data["menu_member"]["mojehry"]["text"] = "Moje hry";
             $data["menu_member"]["mojehry"]["href"] = "?id=orghry";
         }

@@ -94,9 +94,10 @@ class db
 				}
 				else
 				{
-					//echo "Chyba v dotazu - PDOStatement::errorInfo(): ";
-					//printr($errors);
-					//echo "SQL dotaz: $query";
+					echo "Chyba v dotazu - PDOStatement::errorInfo(): ";
+					printr($errors);
+					echo "SQL dotaz: $query";
+					return false;
 				}
 	}
 	
@@ -224,9 +225,9 @@ class db
 	 	}
 	 	else
 	 	{
-	 	//echo "Chyba v dotazu - PDOStatement::errorInfo(): ";
-					//printr($errors);
-					//echo "SQL dotaz: $query";
+	 		echo "Chyba v dotazu - PDOStatement::errorInfo(): ";
+	 		printr($errors);
+			echo "SQL dotaz: $query";
             return null;
 	 	}
 	 }
@@ -295,9 +296,9 @@ class db
 	 		}
 	 		else
 	 			{
-	 			//echo "Chyba v dotazu - PDOStatement::errorInfo(): ";
-	 			//printr($errors);
-	 			//echo "SQL dotaz: $query";
+	 				echo "Chyba v dotazu - PDOStatement::errorInfo(): ";
+	 				printr($errors);
+	 				echo "SQL dotaz: $query";
                     return false;
 				}
 	}
@@ -380,10 +381,10 @@ class db
                             }
                             else
                             {
-                                //echo "Chyba v dotazu - PDOStatement::errorInfo(): ";
-                                //printr($errors);
-                                //echo "SQL dotaz: $query";
-            }
+                                echo "Chyba v dotazu - PDOStatement::errorInfo(): ";
+                                printr($errors);
+                                echo "SQL dotaz: $query";
+            				}
 	}
 
 	public function DBUpdate($table_name, $item, $where_str, $limit_string)
@@ -435,13 +436,13 @@ class db
 		// 6) nacist ID vlozeneho zaznamu a vratit
 		if ($mysql_pdo_error == false)
 		{
-			return true;
+			return $statement->rowCount();
 		}
 		else
 		{
-			//echo "Chyba v dotazu - PDOStatement::errorInfo(): ";
-			//printr($errors);
-			//echo "SQL dotaz: $query";
+			echo "Chyba v dotazu - PDOStatement::errorInfo(): ";
+			printr($errors);
+			echo "SQL dotaz: $query";
 			return false;
 		}
 
@@ -533,9 +534,9 @@ class db
         }
         else
         {
-            //echo "Chyba v dotazu - PDOStatement::errorInfo(): ";
-            //printr($errors);
-            //echo "SQL dotaz: $query";
+            echo "Chyba v dotazu - PDOStatement::errorInfo(): ";
+            printr($errors);
+            echo "SQL dotaz: $query";
 			return $errors;
         }
     }

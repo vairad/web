@@ -2,7 +2,7 @@
 <div class="list-group my-right menu">
     {% for item in menu %}
     {% if item.href|length > 0 %}
-    <a href="{{ item.href }}#h1" class="list-group-item  {{item.aktiv}} ">
+    <a href="{{ item.href }}#body" class="list-group-item  {{item.aktiv}} ">
         <div class="nav nav-pills nav-stacked">
             {{ item.text }}
         </div>
@@ -12,8 +12,9 @@
 </div>
 <!-- LOG FORM -->
 {% if logged == 0 %}
-<ul class="list-group my-right">
-    <form method="post">
+
+<form method="post" action="index.php?do=login">
+    <ul class="list-group my-right">
         <li class="list-group-item">
 
             <input type="text" class="form-control" placeholder="E-mail" name="login">
@@ -25,8 +26,8 @@
                                              </span>
             </div>
         </li>
-    </form>
-</ul>
+    </ul>
+</form>
 {% endif %}
 
 <!-- SIGNED MENU -->
@@ -34,7 +35,7 @@
 <div class="list-group my-right menu">
     {% for item in menu_member%}
     {% if item.href|length > 0 %}
-    <a href="{{ item.href }}#h1" class="list-group-item  {{item.aktiv}} ">
+    <a href="{{ item.href }}#body" class="list-group-item  {{item.aktiv}} ">
         <div class="nav nav-pills nav-stacked">
             {{ item.text }}
         </div>
@@ -49,7 +50,7 @@
 <div class="list-group my-right menu">
     {% for item in menu_admin %}
     {% if item.href|length > 0 %}
-    <a href="{{ item.href }}#h1" class="list-group-item  {{item.aktiv}} ">
+    <a href="{{ item.href }}#body" class="list-group-item  {{item.aktiv}} ">
         <div class="nav nav-pills nav-stacked">
             {{ item.text }}
         </div>

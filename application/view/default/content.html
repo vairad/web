@@ -18,7 +18,9 @@
 
 <!-- NADPIS H1 -->
 <h1 id="h1">{{nadpis}}</h1>
+{% if podtitul|length > 0 %}
 <h4>{{podtitul}}</h4>
+{% endif %}
 <!-- sPROSTÝ TEXT V HTML -->
 {% if content == 'text' %}
 {{obsah | raw}}
@@ -36,13 +38,17 @@
     <table class="table table-striped table-bordered">
         <tr> <th>Jméno</th> <th>Příjmení</th><th>Přezdívka</th>
             <th>Věk</th><th>Pohlaví</th><th>Telefon</th><th>Mail</th>
+            {% if admin == 'typ' %}
             <th>Typ účtu</th>
+            {% endif %}
         </tr>
         {%for user in users %}
 
         <tr> <td>{{user.jmeno}}</td> <td>{{user.prijmeni}}</td><td>{{user.prezdivka}}</td>
             <td>{{user.vek}}</td><td>{{user.pohlaviS}}</td><td>{{user.mobil}}</td><td>{{user.email}}</td>
+           {% if admin == 'typ' %}
             <td>{{user.typuctuS}}</td>
+           {% endif %}
         </tr>
         {% endfor %}
     </table>
@@ -57,7 +63,7 @@
         <p><strong>Cena:</strong> {{game.cena}}Kč  <strong>Délka hry:</strong> {{game.delka}} minut</p>
         <p><strong>WEB:</strong> <a href="{{game.web}}">{{game.web}}</a></p>
     </div>
-    <img src="vzhled/images/hry/{{game.id_hry}}.jpg" alt="IDG Graf nenalezen (Imerze, Drama, Gaming)" class="col-xs-offset-1 col-xs-2" />
+    <img src="data/images/hry/{{game.id_hry}}.jpg" alt="IDG Graf nenalezen (Imerze, Drama, Gaming)" class="col-xs-offset-0 col-xs-3" />
 </div>
 <!--
 <div class="row">
@@ -73,6 +79,43 @@
     </div>
 </div>
 
+
+<!-- JEDNO MISTO -->
+{% elseif content == 'infoMisto' %}
+<div class="row">
+    <div class="well well-sm col-xs-offset-1 col-xs-5">
+        <p><strong>Adresa:</strong> {{place.ulice}} {{place.cp}}</p>
+        <p><strong>GPS:</strong> {{place.gps}}</p>
+    </div>
+ </div>
+
+<div class="row">
+    <div class="well col-xs-offset-1 col-xs-10">
+        <strong>Popis a dobrava:</strong> {{place.popis | raw}}
+    </div>
+</div>
+
+<div class="row">
+    <iframe class="col-xs-offset-1 col-xs-10 margin-bottom" height="400" frameborder="0"
+            src="https://www.google.com/maps/embed/v1/place?q={{place.googleGPS}}&amp;key=AIzaSyCuiMWcsEq2cfIoYh9On-I_LqI_JVsvG1Y"></iframe>
+</div>
+
+<!-- LIST UVEDENI -->
+{% elseif content == 'orglist' %}
+<div class="table-responsive">
+    <table class="table table-striped table-bordered">
+        <tr> <th>Čas začátku</th><th>Hra</th><th>Místo</th>
+        <th></th></tr>
+        {%for performance in performances %}
+        <tr> <td>{{performance.zacatek}}</td>
+            <td><a href="index.php?id=hry&amp;val={{performance.id_hry}}">{{performance.nazevHry}}</a></td>
+            <td><a href="index.php?id=misto&amp;val={{performance.id_mista}}">{{performance.nazev}}</a></td>
+            <td><a href="index.php?id=orghry&amp;val={{performance.id_uvedeni}}">Seznam hráčů</a></td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+
 <!-- CREATE UVEDENI -->
 {% elseif content == 'vuved' %}
 <h2>{{titleform}}</h2>
@@ -82,7 +125,7 @@
 <div class="table-responsive">
     <table class="table table-striped table-bordered">
         <tr> <th>Čas začátku</th><th>Hra</th><th>Místo</th>
-        </tr>
+        <th></th></tr>
         {%for performance in performances %}
 
         <tr> <td>{{performance.zacatek}}</td> <td>{{performance.nazevHry}}</td><td>{{performance.nazev}}</td>
@@ -96,7 +139,7 @@
 <!-- MANAGEMENT MISTO -->
 {% elseif content == 'smisto' %}
 {% for item in a %}
-<a href="{{item.href}}" ><button class="btn btn-info">{{item.title}}</button></a>
+<a href="{{item.href}}" class="btn btn-info" >{{item.title}}</a>
 {% endfor %}
 
 <p>{{info}}</p>
@@ -106,7 +149,7 @@
 <div class="table-responsive">
     <table class="table table-striped table-bordered">
         <tr> <th>Název</th><th>Adresa</th><th>GPS</th>
-        </tr>
+        <th></th></tr>
         {%for place in places %}
         <tr> <td>{{place.nazev}}</td> <td>{{place.ulice}} {{place.cp}}</td><td>{{place.gps}}</td>
             <td><button onclick="{{place.delA}}" class="btn btn-sm btn-info">Smazat</button>
@@ -135,7 +178,7 @@
 <div class="table-responsive">
     <table class="table table-striped table-bordered">
         <tr> <th>Název</th><th>Muži</th><th>Ženy</th><th>Obojí</th><th>Délka</th><th>Cena</th>
-        </tr>
+        <th></th></tr>
         {%for game in games %}
         <tr> <td>{{game.nazev}}</td>
             <td>{{game.pocet_m}}</td>
@@ -156,33 +199,11 @@
 {% elseif content == 'seznamHer' %}
 <div class="well">
     {%for game in games %}
-    <a href="index.php?id=hry&val={{game.id_hry}}#h1" class="linkGame"><span>{{game.nazev}}</span></a>
+    <a href="index.php?id=hry&amp;val={{game.id_hry}}#body" class="linkGame"><span>{{game.nazev}}</span></a>
     {% endfor %}
 </div>
 
 
-<!-- JEDNA HRA -->
-{% elseif content == 'infoHra' %}
-<div class="row">
-    <div class="well well-sm col-xs-offset-1 col-xs-7">
-        <p><strong>Uvádějící:</strong> {{game.organizator}}</p>
-        <p><strong>Role:</strong> mužské:<strong>{{game.pocet_m}}</strong> ženské:<strong>{{game.pocet_z}}</strong> obojetné:<strong>{{game.pocet_h}}</strong></p>
-        <p><strong>Cena:</strong> {{game.cena}}Kč  <strong>Délka hry:</strong> {{game.delka}} minut</p>
-    </div>
-    <img src="vzhled/images/hry/{{game.id_hry}}.jpg" alt="IDG Graf nenalezen (Imerze, Drama, Gaming)" class="col-xs-offset-1 col-xs-2" />
-</div>
-<div class="row">
-    <div class="well well-sm col-xs-offset-1 col-xs-10">
-        <strong>Požadavky na hráče:</strong>
-        <p>Nerušící oděv alespoň trochu ladící do předválečného období - ženy sukně a halenku/košili, pánové košili a slušné kalhoty.</p>
-        <p>18+</p>
-    </div>
-</div>
-<div class="row">
-    <div class="well col-xs-offset-1 col-xs-10">
-        <strong>Anotace:</strong> {{game.popis | raw}}
-    </div>
-</div>
 
 <!-- PRIHLASOVANI -->
 {% elseif content == 'prihl' %}
@@ -200,19 +221,5 @@
     </div>
     {% endfor %}
 </div>
-<!-- LIST UVEDENI -->
-{% elseif content == 'orglist' %}
-<div class="table-responsive">
-    <table class="table table-striped table-bordered">
-        <tr> <th>Čas začátku</th><th>Hra</th><th>Místo</th>
-        </tr>
-        {%for performance in performances %}
-        <tr> <td>{{performance.zacatek}}</td>
-            <td><a href="index.php?id=hry&amp;={{performance.id_hry}}">{{performance.nazevHry}}</a></td>
-            <td><a href="index.php?id=misto&amp;={{performance.id_mista}}">{{performance.nazev}}</a></td>
-            <td><a href="index.php?id=orghry&amp;val={{performance.id_uvedeni}}">Seznam hráčů</a></td>
-        </tr>
-        {% endfor %}
-    </table>
-</div>
+
 {% endif %}

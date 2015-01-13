@@ -58,9 +58,9 @@ class prihlaskyDB extends db
         $where_arr[0]["value"]= "$uziv";
         $where_arr[0]["symbol"]= "=";
 
-        $where_arr[0]["column"]= "uvedeni";
-        $where_arr[0]["value"]= "$uvedeni";
-        $where_arr[0]["symbol"]= "=";
+        $where_arr[1]["column"]= "uvedeni";
+        $where_arr[1]["value"]= "$uvedeni";
+        $where_arr[1]["symbol"]= "=";
 
         return count($this->DBSelectAll(TABLE_PRIHLASKY,"*" ,$where_arr));
     }
@@ -76,7 +76,7 @@ class prihlaskyDB extends db
         $uvedeni = $uvedeniDB->GetUvedeniByID($uvedeni_id);
         $hra = $hryDB->getHraByID($uvedeni["hra"]);
 
-        if($this->pocet_muzu($uvedeni_id) > $hra["pocet_m"]){
+        if($this->pocet_muzu($uvedeni_id) >= $hra["pocet_m"]){
             return true;
         }
         return false;
@@ -88,7 +88,7 @@ class prihlaskyDB extends db
         $uvedeni = $uvedeniDB->GetUvedeniByID($uvedeni_id);
         $hra = $hryDB->getHraByID($uvedeni["hra"]);
 
-        if($this->pocet_zen($uvedeni_id) > $hra["pocet_z"]){
+        if($this->pocet_zen($uvedeni_id) >= $hra["pocet_z"]){
             return true;
         }
         return false;
@@ -101,6 +101,10 @@ class prihlaskyDB extends db
         $hra = $hryDB->getHraByID($uvedeni["hra"]);
 
         $kapacita = 0 + $hra["pocet_m"]+$hra["pocet_z"]+$hra["pocet_h"];
+        if($kapacita == 0){
+            return true;
+        }
+
         $kapacita -= $this->pocet_muzu($uvedeni_id);
         $kapacita -= $this->pocet_zen($uvedeni_id);
 
@@ -111,9 +115,9 @@ class prihlaskyDB extends db
     }
 
     public function obsazeno($uvedeni){
-        $bool = $this->obsazenoZ($uvedeni);
-        $bool |= $this->obsazenoZ($uvedeni);
-        $bool |= $this->obsazenoZ($uvedeni);
+        $bool = $this->obsazenoM($uvedeni);
+        $bool &= $this->obsazenoZ($uvedeni);
+        $bool &= $this->obsazenoH($uvedeni);
         return $bool;
     }
 
