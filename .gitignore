@@ -1,2 +1,6 @@
 #ignore idea files
 .idea/
+
+#ignore config file
+conf/config.inc.php
+conf/config.inc.php
