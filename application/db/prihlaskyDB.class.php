@@ -131,10 +131,10 @@ class prihlaskyDB extends db
         $where_arr[1]["symbol"]= "=";
 
         $where_arr[2]["column"]= "hrac";
-        $where_arr[2]["value_mysql"]= "`id_osoby`";
+        $where_arr[2]["value_mysql"]= "id_osoby";
         $where_arr[2]["symbol"]= "=";
 
-        return count($this->DBSelectAll(TABLE_PRIHLASKY."`, `".TABLE_OSOBY, "*", $where_arr));
+        return count($this->DBSelectAll(TABLE_PRIHLASKY.", ".TABLE_OSOBY, "*", $where_arr));
     }
 
     public function pocet_zen($uvedeni){
@@ -147,10 +147,10 @@ class prihlaskyDB extends db
         $where_arr[1]["symbol"]= "=";
 
         $where_arr[2]["column"]= "hrac";
-        $where_arr[2]["value_mysql"]= "`id_osoby`";
+        $where_arr[2]["value_mysql"]= "id_osoby";
         $where_arr[2]["symbol"]= "=";
 
-        return count($this->DBSelectAll(TABLE_PRIHLASKY."`, `".TABLE_OSOBY, "*", $where_arr));
+        return count($this->DBSelectAll(TABLE_PRIHLASKY.", ".TABLE_OSOBY, "*", $where_arr));
     }
 
     public function prihlaseni($uvedeni){
@@ -159,10 +159,10 @@ class prihlaskyDB extends db
         $where_arr[0]["symbol"]= "=";
 
         $where_arr[1]["column"]= "hrac";
-        $where_arr[1]["value_mysql"]= "`id_osoby`";
+        $where_arr[1]["value_mysql"]= "id_osoby";
         $where_arr[1]["symbol"]= "=";
 
-        return $this->DBSelectAll(TABLE_PRIHLASKY."`, `".TABLE_OSOBY, "*", $where_arr);
+        return $this->DBSelectAll(TABLE_PRIHLASKY.", ".TABLE_OSOBY, "*", $where_arr);
 
     }
 

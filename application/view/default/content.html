@@ -108,7 +108,7 @@
         <th></th></tr>
         {%for performance in performances %}
         <tr> <td>{{performance.zacatek}}</td>
-            <td><a href="index.php?id=hry&amp;val={{performance.id_hry}}">{{performance.nazevHry}}</a></td>
+            <td><a href="index.php?id=hry&amp;val={{performance.id_hry}}">{{performance.nazevhry}}</a></td>
             <td><a href="index.php?id=misto&amp;val={{performance.id_mista}}">{{performance.nazev}}</a></td>
             <td><a href="index.php?id=orghry&amp;val={{performance.id_uvedeni}}">Seznam hráčů</a></td>
         </tr>
@@ -128,7 +128,7 @@
         <th></th></tr>
         {%for performance in performances %}
 
-        <tr> <td>{{performance.zacatek}}</td> <td>{{performance.nazevHry}}</td><td>{{performance.nazev}}</td>
+        <tr> <td>{{performance.zacatek}}</td> <td>{{performance.nazevhry}}</td><td>{{performance.nazev}}</td>
             <td><button onclick="{{performance.delA}}" class="btn btn-block btn-info">Smazat</button></td>
         </tr>
         {% endfor %}
@@ -211,7 +211,7 @@
     {%for performance in performances %}
     <div class="well well-sm col-xs-offset-1 col-ld-4 col-md-4 col-xs-10">
         <form method="post" action="index.php?id=prihl">
-            <h3><a href="index.php?id=hry&amp;val={{performance.id_hry}}">{{performance.nazevHry}}</a></h3>
+            <h3><a href="index.php?id=hry&amp;val={{performance.id_hry}}">{{performance.nazevhry}}</a></h3>
             <p><strong>Začátek:</strong> {{performance.zacatek}} ({{performance.delka}} minut)</p>
             <p><strong>Místo:</strong> <a href="index.php?id=misto&amp;val={{performance.id_mista}}">{{performance.nazev}}</a></p>
             <input type="hidden" name="action" value="{{performance.action}}">

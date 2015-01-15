@@ -12,6 +12,7 @@
 	require 'conf/config.inc.php';
     require 'conf/const.inc.php';
     require 'conf/style.inc.php';
+    require 'conf/texts.inc.php';
     require 'conf/functions.inc.php';					// pomocne funkce
 
 	// nacist objekty - soubory .class.php

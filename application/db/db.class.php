@@ -4,9 +4,14 @@ class db
 {
 	// vlastni pripojeni k DB - tady to mam public, abych se k tomu rychle dostal. Neni to spravne.
 	public $connection = null;
-	
-	// ***********************************************************
-	// START UNIVERZALNI METODY
+
+
+
+	//==================================================================================================================
+	//==================================================================================================================
+	//==================================================================================================================
+
+	// UNIVERZALNI METODY
 		
 	/**
 	 * Nacist 1 zaznam z tabulky v DB.
@@ -44,14 +49,14 @@ class db
 					$value_pom = $item["value_mysql"]; 		// je to systemove, vlozit rovnou - POZOR na SQL injection, tady to muze projit
 	
 	
-				$where_pom .= "`$column` $symbol  $value_pom ";
+				$where_pom .= "$column $symbol  $value_pom ";
 			}
 	
 			// doplnit slovo where
 			if (trim($where_pom) != "") $where_pom = "where $where_pom";
 	
 			// 1) pripravit dotaz s dotaznikama
-			$query = "select $select_columns_string from `".$table_name."` $where_pom $limit_string;";
+			$query = "select $select_columns_string from ".$table_name." $where_pom $limit_string;";
 			//////echo "$query <br/>";
 
 			// 2) pripravit si statement
@@ -94,14 +99,19 @@ class db
 				}
 				else
 				{
-					//echo "Chyba v dotazu - PDOStatement::errorInfo(): ";
-					//printr($errors);
-					//echo "SQL dotaz: $query";
+					if(VERBOSE == true) {
+						echo "Chyba v dotazu - PDOStatement::errorInfo(): ";
+						printr($errors);
+						echo "SQL dotaz: $query";
+					}
 					return false;
 				}
 	}
-	
-	
+
+	//==================================================================================================================
+	//==================================================================================================================
+	//==================================================================================================================
+
 	/**
 	* Nacist vsechny zaznamy z tabulky.
 	 * Poznamka: tato metoda je stejna jako DBSelectOne - lisi se to jen posledni casti Fetch vs FetchAll
@@ -149,8 +159,8 @@ class db
 					$value_pom = $item["value_mysql"]; 		// je to systemove, vlozit rovnou - POZOR na SQL injection, tady to muze projit
 	
 	
-	 				//////echo "`$column` $symbol  $value_pom ";
-	 				$where_pom .= "`$column` $symbol  $value_pom ";
+	 				//////echo "$column $symbol  $value_pom ";
+	 				$where_pom .= "$column $symbol  $value_pom ";
 	 	}
 	
 	 	// doplnit slovo where
@@ -170,7 +180,7 @@ class db
 	 		if (trim($order_by_pom != null))
 	 		$order_by_pom .= ", ";
 	 			
-	 		$order_by_pom .= "`$column` $sort";
+	 		$order_by_pom .= "$column $sort";
 	 	}
 	
 	 		// doplnit slovo order by
@@ -178,7 +188,7 @@ class db
 	 			
 	
 	 		// 1) pripravit dotaz s dotaznikama
-	 		$query = "select $select_columns_string from `".$table_name."` $where_pom $order_by_pom $limit_string;";
+	 		$query = "select $select_columns_string from ".$table_name." $where_pom $order_by_pom $limit_string;";
 	 		//////echo $query;
 
 
@@ -201,7 +211,7 @@ class db
 	 		$bind_param_number ++;
 	 		}
 	 		}
-//********************/
+			//********************/
            // ////printr($statement);
 
 	 		// 4) provest dotaz
@@ -225,13 +235,21 @@ class db
 	 	}
 	 	else
 	 	{
-	 		//echo "Chyba v dotazu - PDOStatement::errorInfo(): ";
-	 		//printr($errors);
-			//echo "SQL dotaz: $query";
+			if(VERBOSE == true) {
+				echo "Chyba v dotazu - PDOStatement::errorInfo(): ";
+				printr($errors);
+				echo "SQL dotaz: $query";
+			}
             return null;
 	 	}
 	 }
-	
+
+
+	//==================================================================================================================
+	//==================================================================================================================
+	//==================================================================================================================
+
+
 	/**
 	 * 
 	 * Pridat polozku do DB - zakladni verze bez mysl fci typu now().
@@ -255,12 +273,12 @@ class db
 	 		if ($insert_columns != "") $insert_columns .= ", ";
 	 		if ($insert_columns != "") $insert_values .= ", ";
 	
-	 		$insert_columns .= "`$column`";
+	 		$insert_columns .= "$column";
 	 		$insert_values .= "?";
 	 	}
 	
 	 		// 1) pripravit dotaz s dotaznikama
-	 		$query = "insert into `$table_name` ($insert_columns) values ($insert_values);";
+	 		$query = "insert into $table_name ($insert_columns) values ($insert_values);";
 	
 	 		// 2) pripravit si statement
 	 		$statement = $this->connection->prepare($query);
@@ -296,14 +314,20 @@ class db
 	 		}
 	 		else
 	 			{
-	 				//echo "Chyba v dotazu - PDOStatement::errorInfo(): ";
-	 				//printr($errors);
-	 				//echo "SQL dotaz: $query";
+					if(VERBOSE == true) {
+						echo "Chyba v dotazu - PDOStatement::errorInfo(): ";
+						printr($errors);
+						echo "SQL dotaz: $query";
+					}
                     return false;
 				}
 	}
-	
-	
+
+
+	//==================================================================================================================
+	//==================================================================================================================
+	//==================================================================================================================
+
 	/**
 	* Pridat polozku do DB - rozsirena verze.
 	*
@@ -333,12 +357,12 @@ class db
                         $value_pom = $row["value_mysql"]; 		// je to systemove, vlozit rovnou - POZOR na SQL injection, tady to muze projit
 
 
-                        $insert_columns .= "`$column`";
+                        $insert_columns .= "$column";
                         $insert_values .= "$value_pom";
             }
 
             // 1) pripravit dotaz s dotaznikama
-                        $query = "insert into `$table_name` ($insert_columns) values ($insert_values);";
+                        $query = "insert into $table_name ($insert_columns) values ($insert_values);";
                         // ////echo $query;
 
                         // 2) pripravit si statement
@@ -381,11 +405,17 @@ class db
                             }
                             else
                             {
-                                //echo "Chyba v dotazu - PDOStatement::errorInfo(): ";
-                                //printr($errors);
-                                //echo "SQL dotaz: $query";
+								if(VERBOSE == true) {
+									echo "Chyba v dotazu - PDOStatement::errorInfo(): ";
+									printr($errors);
+									echo "SQL dotaz: $query";
+								}
             				}
 	}
+
+	//==================================================================================================================
+	//==================================================================================================================
+	//==================================================================================================================
 
 	public function DBUpdate($table_name, $item, $where_str, $limit_string)
 	{
@@ -401,11 +431,11 @@ class db
 				// pridat carky
 				if ($insert_data != "") $insert_data .= ", ";
 
-				$insert_data .= "`$column` = ?";
+				$insert_data .= "$column = ?";
 			}
 
 		// 1) pripravit dotaz s dotaznikama
-		$query = "update `$table_name` set $insert_data where $where_str;";
+		$query = "update $table_name set $insert_data where $where_str;";
 
 		// 2) pripravit si statement
 		$statement = $this->connection->prepare($query);
@@ -440,9 +470,11 @@ class db
 		}
 		else
 		{
-			//echo "Chyba v dotazu - PDOStatement::errorInfo(): ";
-			//printr($errors);
-			//echo "SQL dotaz: $query";
+			if(VERBOSE == true) {
+				echo "Chyba v dotazu - PDOStatement::errorInfo(): ";
+				printr($errors);
+				echo "SQL dotaz: $query";
+			}
 			return false;
 		}
 
@@ -485,14 +517,14 @@ class db
                     $value_pom = $item["value_mysql"]; 		// je to systemove, vlozit rovnou - POZOR na SQL injection, tady to muze projit
 
 
-                $where_pom .= "`$column` $symbol  $value_pom ";
+                $where_pom .= "$column $symbol  $value_pom ";
             }
 
         // doplnit slovo where
         if (trim($where_pom) != "") $where_pom = "where $where_pom";
 
         // 1) pripravit dotaz s dotaznikama
-        $query = "delete from `".$table_name."` $where_pom $limit_string;";
+        $query = "delete from ".$table_name." $where_pom $limit_string;";
         //////echo "$query <br/>";
 
         // 2) pripravit si statement
@@ -534,9 +566,11 @@ class db
         }
         else
         {
-            //echo "Chyba v dotazu - PDOStatement::errorInfo(): ";
-            //printr($errors);
-            //echo "SQL dotaz: $query";
+			if(VERBOSE == true) {
+				echo "Chyba v dotazu - PDOStatement::errorInfo(): ";
+				printr($errors);
+				echo "SQL dotaz: $query";
+			}
 			return $errors;
         }
     }
@@ -562,24 +596,28 @@ class db
 	
 		} catch (PDOException $e)
 		{
-			//print "Error!: " . $e->getMessage() . "<br/>";
+			if(VERBOSE == true) {
+				print "Error!: " . $e->getMessage() . "<br/>";
+			}
 			die();
 		}
 
-		// PDO - MySQL
+		// PDO - PgSQL
 		if(DB_TYPE == 'pgsql')try
 		{
-			$this->connection = new PDO("pgsql:host=".DB_HOST."; dbname=".DB_DATABASE_NAME."; user=".DB_USER_LOGIN."; password=". DB_USER_PASSWORD, $options);
-
-			// nastavit pripojeni na UTF-8 - pro starsi verze PHP
-			//$this->connection->exec("SET NAMES UTF8");
+			$this->connection = new PDO("pgsql:host=".DB_HOST.";
+			 							dbname=".DB_DATABASE_NAME.";
+			 							user=".DB_USER_LOGIN.";
+			 							password=". DB_USER_PASSWORD);
 
 		} catch (PDOException $e)
 		{
-			//print "Error!: " . $e->getMessage() . "<br/>";
+			if(VERBOSE == true) {
+				print "Error!: " . $e->getMessage() . "<br/>";
+			}
 			die();
 		}
-	} // konec Connect
+	}
 	
 	
 	/**

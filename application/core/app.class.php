@@ -53,7 +53,7 @@ class app
         $prihl = isset($_SESSION[MY_SES]["user"]["flag"]) && $_SESSION[MY_SES]["user"]["flag"]==true;
       //  printr($prihl);
 
-        $data["title"]="Semestrání práce WEB";
+        $data["title"] = TITLE;
         $data["menu"][$id]["aktiv"]="active";
         $data["menu_member"][$id]["aktiv"]="active";
         $data["menu_admin"][$id]["aktiv"]="active";
@@ -84,8 +84,7 @@ class app
             $this->appendNavbar("Můj program", "index.php?id=mujprog");
             $data["nadpis"]="Můj program";
             $data["content"]="text";
-            $data["obsah"]='   <p class="text-justify">Zde budou konkrétní informace o programu uživatele. Sit amet, consectetur adipiscing elit. Nam sodales arcu non fermentum vestibulum. Sed sed cursus risus. Donec porta urna in tellus sodales, ut congue velit blandit. In porttitor vulputate enim, vel viverra nulla mattis eu. Fusce mollis, diam egestas fringilla lobortis, tellus erat sodales ipsum, vitae auctor arcu lectus nec justo. Sed rhoncus, ex in condimentum rhoncus, velit est ultricies urna, sed posuere mauris lectus ac dui. Nullam tincidunt ligula nec congue commodo. Praesent pellentesque luctus pharetra. Maecenas at blandit nisi. Etiam vitae nulla lectus. Quisque sed augue elementum nisl tincidunt vulputate nec a est.
-                    </p>';
+            $data["obsah"] = TEXT_MUJ_PROGRAM;
 
         }elseif($id=="mujucet" && $prihl){
             $this->appendNavbar("Můj účet", "index.php?id=mujucet");
@@ -104,10 +103,7 @@ class app
             $this->appendNavbar("O akci", "index.php?id=akce");
             $data["nadpis"]="Akce";
             $data["content"]="text";
-            $data["obsah"]='   <p class="text-justify">Zde budou obecné informace o akci. Sit amet, consectetur adipiscing elit. Nam sodales arcu non fermentum vestibulum. Sed sed cursus risus. Donec porta urna in tellus sodales, ut congue velit blandit. In porttitor vulputate enim, vel viverra nulla mattis eu. Fusce mollis, diam egestas fringilla lobortis, tellus erat sodales ipsum, vitae auctor arcu lectus nec justo. Sed rhoncus, ex in condimentum rhoncus, velit est ultricies urna, sed posuere mauris lectus ac dui. Nullam tincidunt ligula nec congue commodo. Praesent pellentesque luctus pharetra. Maecenas at blandit nisi. Etiam vitae nulla lectus. Quisque sed augue elementum nisl tincidunt vulputate nec a est.
-                    </p>
-                    <p class="text-justify">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam sodales arcu non fermentum vestibulum. Sed sed cursus risus. Donec porta urna in tellus sodales, ut congue velit blandit. In porttitor vulputate enim, vel viverra nulla mattis eu. Fusce mollis, diam egestas fringilla lobortis, tellus erat sodales ipsum, vitae auctor arcu lectus nec justo. Sed rhoncus, ex in condimentum rhoncus, velit est ultricies urna, sed posuere mauris lectus ac dui. Nullam tincidunt ligula nec congue commodo. Praesent pellentesque luctus pharetra. Maecenas at blandit nisi. Etiam vitae nulla lectus. Quisque sed augue elementum nisl tincidunt vulputate nec a est.
-                    </p>';
+            $data["obsah"] = TEXT_O_AKCI;
 
         }elseif($id=="hry"){
             $this->appendNavbar("Uváděné hry", "index.php?id=hry");
@@ -123,10 +119,13 @@ class app
             $this->appendNavbar("Letošní ročník", "index.php?id=letos");
             $data["nadpis"]="Letošní ročník";
             $data["content"]="text";
-            $data["obsah"]='   <p class="text-justify">Zde budou konkrétní informace o letošním ročníku, consectetur adipiscing elit. Nam sodales arcu non fermentum vestibulum. Sed sed cursus risus. Donec porta urna in tellus sodales, ut congue velit blandit. In porttitor vulputate enim, vel viverra nulla mattis eu. Fusce mollis, diam egestas fringilla lobortis, tellus erat sodales ipsum, vitae auctor arcu lectus nec justo. Sed rhoncus, ex in condimentum rhoncus, velit est ultricies urna, sed posuere mauris lectus ac dui. Nullam tincidunt ligula nec congue commodo. Praesent pellentesque luctus pharetra. Maecenas at blandit nisi. Etiam vitae nulla lectus. Quisque sed augue elementum nisl tincidunt vulputate nec a est.
-                    </p>
-                    <p class="text-justify">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam sodales arcu non fermentum vestibulum. Sed sed cursus risus. Donec porta urna in tellus sodales, ut congue velit blandit. In porttitor vulputate enim, vel viverra nulla mattis eu. Fusce mollis, diam egestas fringilla lobortis, tellus erat sodales ipsum, vitae auctor arcu lectus nec justo. Sed rhoncus, ex in condimentum rhoncus, velit est ultricies urna, sed posuere mauris lectus ac dui. Nullam tincidunt ligula nec congue commodo. Praesent pellentesque luctus pharetra. Maecenas at blandit nisi. Etiam vitae nulla lectus. Quisque sed augue elementum nisl tincidunt vulputate nec a est.
-                    </p>';
+            $data["obsah"]= TEXT_LETOS;
+
+        }elseif($id=="cena"){
+            $this->appendNavbar("Cena", "index.php?id=cena");
+            $data["nadpis"]="Cena";
+            $data["content"]="text";
+            $data["obsah"]= TEXT_CENA;
 
         }elseif($id=="reg" && !$admin){
             $this->appendNavbar("Registrace", "index.php?id=reg");
@@ -297,7 +296,7 @@ class app
             if($result == 1){
                 $data["data"]["success"]="Hra byla úspěšně smazána";
             }else{
-                if(isset($result[0]) && $result[0] == 23000){ //check sql error value
+                if(isset($result[0]) && ($result[0] == 23000 || $result[0] == 23503 )){ //check sql error value
                     $data["data"]["error"][]="Nelze odstranit hru. Je naplánované její uvedení.";
                 }else{
                     $data["data"]["error"][]="Chyba při operaci s databází, hra nebyla smazána.";
@@ -461,7 +460,7 @@ class app
             if($result == 1){
                 $data["data"]["success"]="Místo bylo úspěšně smazáno.";
             }else{
-                if(isset($result[0]) && $result[0] == 23000){ //check sql error value
+                if(isset($result[0]) && ($result[0] == 23000  || $result[0] == 23503)){ //check sql error value
                     $data["data"]["error"][]="Nelze odstranit místo. Je používáno pro uvedení her.";
                 }else{
                     $data["data"]["error"][]="Chyba při operaci s databází, místo nebylo smazáno.";
@@ -678,7 +677,7 @@ class app
         // vytvořeni tlačítek pro smazání
         foreach ($data["performances"] as &$value){
             $msg = "Opravdu chcete smazat uvedení: \\n"
-                .$value["zacatek"]." hra: ".$value["nazevHry"]." místo: ".$value["nazev"];
+                .$value["zacatek"]." hra: ".$value["nazevhry"]." místo: ".$value["nazev"];
             $value["delA"] = "confimElement(\"".$msg."\", \"vuved\", ".($value["id_uvedeni"]+456).", \"delete\")"; //magic hash number
         }
 
@@ -691,8 +690,7 @@ class app
 
         $data["nadpis"]="Registrace";
         $data["content"]="regform";
-        $data["info"]="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam sodales arcu non fermentum vestibulum. Sed sed cursus risus. Donec porta urna in tellus sodales, ut congue velit blandit. In porttitor vulputate enim, vel viverra nulla mattis eu. Fusce mollis, diam egesta";
-
+        $data["info"] = TEXT_REG_INFO;
         if($do=="reg"){
             $hrac = new hrac();
             require_once("check/regcheck.php");
@@ -728,14 +726,7 @@ class app
 
         $data["nadpis"]="Pivko";
         $data["content"]="text";
-        $data["obsah"]='   <p class="text-justify">Obecný uvítací text, consectetur adipiscing elit. Nam sodales arcu non fermentum vestibulum. Sed sed cursus risus. Donec porta urna in tellus sodales, ut congue velit blandit. In porttitor vulputate enim, vel viverra nulla mattis eu. Fusce mollis, diam egestas fringilla lobortis, tellus erat sodales ipsum, vitae auctor arcu lectus nec justo. Sed rhoncus, ex in condimentum rhoncus, velit est ultricies urna, sed posuere mauris lectus ac dui. Nullam tincidunt ligula nec congue commodo. Praesent pellentesque luctus pharetra. Maecenas at blandit nisi. Etiam vitae nulla lectus. Quisque sed augue elementum nisl tincidunt vulputate nec a est.
-                    </p>
-                    <p class="text-justify">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam sodales arcu non fermentum vestibulum. Sed sed cursus risus. Donec porta urna in tellus sodales, ut congue velit blandit. In porttitor vulputate enim, vel viverra nulla mattis eu. Fusce mollis, diam egestas fringilla lobortis, tellus erat sodales ipsum, vitae auctor arcu lectus nec justo. Sed rhoncus, ex in condimentum rhoncus, velit est ultricies urna, sed posuere mauris lectus ac dui. Nullam tincidunt ligula nec congue commodo. Praesent pellentesque luctus pharetra. Maecenas at blandit nisi. Etiam vitae nulla lectus. Quisque sed augue elementum nisl tincidunt vulputate nec a est.
-                    </p>
-                    <p class="text-justify">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam sodales arcu non fermentum vestibulum. Sed sed cursus risus. Donec porta urna in tellus sodales, ut congue velit blandit. In porttitor vulputate enim, vel viverra nulla mattis eu. Fusce mollis, diam egestas fringilla lobortis, tellus erat sodales ipsum, vitae auctor arcu lectus nec justo. Sed rhoncus, ex in condimentum rhoncus, velit est ultricies urna, sed posuere mauris lectus ac dui. Nullam tincidunt ligula nec congue commodo. Praesent pellentesque luctus pharetra. Maecenas at blandit nisi. Etiam vitae nulla lectus. Quisque sed augue elementum nisl tincidunt vulputate nec a est.
-                    </p>
-                    <p class="text-justify">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam sodales arcu non fermentum vestibulum. Sed sed cursus risus. Donec porta urna in tellus sodales, ut congue velit blandit. In porttitor vulputate enim, vel viverra nulla mattis eu. Fusce mollis, diam egestas fringilla lobortis, tellus erat sodales ipsum, vitae auctor arcu lectus nec justo. Sed rhoncus, ex in condimentum rhoncus, velit est ultricies urna, sed posuere mauris lectus ac dui. Nullam tincidunt ligula nec congue commodo. Praesent pellentesque luctus pharetra. Maecenas at blandit nisi. Etiam vitae nulla lectus. Quisque sed augue elementum nisl tincidunt vulputate nec a est.
-                    </p>';
+        $data["obsah"] = TEXT_PIVKO;
     }
 
     //===============================================================================================================
@@ -868,7 +859,7 @@ class app
             $uvedeniDB = new uvedeniDB($this->GetConnection());
             $uvedeni = $uvedeniDB->GetUvedeniInfoByID($_GET["val"]);
 
-            $data["nadpis"] = $uvedeni["nazevHry"];
+            $data["nadpis"] = $uvedeni["nazevhry"];
             $data["podtitul"] = $uvedeni["zacatek"]." - ".$uvedeni["nazev"];
 
             $prihlaskyDB = new prihlaskyDB($this->GetConnection());
@@ -890,6 +881,8 @@ class app
         if($_SESSION[MY_SES]["user"]["rights"]==99){
             $uvedeni = $uvedeniDB->LoadAllUvedeniInfo();
         }
+
+        //printr($uvedeni);
 
         $data["performances"] = $uvedeni;
 
@@ -921,6 +914,9 @@ class app
 
         $data["menu"]["letos"]["text"]="Letošní ročník";
         $data["menu"]["letos"]["href"]="?id=letos";
+
+        $data["menu"]["cena"]["text"]="Cena";
+        $data["menu"]["cena"]["href"]="?id=cena";
 
 
         if(!isset($_SESSION[MY_SES]["user"]["flag"]) || $_SESSION[MY_SES]["user"]["flag"] == false) {
