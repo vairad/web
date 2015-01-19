@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 <html lang="cs">
 <head>
-    <!-- Meta, title, CSS, favicons, etc.
-     TODO doladit hlavičku-->
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -24,7 +22,7 @@
     <!-- My CSS -->
     <link href="{{my_css}}" rel="stylesheet">
 
-    <!-- TODO favicon projektu -->
+    <!-- FAVICO -->
     <link rel="icon" href="{{favico}}">
 
 </head>
@@ -59,9 +57,32 @@
             <div class="row">
 
                 <!-- CONTENT -->
+                {% if content == 'title' %}
+                <div class="col-xs-9 no-padding">
+
+                    <div id="fb" class="col-md-3 col-xs-0 fb-like rounded content fb-margin">
+                        <div class="col-md-3 fb-like-box"
+                             data-href="https://www.facebook.com/pages/PIVKO/848625445171446"
+                             data-colorscheme="light"
+                             data-show-faces="false"
+                             data-header="true"
+                             data-stream="true"
+                             data-show-border="false">
+
+                        </div>
+                    </div>
+
+                    <div class="col-md-offset-0 col-md-7 content rounded">
+                        <h1>{{nadpis}}</h1>
+                        {{obsah | raw}}
+
+                    </div>
+                </div>
+                {% else %}
                 <div class="col-xs-9 content rounded" id="body">
                     {% include 'default/content.html' %}
                 </div>
+                {% endif %}
 
                 <!-- RIGHT BAR -->
                 <div class="col-xs-offset-0 col-xs-3 right-menu rounded my-right">
@@ -98,34 +119,44 @@
     <script src="{{bootstrap_datepicker}}"></script>
     <script src="{{bootstrap_dp_locale}}"></script>
     <script>
-     $(function(){
-         $('.datepicker').datepicker({
-             format: 'dd.mm.yyyy',
-             autoclose:true,
-             language: 'cs'
+         $(function(){
+             $('.datepicker').datepicker({
+                 format: 'dd.mm.yyyy',
+                 autoclose:true,
+                 language: 'cs'
+             });
          });
-     });
-     $(function(){
-         $('.datepicker2').datepicker({
-             format: 'dd.mm.yyyy',
-             autoclose:true,
-             language: 'cs',
-             startDate: '{{startDay}}',
-             endDate: '{{endDay}}'
+         $(function(){
+             $('.datepicker2').datepicker({
+                 format: 'dd.mm.yyyy',
+                 autoclose:true,
+                 language: 'cs',
+                 startDate: '{{startDay}}',
+                 endDate: '{{endDay}}'
+             });
          });
-     });
- </script>
- <script>
-     function confimElement(label, type, id, vardo) {
-         var r;
-         r = confirm(label);
-         if (r == true) {
-             window.location.href="?id="+type+"&do="+vardo+"&val="+id;
-         } else {
-             //do nothing
+     </script>
+     <script>
+         function confimElement(label, type, id, vardo) {
+             var r;
+             r = confirm(label);
+             if (r == true) {
+                 window.location.href="?id="+type+"&do="+vardo+"&val="+id;
+             } else {
+                 //do nothing
+             }
          }
-     }
- </script>
+     </script>
+
+    <!-- FB EVIL -->
+     <script>(function(d, s, id) {
+         var js, fjs = d.getElementsByTagName(s)[0];
+         if (d.getElementById(id)) return;
+         js = d.createElement(s); js.id = id;
+         js.src = "//connect.facebook.net/cs_CZ/all.js#xfbml=1";
+         fjs.parentNode.insertBefore(js, fjs);
+     }(document, 'script', 'facebook-jssdk'));
+     </script>
 
 </body>
 </html>

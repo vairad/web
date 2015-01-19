@@ -68,7 +68,7 @@ a:hover, a:focus{
 .content{
     background-color: lightgrey;
     margin-top: 10px;
-    min-height: 400px;
+    min-height: 425px;
 }
 .footer{
     background-color: white;
@@ -120,7 +120,7 @@ form .row{
 }
 
 img.glyphicon{
- height: 14px;
+    height: 14px;
 }
 
 
@@ -168,4 +168,13 @@ h2{
 
 .inline{
     display: inline;
+}
+
+.no-padding{
+    padding: 0px;
+}
+
+.fb-margin{
+    margin-right: 2%;
+    padding-right: 37.9%;
 }

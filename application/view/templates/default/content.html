@@ -21,11 +21,12 @@
 {% if podtitul|length > 0 %}
 <h4>{{podtitul}}</h4>
 {% endif %}
+
+
 <!-- sPROSTÝ TEXT V HTML -->
+
 {% if content == 'text' %}
 {{obsah | raw}}
-
-
 <!-- REGISTRAČNÍ FORMULÁŘ -->
 {% elseif content == 'regform' %}
 <p>{{info}}</p>
