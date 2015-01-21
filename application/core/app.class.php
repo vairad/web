@@ -355,7 +355,7 @@ class app
     //===============================================================================================================
 
 
-    public function stranaMujProgram(){
+    public function stranaMujProgram(){ //TODO better view
         global $data;
 
         $data["content"]="proglist";
@@ -890,15 +890,32 @@ class app
         $data["performances"] = $uvedeniDB->LoadAllUvedeniInfo();
 
 
+        $moje_hry = $prihlaskyDB->mojeUvedeni($_SESSION[MY_SES]["user"]["id"]);
+        foreach( $moje_hry as &$u){
+            $u["k"] = $u["z"] + $u["delka"]*60; //delka je v minutach a čas v sekundach
+        }
+
         // vytvořeni tlačítek pro smazání
         foreach ($data["performances"] as &$value){
+            $value["k"] = $value["z"] + $value["delka"]*60; //delka je v minutach a čas v sekundach
             $id_u = $value["id_uvedeni"];
+
+            //======================== počítání nestihnutí
+            $stihnes = true;
+            foreach( $moje_hry as $prihlasena){
+                $cela_pred = $prihlasena["z"] < $value["z"] && $prihlasena["k"] < $value["z"];
+                $cela_za = $prihlasena["z"] > $value["k"] && $prihlasena["k"] > $value["k"];
+                $stihnes &= ($cela_pred || $cela_za);
+            }
+            //========================
+
+          // jak se má chovat tlačítko
            if($bool_before == true) { //=================================================== case blok přihlašování
                $value["disabled"] = "disabled";
                $value["submitVal"] = "Přihlašování není spuštěno";
                $value["action"] = "none";
 
-           }elseif($prihlaskyDB->prihlasen($uziv, $id_u)){//=============================== case jsem přihlášen
+           }elseif($prihlaskyDB->prihlasen($uziv, $id_u)){//============================== case jsem přihlášen
 
                 if($bool_after == true){
                     $value["disabled"] = "disabled";
@@ -908,12 +925,12 @@ class app
                 $value["submitVal"] = "Odhlásit";
                 $value["action"] = "odhlas";
 
-           }elseif($prihlaskyDB->obsazeno($id_u)){//======================================== case obsazeno
+           }elseif($prihlaskyDB->obsazeno($id_u)){//====================================== case obsazeno
                $value["disabled"] = "disabled";
                $value["submitVal"] = "Hra je plně obsazena.";
                $value["action"] = "no";
 
-           }elseif($prihlaskyDB->nestihnes($uziv, $id_u)){//=============================== case nestihneš
+           }elseif(!$stihnes == true){//================================================== case nestihneš
                $value["disabled"] = "disabled";
                $value["submitVal"] = "Tuto hru nestihneš!";
                $value["action"] = "no";

@@ -62,6 +62,19 @@ function timeToData($timestamp){
     return $datum;
 }
 
+function timestamp($datum) {
+    $datum=explode (" ", $datum) ;
+    $denmesic=explode ("-", $datum[0]) ;
+    $hms=explode (":", $datum[1]) ;
+    $mesic=round($denmesic[1],0);
+    $den=round($denmesic[2],0);
+    $rok=$denmesic[0];
+    $hodina=$hms[0];
+    $minuta=$hms[1];
+    $timestamp=mktime($hodina, $minuta, 0, $mesic, $den, $rok, -1);
+    return $timestamp ;
+}
+
 /**
  * @param $timestamp
  * @return bool|string
