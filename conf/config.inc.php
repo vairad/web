@@ -29,34 +29,36 @@
 	 * Pripojeni k DB.
 	 */
 
-/*
+
 	// lokalni
 	define('DB_TYPE', 'mysql');
 	define('DB_HOST', '127.0.0.1');
 	define('DB_DATABASE_NAME', 'pivko');
 	define('DB_USER_LOGIN', 'root');
 	define('DB_USER_PASSWORD', '');
-*/
+
 	// online
 
-	define('DB_TYPE', 'pgsql');
+	/*define('DB_TYPE', 'pgsql');
 	define('DB_HOST', 'pivko.pilirion.org');
 	define('DB_DATABASE_NAME', 'aki');
 	define('DB_USER_LOGIN', 'aki');
 	define('DB_USER_PASSWORD', 'akiHeslo');
+	*/
 
-	
 	/**
 	 * Tady jsou ruzna databazova nastaveni.
 	 */
-	
+
 	// prefix vsech mych tabulek
 	define('TABLE_PREFIX', '');
 
 	// tabulka predmetu
 	define('TABLE_MISTA', TABLE_PREFIX.'mista');
     define('TABLE_HRY', TABLE_PREFIX.'hry');
-    define('TABLE_OSOBY', TABLE_PREFIX.'ucastnici');
+   //define('TABLE_OSOBY', TABLE_PREFIX.'ucastnici');
+	define('TABLE_OSOBY', TABLE_PREFIX.'osoby');
+
     define('TABLE_UVEDENI', TABLE_PREFIX.'uvedeni');
     define('TABLE_PRIHLASKY', TABLE_PREFIX.'prihlasky');
 

@@ -60,12 +60,24 @@ class osobyDB extends db
         return $this->DBSelectAll(TABLE_OSOBY,"id_osoby, jmeno, prijmeni, prezdivka",$where_arr, "", $order);
     }
 
+    /**
+     *
+     * @param int $rights_val
+     * @return
+     */
+    public function UpdateOsobaRights($osoba, $rights_val)
+    {
+        $item["typuctu"]=$rights_val;
+
+        return $this->DBUpdate(TABLE_OSOBY, $item, "id_osoby = $osoba and typuctu != ".CREATE_RIGHTS, "");
+    }
+
 
 
     public function SelectAllOsobyInfo()
     {
         $table_name = TABLE_OSOBY;
-        $select_columns_string = "jmeno, prijmeni, prezdivka, datnar, pohlavi, email, mobil, typuctu";
+        $select_columns_string = "id_osoby, jmeno, prijmeni, prezdivka, datnar, pohlavi, email, mobil, typuctu";
         $where_array = array();
         $limit_string = "";
         $order_by_array = $this->abecedne();

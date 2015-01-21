@@ -309,8 +309,11 @@ class db
 	 		// 6) nacist ID vlozeneho zaznamu a vratit
 	 		if ($mysql_pdo_error == false)
 	 		{
-	 		$item_id = $this->connection->lastInsertId();
-	 		return true;
+	 			if(VERBOSE == true){
+					printr($query);
+				}
+				$item_id = $this->connection->lastInsertId();
+	 			return true;
 	 		}
 	 		else
 	 			{
@@ -419,8 +422,7 @@ class db
 
 	public function DBUpdate($table_name, $item, $where_str, $limit_string)
 	{
-		// MySql
-		$mysql_pdo_error = false;
+		$sql_pdo_error = false;
 
 		// SLOZIT TEXT STATEMENTU s otaznikama
 		$insert_data = "";
@@ -435,7 +437,7 @@ class db
 			}
 
 		// 1) pripravit dotaz s dotaznikama
-		$query = "update $table_name set $insert_data where $where_str;";
+		$query = "update $table_name set $insert_data where $where_str $limit_string;";
 
 		// 2) pripravit si statement
 		$statement = $this->connection->prepare($query);
@@ -455,17 +457,21 @@ class db
 
 		// 5) kontrola chyb
 		$errors = $statement->errorInfo();
-		//////printr($errors);
 
 		if ($errors[0] + 0 > 0)
 		{
 			// nalezena chyba
-			$mysql_pdo_error = true;
+			$sql_pdo_error = true;
 		}
 
 		// 6) nacist ID vlozeneho zaznamu a vratit
-		if ($mysql_pdo_error == false)
+		if ($sql_pdo_error == false)
 		{
+
+			if(VERBOSE == true){
+				printr($query);
+			}
+
 			return $statement->rowCount();
 		}
 		else

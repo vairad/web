@@ -1,46 +1,40 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Radek
- * Date: 8.12.2014
- * Time: 13:37
+
+/***********************************************************************************************************************
+ * Class hryDB
+ *
+ * Třída určená pro komunikaci s tabulkou her. Jednotlivé metody představují speciální pohledy a příkazy nad danou
+ * tabulkou, které jsou vystavěné nad základními operacemi ve třídě db.
+ *
+ * @author Radek VAIS
  */
 
 class hryDB extends db {
 
-    // konstruktor
+    /*******************************************************************************************************************
+     * Konstruktor
+     *
+     * @param $connection - třída PDO connection
+     */
     public function hryDB($connection)
     {
         $this->connection = $connection;
     }
 
-
-    /**
-     * @param hra $hra
+    /*******************************************************************************************************************
+     * Vloží hru do databáze dle objektu hra
+     *
+     * @param $hra hra - objekt pro záznam do databáze
+     * @return
      */
     public function InsertHra($hra)
     {
         $item = $hra->getItemDB();
-       // printr($item);
         return $this->DBInsert(TABLE_HRY,$item);
     }
 
-
-   /* public function DeleteHraByID($hra_id)
-    {
-        //TODO dodělat
-        $where_arr[0]["column"]= "id";
-        $where_arr[0]["value"]= "$hra_id";
-        $where_arr[0]["symbol"]= "=";
-
-        $hra = $this->DBSelectOne(TABLE_HRY, "*", $where_arr, $limit_string = "");
-        return $hra;
-    }*/
-
-
-    /**
-     * @param int $hra_id
-     * @return array[]
+    /*******************************************************************************************************************
+     *
      */
     public function getHraByID($hra_id)
     {
@@ -53,6 +47,10 @@ class hryDB extends db {
     }
 
 
+    /*******************************************************************************************************************
+     *
+     *
+     */
     public function LoadAllHry()
     {
         $table_name = TABLE_HRY;
@@ -70,7 +68,15 @@ class hryDB extends db {
         return $hry;
     }
 
+
+    /*******************************************************************************************************************
+     * Metoda smaže hru dle zvoleného id z databáze.
+     *
+     * @param $hra_id int - identifikátor hry (id_hry)
+     * @return int - počet smazaných řádků
+     */
     public function DeleteHraByID($hra_id){
+
         $where_arr[0]["column"]= "id_hry";
         $where_arr[0]["value"]= "$hra_id";
         $where_arr[0]["symbol"]= "=";
@@ -79,9 +85,11 @@ class hryDB extends db {
         return $result;
     }
 
-    /**
-     * @param hra $hra
-     * @param $hra_id id_hry
+    /*******************************************************************************************************************
+     * Aktualizuje záznam dle zadaného id na hodnoty objektu hra
+     *
+     * @param $hra hra - objekt data/hra.class s nastavenými, pro úpravu
+     * @param $hra_id int - identifikátor hry v databázi
      */
     public function UpdateHrabyID($hra_id, $hra){
         $item = $hra->getItemDB();
@@ -89,8 +97,6 @@ class hryDB extends db {
         $where_str= "id_hry = $hra_id";
 
         $limit_string = "";
-
-        //TODO check
 
         return $this->DBUpdate(TABLE_HRY, $item, $where_str, $limit_string);
     }

@@ -214,6 +214,19 @@ else {
     $data["game_fail"]["text"]=1;
     $err[]="Musíte zadat popis hry.";
 }
+//===================================================================================================================
+
+/*proměnná special*/
+if(!empty($_POST["special"]))
+{
+    $text=trim($_POST["special"]);
+
+    $data["game"]["special"]=$text;
+    $hra->setNeed($text);
+}
+else {
+   // speciální potřeby nejsou nutné
+}
 
 //===================================================================================================================
 

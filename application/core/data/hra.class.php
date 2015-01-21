@@ -3,7 +3,8 @@
 class hra {
     private $id;
 
-    private $name, $text;
+    private $name;
+    private $need, $text;
     private $num_m, $num_f, $num_h, $min;
     private $length, $cost;
     private $web;
@@ -16,7 +17,9 @@ class hra {
     public function hraFromDb($item){
         $this->setID($item["id_hry"]);
         $this->setName($item["nazev"]);
+
         $this->setText($item["popis"]);
+        $this->setNeed($item["special"]);
 
         $this->setNumM($item["pocet_m"]);
         $this->setNumF($item["pocet_z"]);
@@ -58,6 +61,7 @@ class hra {
         $item["min"] =  $this->getMin();
         $item["organizator"] = $this->getOrg();
         $item["web"] = $this->getWeb();
+        $item["special"] = $this->getNeed();
 
         return $item;
     }
@@ -70,9 +74,10 @@ class hra {
         $item["num_m"] = $this->getNumM();
         $item["num_f"] = $this->getNumF();
         $item["num_h"] = $this->getNumH();
-        $item["min_h"] =  $this->getMin();
+        $item["num_min"] =  $this->getMin();
         $item["org"] = $this->getOrg();
         $item["web"] = $this->getWeb();
+        $item["special"] = $this->getNeed();
 
         return $item;
     }
@@ -176,6 +181,15 @@ class hra {
     }
 
     /**
+     * @param string $need
+     */
+    public function setNeed($need)
+    {
+        $this->set_up["need"] = true;
+        $this->need = $need;
+    }
+
+    /**
      * @param int $num_f
      */
     public function setNumF($num_f)
@@ -261,6 +275,14 @@ class hra {
     public function getName()
     {
         return $this->name;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getNeed()
+    {
+        return $this->need;
     }
 
     /**

@@ -1,0 +1,39 @@
+<form role="form" method="post">
+
+    <!-- player -->
+    <div class="row">
+        <div class="col-md-offset-1 col-md-10">
+            <div class="input-group">
+                <span class="input-group-addon {% if game_fail.org == true  %} alert-danger {% endif %}">Účet</span>
+                <select name="user" class="form-control" required>
+                    <option value="">...</option>
+                    {% for user in users %}
+                    <option value="{{user.id_osoby+123}}" {{user.selected}}>{{user.jmeno}} {{user.prijmeni}} "{{user.prezdivka}}" ({{user.typuctuS}})</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <!--  -->
+    <div class="row">
+        <div class="col-md-offset-1 col-md-10">
+            <div class="input-group">
+                <span class="input-group-addon {% if game_fail.org == true  %} alert-danger {% endif %}">Oprávnění</span>
+                <select name="right" class="form-control" required>
+                    <option value="">...</option>
+                    {% for right in rights %}
+                    <option value="{{right.value+123}}" {{right.selected}}>{{right.text}}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-offset-5 col-md-2">
+            <input type="hidden" name="do" value="setup">
+            <button type="submit"  class="btn btn-default" formaction="index.php?id=prava#body">{{formSubmit}}</button>
+        </div>
+    </div>
+</form>

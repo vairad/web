@@ -66,17 +66,18 @@
     </div>
     <img src="data/images/hry/{{game.id_hry}}.jpg" alt="IDG Graf nenalezen (Imerze, Drama, Gaming)" class="col-xs-offset-0 col-xs-3" />
 </div>
-<!--
+
 <div class="row">
     <div class="well well-sm col-xs-offset-1 col-xs-10">
         <strong>Požadavky na hráče:</strong>
-        <p>Nerušící oděv alespoň trochu ladící do předválečného období - ženy sukně a halenku/košili, pánové košili a slušné kalhoty.</p>
-        <p>18+</p>
+        {{game.special | raw}}
     </div>
-</div> -->
+</div>
+
 <div class="row">
     <div class="well col-xs-offset-1 col-xs-10">
-        <strong>Anotace:</strong> {{game.popis | raw}}
+        <strong>Anotace:</strong>
+        {{game.popis | raw}}
     </div>
 </div>
 
@@ -117,27 +118,40 @@
     </table>
 </div>
 
-<!-- CREATE UVEDENI -->
-{% elseif content == 'vuved' %}
+<!-- NASTAVENI PRAV -->
+{% elseif content == 'rights' %}
 <h2>{{titleform}}</h2>
 <p>{{info}}</p>
-{% include 'default/form/create_performance.html' %}
+{% include 'default/form/rights.html' %}
 <h2>{{titlelist}}</h2>
 <div class="table-responsive">
     <table class="table table-striped table-bordered">
-        <tr> <th>Čas začátku</th><th>Hra</th><th>Místo</th>
-        <th></th></tr>
-        {%for performance in performances %}
+        <tr> <th>Kdo</th><th>Práva</th>
+           <!-- <th></th> --> </tr>
+        {%for user in users %}
 
+        <tr> <td>{{user.jmeno}} {{user.prijmeni}} "{{user.prezdivka}}" </td> <td>{{user.typuctuS}}</td>
+            <!--  <td><button onclick="" class="btn btn-block btn-info">Napad...</button></td> -->
+          </tr>
+          {% endfor %}
+      </table>
+  </div>
+
+<!-- MUJ PROGRAM -->
+{% elseif content == 'mujpr' %}
+<div class="table-responsive">
+    <table class="table table-striped table-bordered">
+        <tr> <th>Čas začátku</th><th>Hra</th><th>Místo</th>
+        </tr>
+
+        {%for performance in performances %}
         <tr> <td>{{performance.zacatek}}</td> <td>{{performance.nazevhry}}</td><td>{{performance.nazev}}</td>
-            <td><button onclick="{{performance.delA}}" class="btn btn-block btn-info">Smazat</button></td>
         </tr>
         {% endfor %}
     </table>
 </div>
 
-
-<!-- MANAGEMENT MISTO -->
+  <!-- MANAGEMENT MISTO -->
 {% elseif content == 'smisto' %}
 {% for item in a %}
 <a href="{{item.href}}" class="btn btn-info" >{{item.title}}</a>
@@ -160,18 +174,6 @@
         {% endfor %}
     </table>
 </div>
-
-
-<!-- CREATE MISTO -->
-{% elseif content == 'vmisto' %}
-<p>{{info}}</p>
-{% include 'default/form/create_misto.html' %}
-
-
-<!-- CREATE HRA -->
-{% elseif content == 'vhra' %}
-<p>{{info}}</p>
-{% include 'default/form/create_hra.html' %}
 
 
 <!-- LIST HRA -->
@@ -204,6 +206,36 @@
     {% endfor %}
 </div>
 
+
+<!-- CREATE UVEDENI -->
+{% elseif content == 'vuved' %}
+<h2>{{titleform}}</h2>
+<p>{{info}}</p>
+{% include 'default/form/create_performance.html' %}
+<h2>{{titlelist}}</h2>
+<div class="table-responsive">
+    <table class="table table-striped table-bordered">
+        <tr> <th>Čas začátku</th><th>Hra</th><th>Místo</th>
+            <th></th></tr>
+        {%for performance in performances %}
+
+        <tr> <td>{{performance.zacatek}}</td> <td>{{performance.nazevhry}}</td><td>{{performance.nazev}}</td>
+            <td><button onclick="{{performance.delA}}" class="btn btn-block btn-info">Smazat</button></td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+
+<!-- CREATE MISTO -->
+{% elseif content == 'vmisto' %}
+<p>{{info}}</p>
+{% include 'default/form/create_misto.html' %}
+
+
+<!-- CREATE HRA -->
+{% elseif content == 'vhra' %}
+<p>{{info}}</p>
+{% include 'default/form/create_hra.html' %}
 
 
 <!-- PRIHLASOVANI -->

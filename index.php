@@ -32,8 +32,11 @@
     require 'application/core/data/hra.class.php';
     require 'application/core/data/uvedeni.class.php';
 
+    //php mailer
+    require 'application/core/PHPMailer/class.phpmailer.php';
+
     // připojení twigu
-    require_once("application/view/twig/lib/Twig/Autoloader.php");
+    require_once("application/view/core/twig/lib/Twig/Autoloader.php");
 
 	// start the application
 	$app = new app();
@@ -59,7 +62,7 @@
     Twig_Autoloader::register();
 
         // cesta k adresari se sablonama - od index.php
-    $loader = new Twig_Loader_Filesystem('application/view');
+    $loader = new Twig_Loader_Filesystem('application/view/templates');
     $twig = new Twig_Environment($loader); // takhle je to bez cache
 
         // nacist danou sablonu z adresare

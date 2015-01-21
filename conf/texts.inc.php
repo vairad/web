@@ -14,7 +14,8 @@ Nevíte-li co to larp je, stačí použít odkaz na konci stránky.</p>
                     <p class="text-justify">PIVKo Dvanáctka nemá pevně daný program, víkend je sestaven z několika bloků ve kterých si každý může (a nemusí) navolit hru, jaká se mu zamlouvá. Je tak možné sestavit si nabitý víkend a jít z larpu do larpu, stejně jako strávit pohodové tři dny ve ketrých si zahrajete jeden dva larpy a zbytek strávíte prohlídkou města či posezením s kamarády. Jedná se tedy o klasický formát larpového festivalu.
                     </p>';
 
-$text_letos = '   <p class="text-justify"> Program PIVKa bude již tradičně začínat v pátek ve večerních hodinách několika málo larpy a jinou společenskou zábavou. V sobotu na vás budou čekat dva herní bloky, mezi kterými budete mít dostatek času na oběd. Na večer je naplánovaná hromadná party. V neděli se můžete účastnit posledního, dopoledního bloku larpů a poté dle libosti vyrazit domů.
+$text_letos = '    <p class="h4">27.2. - 1.3.2015</p>
+                    <p class="text-justify"> Program PIVKa bude již tradičně začínat v pátek ve večerních hodinách několika málo larpy a jinou společenskou zábavou. V sobotu na vás budou čekat dva herní bloky, mezi kterými budete mít dostatek času na oběd. Na večer je naplánovaná hromadná party. V neděli se můžete účastnit posledního, dopoledního bloku larpů a poté dle libosti vyrazit domů.
                             </p>
                     <p class="text-justify text-info">Další informace ohledně letošního PIVKa zde budou přibývat každým dnem.
                     </p>';

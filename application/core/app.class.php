@@ -31,6 +31,10 @@ class app
         $this->db->Connect();
     }
 
+    //===============================================================================================================
+    //===============================================================================================================
+    //===============================================================================================================
+    //===============================================================================================================
 
     /**
     Zpracuj url = vypočti vše potřebné
@@ -39,7 +43,7 @@ class app
         global $data;
 
 
-        $this->appendNavbar("Pivko", "index.php");
+        $this->appendNavbar("Pivko 2015", "index.php");
 
         $id = @$_REQUEST["id"];
 
@@ -49,7 +53,7 @@ class app
 
 
         // kontrolá práv
-        $admin = isset($_SESSION[MY_SES]["user"]["rights"]) && $_SESSION[MY_SES]["user"]["rights"]>90;
+        $admin = isset($_SESSION[MY_SES]["user"]["rights"]) && $_SESSION[MY_SES]["user"]["rights"]>=ADMIN_RIGHTS;
         $prihl = isset($_SESSION[MY_SES]["user"]["flag"]) && $_SESSION[MY_SES]["user"]["flag"]==true;
       //  printr($prihl);
 
@@ -70,6 +74,10 @@ class app
         }elseif($id=="vuved" && $admin){
             $this->appendNavbar("Správa uvedení", "index.php?id=vuved");
             $this->stranaVytvorUvedeni($do);
+
+        }elseif($id=="prava" && $admin){
+            $this->appendNavbar("Nastavení oprávnění", "index.php?id=prava");
+            $this->stranaPrava($do);
 
         }elseif($id=="uzivatele" && $admin){
             $this->appendNavbar("Seznam uživatelů", "index.php?id=uzivatele", true);
@@ -140,6 +148,8 @@ class app
 
     //===============================================================================================================
     //===============================================================================================================
+    //===============================================================================================================
+    //===============================================================================================================
 
     public function setFooter(){
         global $data;
@@ -150,6 +160,7 @@ class app
         $data["footer_right"]="Pilirion o.s.";
     }
 
+    //===============================================================================================================
     //===============================================================================================================
 
     public function setLogged(){
@@ -341,6 +352,9 @@ class app
 
     }
 
+    //===============================================================================================================
+    //===============================================================================================================
+
     public function stranaSeznamHer(){
         global $data;
 
@@ -368,6 +382,8 @@ class app
         }
     }
 
+    //===============================================================================================================
+    //===============================================================================================================
 
     public function stranaFormularHra($do){
         global $data;
@@ -379,7 +395,10 @@ class app
         $data["orgove"] = $orgove;
 
         //nastavení minule zvoleného
-        if(isset($_POST["org"])) {
+        if(isset($_POST["org"]) || isset($data["game"]["org"])) {
+            if(isset($data["game"]["org"])){
+                $_POST["org"] = $data["game"]["org"]+123;
+            }
             for ($i = 0; $i< count($data["orgove"]); $i++) {
                 if ($data["orgove"][$i]["id_osoby"] == ($_POST["org"]-123)) { //magic 123 hash number
                     $data["orgove"][$i]["selected"] = "selected";
@@ -441,6 +460,7 @@ class app
         }
     }
 
+    //===============================================================================================================
     //===============================================================================================================
 
 
@@ -725,7 +745,7 @@ class app
 
 
         $data["nadpis"]="Pivko";
-        $data["content"]="text";
+        $data["content"]="title";
         $data["obsah"] = TEXT_PIVKO;
     }
 
@@ -745,6 +765,55 @@ class app
         foreach($data["users"] as &$user){
             $user["pohlaviS"] = pohlaviS($user["pohlavi"]);
             $user["vek"]=vek($user["datnar"]);
+            $user["typuctuS"]= typustuS($user["typuctu"]);
+        }
+    }
+
+    //==================================================================================================================
+    //==================================================================================================================
+
+    /***************************************
+     * Tato metoda naplní globální proměnnou $data informacemi pro vyobrazení stránky s formulářem pro nastavení práv a
+     * tabulku uživatelů.
+     *
+     * @param $do string - vlajka k onznačení činnosti metody
+     */
+    public function stranaPrava($do){
+        global $data;
+
+        $data["nadpis"] = "Nastav oprávnění";
+        $data["content"] = "rights";
+
+        $data["formSubmit"] = "Nastav oprávnění";
+
+        $data["rights"] = array();
+        $data["rights"][0]["value"] = 0+USER_RIGHTS;
+        $data["rights"][0]["text"] = typustuS(USER_RIGHTS);
+
+        $data["rights"][1]["value"] = 0+ORG_RIGHTS;
+        $data["rights"][1]["text"] = typustuS(ORG_RIGHTS);
+
+        $data["rights"][2]["value"] = 0+ADMIN_RIGHTS;
+        $data["rights"][2]["text"] = typustuS(ADMIN_RIGHTS);
+
+        $osobyDB = new osobyDB($this->GetConnection());
+
+        if($do == 'setup'){
+            $result = $osobyDB->UpdateOsobaRights($_POST["user"]-123, $_POST["right"]-123 );
+            if($result == 1){
+                $data["data"]["success"] = "Oprávnění ".typustuS($_POST["right"]-123)." byla přidělěna.";
+
+            }elseif($result > 1){
+                $data["data"]["error"][]="Bylo upraveno více účtů, proveďte kontrolu oprávnění.";
+
+            }else{
+                $data["data"]["error"][]="Oprávnění ".typustuS($_POST["right"]-123)." nebylo uděleno.";
+            }
+        }
+
+        $data["users"]= $osobyDB->SelectAllOsobyInfo();
+
+        foreach($data["users"] as &$user){
             $user["typuctuS"]= typustuS($user["typuctu"]);
         }
     }
@@ -909,7 +978,7 @@ class app
         $data["menu"]["akce"]["text"]="O akci";
         $data["menu"]["akce"]["href"]="?id=akce";
 
-        $data["menu"]["hry"]["text"]="Hry";
+        $data["menu"]["hry"]["text"]="Uváděné hry";
         $data["menu"]["hry"]["href"]="?id=hry";
 
         $data["menu"]["letos"]["text"]="Letošní ročník";
@@ -937,8 +1006,8 @@ class app
         $data["menu_member"]["mujprog"]["text"]="Můj program";
         $data["menu_member"]["mujprog"]["href"]="?id=mujprog";
 
-        if(isset($_SESSION[MY_SES]["user"]["rights"]) && $_SESSION[MY_SES]["user"]["rights"] > 49) {
-            $data["menu_member"]["mojehry"]["text"] = "Moje hry";
+        if(isset($_SESSION[MY_SES]["user"]["rights"]) && $_SESSION[MY_SES]["user"]["rights"] >= ORG_RIGHTS) {
+            $data["menu_member"]["mojehry"]["text"] = "Moje uvedení";
             $data["menu_member"]["mojehry"]["href"] = "?id=orghry";
         }
     }
@@ -960,6 +1029,10 @@ class app
 
         $data["menu_admin"]["uzivatele"]["text"]="Seznam uživatelů";
         $data["menu_admin"]["uzivatele"]["href"]="?id=uzivatele";
+
+        $data["menu_admin"]["prava"]["text"]="Nastav oprávnění";
+        $data["menu_admin"]["prava"]["href"]="?id=prava";
+
     }
 
 

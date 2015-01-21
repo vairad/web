@@ -24,7 +24,7 @@
             <div class="col-md-offset-1 col-md-2">
                 <div class="input-group">
                     <span class="input-group-addon {% if game_fail.num_m == true  %} alert-danger {% endif %}">
-                        <img src="./application/view/glyphicons/png/glyphicons-35-old-man.png" alt="Muži" class="glyphicon" />
+                        <img src="./application/view/core//glyphicons/png/glyphicons-35-old-man.png" alt="Muži" class="glyphicon" />
                     </span>
                     <input type="text"
                            class="form-control"
@@ -39,7 +39,7 @@
             <div class="col-md-2">
                 <div class="input-group">
                     <span class="input-group-addon {% if game_fail.num_f == true  %} alert-danger {% endif %}">
-                        <img src="./application/view/glyphicons/png/glyphicons-36-woman.png" alt="Ženy" class="glyphicon" />
+                        <img src="./application/view/core/glyphicons/png/glyphicons-36-woman.png" alt="Ženy" class="glyphicon" />
                     </span>
                     <input type="text"
                            class="form-control"
@@ -54,7 +54,7 @@
             <div class="col-md-2">
                 <div class="input-group">
                     <span class="input-group-addon {% if game_fail.num_h == true  %} alert-danger {% endif %}">
-                        <img src="./application/view/glyphicons/png/glyphicons-25-parents.png" alt="Obojí" class="glyphicon" />
+                        <img src="./application/view/core/glyphicons/png/glyphicons-25-parents.png" alt="Obojí" class="glyphicon" />
                     </span>
                     <input type="text"
                            class="form-control"
@@ -146,6 +146,22 @@
         </div>
     </div>
 
+
+    <!-- speciální potřeby -->
+    <div class="row">
+        <div class="col-md-offset-1 col-md-10">
+            <div class="input-group">
+                <span class="input-group-addon {% if game_fail.special == true  %} alert-danger {% endif %}">Speciální potřeby</span>
+                <textarea
+                        placeholder="Speciální potřeby..."
+                        class="form-control tinymce"
+                        name="special"
+                        rows="4"
+                        >{% if game.special|length >0 %}{{game.special | raw}}{% endif %}</textarea>
+            </div>
+        </div>
+    </div>
+
     <!-- popis -->
     <div class="row">
         <div class="col-md-offset-1 col-md-10">
@@ -153,8 +169,8 @@
                 <span class="input-group-addon {% if game_fail.popis == true  %} alert-danger {% endif %}">Popis</span>
                 <textarea
                         placeholder="Anotace hry..."
-                        class="form-control"
-                        required
+                        class="form-control tinymce"
+
                         name="text"
                         rows="15"
                         >{% if game.text|length >0 %}{{game.text | raw}}{% endif %}</textarea>
@@ -165,7 +181,7 @@
     <div class="row">
         <div class="col-md-offset-5 col-md-2">
             <input type="hidden" name="do" value="create">
-            <button type="submit"  class="btn btn-default" formaction="?id=vhra{{game.val}}#h1">{{formSubmit}}</button>
+            <button type="submit"  class="btn btn-default" formaction="?id=vhra{{game.val}}#body">{{formSubmit}}</button>
         </div>
     </div>
 </form>

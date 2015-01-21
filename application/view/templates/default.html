@@ -56,7 +56,7 @@
 
             <div class="row">
 
-                <!-- CONTENT -->
+                <!-- INDEX PAGE -->
                 {% if content == 'title' %}
                 <div class="col-xs-9 no-padding">
 
@@ -73,12 +73,32 @@
                     </div>
 
                     <div class="col-md-offset-0 col-md-7 content rounded">
+                        <!-- DATABÁZOVÉ HLÁŠKY -->
+
+                        {% for item in data.error %}
+                        <div class="alert alert-danger" role="alert">
+                            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                            <span class="sr-only">Chyba:</span>
+                            {{item}}
+                        </div>
+                        {% endfor %}
+
+                        {% if data.success|length > 0 %}
+                        <div class="alert alert-success" role="alert">
+                            <span class="glyphicon glyphicon-ok-sign" aria-hidden="true"></span>
+                            <span class="sr-only">OK:</span>
+                            {{data.success}}
+                        </div>
+                        {% endif %}
+
                         <h1>{{nadpis}}</h1>
                         {{obsah | raw}}
 
                     </div>
                 </div>
+
                 {% else %}
+                <!-- CONTENT FILE -->
                 <div class="col-xs-9 content rounded" id="body">
                     {% include 'default/content.html' %}
                 </div>
@@ -118,7 +138,26 @@
     <script src="{{bootstrap_js}}"></script>
     <script src="{{bootstrap_datepicker}}"></script>
     <script src="{{bootstrap_dp_locale}}"></script>
+    <script src="{{tinymce_js}}"></script>
+
     <script>
+     tinymce.init({
+         selector: "textarea.tinymce",
+         theme: "modern",
+         plugins: [
+             "advlist autolink link image lists charmap hr anchor spellchecker",
+             "searchreplace wordcount visualblocks visualchars code insertdatetime nonbreaking",
+             "table contextmenu directionality template paste textcolor"
+         ],
+         content_css: "css/content.css",
+         toolbar: "undo redo | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | forecolor ",
+        style_formats: [
+             {title: 'Nepoužívat prosím', inline: 'b'},
+         ]
+     });
+     </script>
+
+     <script>
          $(function(){
              $('.datepicker').datepicker({
                  format: 'dd.mm.yyyy',
