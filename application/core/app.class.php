@@ -91,8 +91,7 @@ class app
         }elseif($id=="mujprog" && $prihl){
             $this->appendNavbar("Můj program", "index.php?id=mujprog");
             $data["nadpis"]="Můj program";
-            $data["content"]="text";
-            $data["obsah"] = TEXT_MUJ_PROGRAM;
+            $this->stranaMujProgram();
 
         }elseif($id=="mujucet" && $prihl){
             $this->appendNavbar("Můj účet", "index.php?id=mujucet");
@@ -103,8 +102,8 @@ class app
             $this->stranaMisto(@$_REQUEST["val"]);
 
         }elseif($id=="orghry" && $prihl){
-            $this->appendNavbar("Mé hry", "index.php?id=orghry");
-            $data["nadpis"]="Mé hry";
+            $this->appendNavbar("Mé uvedení", "index.php?id=orghry");
+            $data["nadpis"]="Mé uvedení";
             $this->stranaMeHry();
 
         }elseif($id=="akce"){
@@ -350,6 +349,20 @@ class app
             $data["a"][1]["href"] = "index.php?id=vhra&do=manage#body  ";
         }
 
+    }
+
+    //===============================================================================================================
+    //===============================================================================================================
+
+
+    public function stranaMujProgram(){
+        global $data;
+
+        $data["content"]="proglist";
+        $data["obsah"] = TEXT_MUJ_PROGRAM;
+
+        $prihlaskyDB = new prihlaskyDB($this->GetConnection());
+        $data["performances"] = $prihlaskyDB->mojeUvedeni($_SESSION[MY_SES]["user"]["id"]);
     }
 
     //===============================================================================================================

@@ -102,6 +102,22 @@
             src="https://www.google.com/maps/embed/v1/place?q={{place.googleGPS}}&amp;key=AIzaSyCuiMWcsEq2cfIoYh9On-I_LqI_JVsvG1Y"></iframe>
 </div>
 
+<!-- LIST MEHO PROGRAMU -->
+{% elseif content == 'proglist' %}
+{{ obsah | raw}}
+<div class="table-responsive">
+    <table class="table table-striped table-bordered">
+        <tr> <th>Čas začátku</th><th>Hra</th><th>Místo</th>
+            </tr>
+        {%for performance in performances %}
+        <tr> <td>{{performance.zacatek}}</td>
+            <td><a href="index.php?id=hry&amp;val={{performance.id_hry}}">{{performance.nazevhry}}</a></td>
+            <td><a href="index.php?id=misto&amp;val={{performance.id_mista}}">{{performance.nazev}}</a></td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+
 <!-- LIST UVEDENI -->
 {% elseif content == 'orglist' %}
 <div class="table-responsive">

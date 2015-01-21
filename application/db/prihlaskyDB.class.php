@@ -65,6 +65,42 @@ class prihlaskyDB extends db
         return count($this->DBSelectAll(TABLE_PRIHLASKY,"*" ,$where_arr));
     }
 
+    public function mojeUvedeni($uziv){
+        $table_name = TABLE_UVEDENI.", ".TABLE_HRY.", ".TABLE_MISTA.", ".TABLE_PRIHLASKY;
+
+        $select_columns_string = "*, ".TABLE_HRY.".nazev as nazevhry";
+        $where_arr = array();
+        $limit_string = "";
+        $order = array();
+
+        $where_arr[0]["column"]= "hrac";
+        $where_arr[0]["value"]= "$uziv";
+        $where_arr[0]["symbol"]= "=";
+
+        $where_arr[1]["column"]= "hra";
+        $where_arr[1]["value_mysql"]= "id_hry";
+        $where_arr[1]["symbol"]= "=";
+
+        $where_arr[2]["column"]= "misto";
+        $where_arr[2]["value_mysql"]= "id_mista";
+        $where_arr[2]["symbol"]= "=";
+
+        $where_arr[3]["column"]= "uvedeni";
+        $where_arr[3]["value_mysql"]= "id_uvedeni";
+        $where_arr[3]["symbol"]= "=";
+
+        $order[0]["column"]="zacatek";
+        $order[0]["sort"]="asc";
+
+        $uvedeni = $this->DBSelectAll($table_name, $select_columns_string, $where_arr, $limit_string, $order);
+
+        // vratit data
+        foreach($uvedeni as &$item){
+            $item["zacatek"]=cze_datum($item["zacatek"]);
+        }
+        return $uvedeni;
+    }
+
     public function nestihnes($uziv, $uvedeni){
 
         return false;
