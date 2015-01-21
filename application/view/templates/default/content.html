@@ -256,19 +256,35 @@
 
 <!-- PRIHLASOVANI -->
 {% elseif content == 'prihl' %}
-<div class="row">
-    {%for performance in performances %}
-    <div class="well well-sm col-xs-offset-1 col-ld-4 col-md-4 col-xs-10">
+{% set foo = 0 %}
+{%for performance in performances %}
+{% if performance.z > separator[foo].time %}
+
+
+<div class="row col-xs-offset-1 col-ld-10 col-md-10 col-xs-10">
+    <h3>{{ separator[foo].text}}</h3>
+</div>
+{% set foo = foo + 1 %}
+{% endif %}
+
+
+<div class="row well well-sm col-xs-offset-1 col-ld-10 col-md-10 col-xs-10">
+
         <form method="post" action="index.php?id=prihl">
-            <h3><a href="index.php?id=hry&amp;val={{performance.id_hry}}">{{performance.nazevhry}}</a></h3>
-            <p><strong>Začátek:</strong> {{performance.zacatek}} ({{performance.delka}} minut)</p>
-            <p><strong>Místo:</strong> <a href="index.php?id=misto&amp;val={{performance.id_mista}}">{{performance.nazev}}</a></p>
+            <div class="col-xs-6">
+                <h4><a href="index.php?id=hry&amp;val={{performance.id_hry}}">{{performance.nazevhry}}</a></h4>
+                <p><strong>Začátek:</strong> {{performance.zacatek}} ({{performance.delka}} minut)</p>
+            </div>
+
+            <div class="col-xs-6">
+                <button type="submit" class="btn btn-sm btn-default center-block margin-top" {{performance.disabled}}>{{performance.submitVal}}</button>
+            </div>
+
             <input type="hidden" name="action" value="{{performance.action}}">
             <input type="hidden" name="val" value="{{performance.id_uvedeni}}">
-            <button type="submit" class="btn btn-sm btn-default center-block" {{performance.disabled}}>{{performance.submitVal}}</button>
         </form>
-    </div>
-    {% endfor %}
+
 </div>
+{% endfor %}
 
 {% endif %}

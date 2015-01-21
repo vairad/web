@@ -895,6 +895,19 @@ class app
             $u["k"] = $u["z"] + $u["delka"]*60; //delka je v minutach a čas v sekundach
         }
 
+        //set separator TODO dynamické zpracování vstupu
+
+        $data["separator"] = array();
+
+        $data["separator"][0]["text"] = "Pátek 27.2.2015";
+        $data["separator"][0]["time"] = timestamp("2015-02-27 00:00:00");
+
+        $data["separator"][1]["text"] = "Sobota 28.2.2015";
+        $data["separator"][1]["time"] = timestamp("2015-02-28 00:00:00");
+
+        $data["separator"][2]["text"] = "Neděle 1.3.2015";
+        $data["separator"][2]["time"] = timestamp("2015-03-01 00:00:00");
+
         // vytvořeni tlačítek pro smazání
         foreach ($data["performances"] as &$value){
             $value["k"] = $value["z"] + $value["delka"]*60; //delka je v minutach a čas v sekundach
