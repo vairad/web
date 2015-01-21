@@ -62,6 +62,16 @@ function timeToData($timestamp){
     return $datum;
 }
 
+/**
+ * @param $timestamp
+ * @return bool|string
+ */
+function timeToCZE($timestamp){
+    $datum=date("H:i:s d.m.Y",$timestamp) ;
+    // echo ($datum);
+    return $datum;
+}
+
 function pohlaviS($bool){
     if($bool){
         return "muž";

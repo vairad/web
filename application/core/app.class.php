@@ -825,11 +825,29 @@ class app
         global $data;
         $data["content"] = "prihl";
 
+        //ochrana přihlašování
+        //==========================================================================================
+        $bool_before = START_TIME > time(); // true pokud je jeste pred spusteni přihlašování
+        $bool_after = END_TIME < time(); // true pokud je prihlasovani uzavreno
+
+        if($bool_before == true){
+            $alert_msg = "Přihlašování ještě nebylo spuštěno. \\n"
+                ."čas spuštění přihlašování: ".timeToCZE(START_TIME)."\\n"
+                ."čas serveru: ".timeToCZE(time())."\\n";
+            echo"<script>alert(\"".$alert_msg."\")</script>";
+        }
+
+        if($bool_after == true){
+            $alert_msg = "Již se nelze odhlásit ze hry. V případě problému kontaktujte organizátory.";
+            echo"<script>alert(\"".$alert_msg."\")</script>";
+        }
+        //=============================================================================================
+
         $uvedeniDB = new uvedeniDB($this->GetConnection());
         $prihlaskyDB = new prihlaskyDB($this->GetConnection());
         $uziv = $_SESSION[MY_SES]["user"]["id"];
 
-        if(isset($_POST["action"]) && $_POST["action"] == 'prihl'){
+        if(isset($_POST["action"]) && $_POST["action"] == 'prihl' && $bool_before == false){
 
             if($uvedeniDB->setFlag($_POST["val"]) == true){
                 if($prihlaskyDB->prihlas($uziv, $_POST["val"]) == true){
@@ -842,7 +860,7 @@ class app
                 $data["data"]["error"][] = "Omlováme se. Došlo ke kolizi přihlášení, nebo je hra blokována. Zkuste obnovit stránku (F5).";
             }
         }
-        if(isset($_POST["action"]) && $_POST["action"] == 'odhlas'){
+        if(isset($_POST["action"]) && $_POST["action"] == 'odhlas' && $bool_after == false ){
             if($uvedeniDB->setFlag($_POST["val"]) == true){
                 if($prihlaskyDB->odhlas($uziv, $_POST["val"])){
                     $data["data"]["success"] = "Byl jste úspěšně odhlášen.";
@@ -862,17 +880,32 @@ class app
         // vytvořeni tlačítek pro smazání
         foreach ($data["performances"] as &$value){
             $id_u = $value["id_uvedeni"];
-           if($prihlaskyDB->prihlasen($uziv, $id_u)){
-                $value["disabled"] = "";
+           if($bool_before == true) { //=================================================== case blok přihlašování
+               $value["disabled"] = "disabled";
+               $value["submitVal"] = "Přihlašování není spuštěno";
+               $value["action"] = "none";
+
+           }elseif($prihlaskyDB->prihlasen($uziv, $id_u)){//=============================== case jsem přihlášen
+
+                if($bool_after == true){
+                    $value["disabled"] = "disabled";
+                }else{
+                    $value["disabled"] = "";
+                }
                 $value["submitVal"] = "Odhlásit";
                 $value["action"] = "odhlas";
 
-           }elseif($prihlaskyDB->obsazeno($id_u)){
+           }elseif($prihlaskyDB->obsazeno($id_u)){//======================================== case obsazeno
                $value["disabled"] = "disabled";
                $value["submitVal"] = "Hra je plně obsazena.";
                $value["action"] = "no";
 
-           }elseif($_SESSION[MY_SES]["user"]["pohlavi"] == 1){
+           }elseif($prihlaskyDB->nestihnes($uziv, $id_u)){//=============================== case nestihneš
+               $value["disabled"] = "disabled";
+               $value["submitVal"] = "Tuto hru nestihneš!";
+               $value["action"] = "no";
+
+           }elseif($_SESSION[MY_SES]["user"]["pohlavi"] == 1){//========================== case prihlas muze
 
                if($prihlaskyDB->obsazenoM($id_u) && $prihlaskyDB->obsazenoH($id_u)) {
                     $value["disabled"] = "disabled";
@@ -885,7 +918,7 @@ class app
                     $value["action"] = "prihl";
                 }
 
-           }elseif($_SESSION[MY_SES]["user"]["pohlavi"] == 0){
+           }elseif($_SESSION[MY_SES]["user"]["pohlavi"] == 0){//========================= case prihlas zenu
 
                if($prihlaskyDB->obsazenoZ($id_u) && $prihlaskyDB->obsazenoH($id_u)) {
                    $value["disabled"] = "disabled";
@@ -898,16 +931,11 @@ class app
                    $value["action"] = "prihl";
                }
 
-           }elseif($prihlaskyDB->nestihnes($uziv, $id_u)){
+           }else{ // sem by to nikdy nemělo dojít zabere můž nebo žena (snad)
 
                $value["disabled"] = "disabled";
-               $value["submitVal"] = "Tuto hru nestihneš!";
-               $value["action"] = "no";
-           }else{
-
-               $value["disabled"] = "";
-               $value["submitVal"] = "Přihlaš";
-               $value["action"] = "prihl";
+               $value["submitVal"] = "Chyba výpočtu, kontaktuj admina.";
+               $value["action"] = "none";
            }
 
 
