@@ -1,6 +1,6 @@
 <?php
 
-
+$rights_text = " Dávám souhlas s tím, aby Pilirion o.s., Psohlavců 10, Praha 4 Braník, IČO: 22893610 jako pořadatel zpracoval mé osobní údaje v souladu se zákonem č. 101/2000 sb. o ochraně osobních údajů.";
 
 $text_pivko = '<p class="text-justify h4">Ač by se mohlo zdát že jde o pozvánkou na alkoholický nápoj do Plzně, nenechte se zmást! Plzeňský Inspirační Víkendový Kurz vám může nabídnout zcela nový rozměr zážitků.
                  </p>
@@ -28,7 +28,7 @@ $text_cena = '<p class ="text-justify">Cena jednoho larpu se bude pohybovat mezi
                 </p>';
 
 
-$text_reg = "Vytvořením účtu získáte přístup do přihlašování na akci Pivko. Vytvoření účtu Vás nezavazuje k platbě.".
+$text_reg = "Vytvořením účtu získáte přístup do přihlašování na akci Pivko. Vytvoření účtu Vás nezavazuje k platbě. Účty vytvpřené v minulých letech jsou stále aktivní.";
 
 define('TEXT_MUJ_PROGRAM', '   <p class="text-justify">Zde budou konkrétní informace o programu uživatele. Sit amet, consectetur adipiscing elit. Nam sodales arcu non fermentum vestibulum. Sed sed cursus risus. Donec porta urna in tellus sodales, ut congue velit blandit. In porttitor vulputate enim, vel viverra nulla mattis eu. Fusce mollis, diam egestas fringilla lobortis, tellus erat sodales ipsum, vitae auctor arcu lectus nec justo. Sed rhoncus, ex in condimentum rhoncus, velit est ultricies urna, sed posuere mauris lectus ac dui. Nullam tincidunt ligula nec congue commodo. Praesent pellentesque luctus pharetra. Maecenas at blandit nisi. Etiam vitae nulla lectus. Quisque sed augue elementum nisl tincidunt vulputate nec a est.
                     </p>');
@@ -39,5 +39,9 @@ define('TEXT_LETOS', $text_letos);
 define('TEXT_CENA', $text_cena);
 define('TEXT_REG_INFO',$text_reg );
 
-define('TITLE', "Pivko 2015");
+define('TITLE', "PIVKo 2015");
+
+global $data;
+$data["rights_text"] = $rights_text;
+
 ?>

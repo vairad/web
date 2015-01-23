@@ -17,7 +17,7 @@ class osobyDB extends db
     {
        $item = $hrac_class->getItem();
         // uložení do db
-        printr($item);
+        //printr($item);
       return $this->DBInsert(TABLE_OSOBY, $item);
     }
 

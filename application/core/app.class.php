@@ -43,7 +43,7 @@ class app
         global $data;
 
 
-        $this->appendNavbar("Pivko 2015", "index.php");
+        $this->appendNavbar(TITLE, "index.php");
 
         $id = @$_REQUEST["id"];
 
@@ -140,7 +140,7 @@ class app
 
         }else{
             $this->resetNavbar();
-            $this->appendNavbar("Pivko", "index.php");
+            $this->appendNavbar(TITLE, "index.php");
             $this->stranaIndex();
         }
     }
@@ -449,7 +449,7 @@ class app
             $data["content"] = "vhra";
             $data["formSubmit"]="Vytvoř hru!";
 
-            // printr($_POST);
+            //printr($_POST);
             // die;
             if($do=="create"){
                 // kontrola dat a uložení do databáze
@@ -757,7 +757,7 @@ class app
         }
 
 
-        $data["nadpis"]="Pivko";
+        $data["nadpis"]=TITLE;
         $data["content"]="title";
         $data["obsah"] = TEXT_PIVKO;
     }
