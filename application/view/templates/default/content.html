@@ -253,6 +253,17 @@
 <p>{{info}}</p>
 {% include 'default/form/create_hra.html' %}
 
+<!-- CREATE HRA -->
+{% elseif content == 'change_pass' %}
+<p>{{info}}</p>
+{% include 'default/form/change_pass.html' %}
+
+
+<!-- MUJ UCET -->
+{% elseif content == 'info_osoba' %}
+{% for item in a %}
+<a href="{{item.href}}" class="btn btn-info" >{{item.title}}</a>
+{% endfor %}
 
 <!-- PRIHLASOVANI -->
 {% elseif content == 'prihl' %}

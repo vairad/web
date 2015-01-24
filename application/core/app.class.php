@@ -386,6 +386,80 @@ class app
     //===============================================================================================================
     //===============================================================================================================
 
+    public function mujUcet($do){
+        global $data;
+
+        if($do == 'pass'){
+            $this->stranaZmenHeslo();
+        }
+        elseif($do == 'acount'){
+            $this->stranaZmenUdaje();
+        }else{
+            $this->stranaInfoUdaje();
+        }
+
+    }
+
+    public function stranaZmenHeslo(){
+        global $data;
+
+        $bool = isset($_POST["pass_old"]); // musí být nastavené nějaké staré heslo
+        $bool &= isset($_POST["pass_1"]); // nové heslo
+        $bool &= isset($_POST["pass_2"]); // nové heslo pro kontrolu překlepu
+        $bool &= $bool && $_POST["pass_1"] == $_POST["pass_2"]; // samotná kontrola bool je zde napsán kvůli
+                                                                // neúplnému zpracování booleaovských proměnných
+                                                                // pokud nebudou definovány, neprovede se porovnání
+
+        if($bool){
+
+            //interface databáze
+            $osobyDB = new osobyDB($this->GetConnection());
+
+            //samotná změna
+            $result = $osobyDB->UpdatePassByIDandPass($_SESSION[MY_SES]["user"]["id"],
+                                                        $_POST["pass_old"],
+                                                        $_POST["pass_1"]
+                                                        );
+            // kontrola výsledku
+            if($result == 1){
+                $data["data"]["success"] = "Heslo bylo úspěšně změněno.";
+                $this->stranaInfoUdaje();
+
+                return; //skok na stranu změny údajů, proto návrat z této metody
+
+            }else{
+                $data["data"]["error"][] = "Heslo NEBYLO změněno.";
+            }
+        }
+
+        $this->appendNavbar("Změna hesla", "", true);
+        $data["nadpis"] = "Změna hesla";
+        $data["info"] = HESLO_INFO;
+        $data["content"] = "change_pass";
+
+    }
+
+    public function stranaZmenUdaje(){
+
+    }
+
+    public function stranaInfoUdaje(){
+        global $data;
+
+        $data["Nadpis"] = "Můj účet";
+        $data["content"] = "info_osoba";
+
+        $data["a"] = array();
+        $data["a"][0]["title"] = "Změnit heslo";
+        $data["a"][0]["href"] = "index.php?id=mujucet&do=pass#body";
+
+       /* $data["a"][1]["title"] = "Změnit údaje";
+        $data["a"][1]["href"] = "index.php?id=mujucet&do=acount#body";*/
+    }
+
+    //===============================================================================================================
+    //===============================================================================================================
+
     public function stranaSeznamHer(){
         global $data;
 
@@ -1097,6 +1171,9 @@ class app
 
         $data["menu_member"]["mujprog"]["text"]="Můj program";
         $data["menu_member"]["mujprog"]["href"]="?id=mujprog";
+
+        $data["menu_member"]["mujucet"]["text"]="Můj účet";
+        $data["menu_member"]["mujucet"]["href"]="?id=mujucet";
 
         if(isset($_SESSION[MY_SES]["user"]["rights"]) && $_SESSION[MY_SES]["user"]["rights"] >= ORG_RIGHTS) {
             $data["menu_member"]["mojehry"]["text"] = "Moje uvedení";

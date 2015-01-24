@@ -1,0 +1,53 @@
+<form role="form" method="post">
+
+    <div class="row">
+        <div class="col-xs-offset-1 col-xs-10">
+            <div class="input-group">
+                <span class="input-group-addon {% if reg_fail.pass == true  %} alert-danger {% endif %}">Heslo</span>
+                <input type="password"
+                       placeholder="Heslo pro přihlášení"
+                       class="form-control"
+                       required
+                       value=""
+                       name="pass_old"
+                        >
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xs-offset-1 col-xs-10">
+            <div class="input-group">
+                <span class="input-group-addon {% if reg_fail.pass == true  %} alert-danger {% endif %}">Heslo</span>
+                <input type="password"
+                       placeholder="Nové heslo pro přihlášení"
+                       class="form-control"
+                       required
+                       value=""
+                       name="pass_1"
+                        >
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-offset-1 col-xs-10">
+            <div class="input-group">
+                <span class="input-group-addon {% if reg_fail.pass == true  %} alert-danger {% endif %}">Heslo (kontrola)</span>
+                <input type="password"
+                       placeholder="Kontrola nového hesla"
+                       class="form-control"
+                       required
+                       value=""
+                       name="pass_2"
+                        >
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-offset-5 col-md-2">
+            <input type="hidden" name="do" value="pass">
+            <button type="submit"  class="btn btn-default" formaction="?id=mujucet#body">Nastav!</button>
+        </div>
+    </div>
+</form>

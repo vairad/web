@@ -37,6 +37,26 @@ class osobyDB extends db
         return $this->DBSelectOne(TABLE_OSOBY,"*",$where_arr);
     }
 
+    /**
+     * @return bool | item osoba
+     * */
+    public function UpdatePassByIDandPass($id ,$pass, $new_pass)
+    {
+       /* $where_arr[0]["column"]= "id_osoby";
+        $where_arr[0]["value"]= "$id";
+        $where_arr[0]["symbol"]= "=";
+
+        $where_arr[1]["column"]= "heslo";
+        $where_arr[1]["value"]= sha1($pass);
+        $where_arr[1]["symbol"]= "="; */
+
+        $where_str = "id_osoby = $id and heslo = '".sha1($pass)."'";
+
+        $item["heslo"] = sha1($new_pass);
+
+        return $this->DBUpdate(TABLE_OSOBY, $item, $where_str);
+    }
+
     public function GetOsobaName($id)
     {
         $where_arr[0]["column"]= "id_osoby";

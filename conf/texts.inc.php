@@ -39,6 +39,9 @@ define('TEXT_LETOS', $text_letos);
 define('TEXT_CENA', $text_cena);
 define('TEXT_REG_INFO',$text_reg );
 
+
+define('HESLO_INFO', "Použijte tak jednoduché heslo, abyste ho nemuseli mít napsané na monitoru.");
+
 define('TITLE', "PIVKo 2015");
 
 global $data;
