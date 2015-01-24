@@ -803,11 +803,14 @@ class app
         $data["rights"][0]["value"] = 0+USER_RIGHTS;
         $data["rights"][0]["text"] = typustuS(USER_RIGHTS);
 
-        $data["rights"][1]["value"] = 0+ORG_RIGHTS;
-        $data["rights"][1]["text"] = typustuS(ORG_RIGHTS);
+        $data["rights"][1]["value"] = 0+PREMIUM_RIGHTS;
+        $data["rights"][1]["text"] = typustuS(PREMIUM_RIGHTS);
 
-        $data["rights"][2]["value"] = 0+ADMIN_RIGHTS;
-        $data["rights"][2]["text"] = typustuS(ADMIN_RIGHTS);
+        $data["rights"][12]["value"] = 0+ORG_RIGHTS;
+        $data["rights"][12]["text"] = typustuS(ORG_RIGHTS);
+
+        $data["rights"][20]["value"] = 0+ADMIN_RIGHTS;
+        $data["rights"][20]["text"] = typustuS(ADMIN_RIGHTS);
 
         $osobyDB = new osobyDB($this->GetConnection());
 
