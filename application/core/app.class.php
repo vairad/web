@@ -1,18 +1,17 @@
 <?php
 
 /**
- * Komentar k tomuto objektu. Popis vstupu, vystupu a pouziti.
+ * Hlavní třída aplikace, které se stará o zobrazení a zpracování správné stránky aplikace.
+ * Probíhá zde kontrola oprávnění k prováděným činnostem.
  *
  */
 
 class app
 {
-    // pripojeni k db - pomocny objekt
+    // objekt konektivity s databází...
     private $db = null;
 
-    /**
-     * Konstruktor.
-     */
+
     public function app()
     {
         $this->db = new db();
@@ -42,77 +41,84 @@ class app
     public function zpracujPoz(){
         global $data;
 
-
+        //nastav title stránky
+        $data["title"] = TITLE;
+        //nastav první položku vodorovného menu
         $this->appendNavbar(TITLE, "index.php");
 
+        // najdi elementy id a do v $_post/$_get/$_cookie
         $id = @$_REQUEST["id"];
-
         $do = @$_REQUEST["do"];
 
-       // printr($_POST);
-
-
-        // kontrolá práv
+        // booleovské proměnné kontroly práv
         $admin = isset($_SESSION[MY_SES]["user"]["rights"]) && $_SESSION[MY_SES]["user"]["rights"]>=ADMIN_RIGHTS;
         $prihl = isset($_SESSION[MY_SES]["user"]["flag"]) && $_SESSION[MY_SES]["user"]["flag"]==true;
-      //  printr($prihl);
 
-        $data["title"] = TITLE;
+        // nastav aktivní prvky menu
         $data["menu"][$id]["aktiv"]="active";
         $data["menu_member"][$id]["aktiv"]="active";
         $data["menu_admin"][$id]["aktiv"]="active";
-        $data["content"]="text";
 
-        if($id=="vhra" && $admin) {
+
+        // jeden dlouhy else-if, ve kterem se rozhodne, co zpracovat
+
+//=============ADMIN============================================
+
+        if($id=="vhra" && $admin) {//==================================== správa her
             $this->appendNavbar("Vytvoř hru", "index.php?id=vhra");
             $this->stranaSpravaHer($do);
 
-        }elseif($id=="vmisto" && $admin){
+        }elseif($id=="vmisto" && $admin){//============================== správa míst
             $this->appendNavbar("Správa míst", "index.php?id=vmisto");
             $this->stranaSpravaMist($do);
 
-        }elseif($id=="vuved" && $admin){
+        }elseif($id=="vuved" && $admin){//=============================== správa uvedení
             $this->appendNavbar("Správa uvedení", "index.php?id=vuved");
             $this->stranaVytvorUvedeni($do);
 
-        }elseif($id=="prava" && $admin){
+        }elseif($id=="prava" && $admin){//=============================== nastavení práv
             $this->appendNavbar("Nastavení oprávnění", "index.php?id=prava");
             $this->stranaPrava($do);
 
-        }elseif($id=="uzivatele" && $admin){
+        }elseif($id=="uzivatele" && $admin){//=========================== seznam uživatelů
             $this->appendNavbar("Seznam uživatelů", "index.php?id=uzivatele", true);
             $this->stranaSeznamUziv($do);
 
-        }elseif($id=="prihl" && $prihl){
+//============PRIHLASENY=========================================
+
+        }elseif($id=="prihl" && $prihl){//=============================== přihlašování na hry
             $this->appendNavbar("Přihlašování na hry", "index.php?id=prihl");
             $data["nadpis"]="Přihlašování na hry";
             $this->stranaPrihlasovani();
 
-        }elseif($id=="mujprog" && $prihl){
+        }elseif($id=="mujprog" && $prihl){//============================= můj program
             $this->appendNavbar("Můj program", "index.php?id=mujprog");
             $data["nadpis"]="Můj program";
             $this->stranaMujProgram();
 
-        }elseif($id=="mujucet" && $prihl){
+        }elseif($id=="mujucet" && $prihl){//============================== můj účet
             $this->appendNavbar("Můj účet", "index.php?id=mujucet");
             $data["nadpis"]="Můj účet";
+            $this->mujUcet($do);
 
-        }elseif($id=="misto" && $prihl){
+        }elseif($id=="misto" && $prihl){//================================ informace o místě
             $this->appendNavbar("Detail místa", "", true);
             $this->stranaMisto(@$_REQUEST["val"]);
 
-        }elseif($id=="orghry" && $prihl){
+        }elseif($id=="orghry" && $prihl){//=============================== hráči na hrách
             $this->appendNavbar("Mé uvedení", "index.php?id=orghry");
             $data["nadpis"]="Mé uvedení";
             $this->stranaMeHry();
 
-        }elseif($id=="akce"){
+//===========PUBLIC==============================================
+
+        }elseif($id=="akce"){//=========================================== informace o akci
             $this->appendNavbar("O akci", "index.php?id=akce");
             $data["nadpis"]="Akce";
             $data["content"]="text";
             $data["obsah"] = TEXT_O_AKCI;
 
-        }elseif($id=="hry"){
+        }elseif($id=="hry"){//============================================ uváděné hry
             $this->appendNavbar("Uváděné hry", "index.php?id=hry");
 
             if(isset($_REQUEST["val"])){
@@ -122,23 +128,23 @@ class app
             }
             $this->stranaHra($val);
 
-        }elseif($id=="letos"){
+        }elseif($id=="letos"){//========================================== letošní ročník
             $this->appendNavbar("Letošní ročník", "index.php?id=letos");
             $data["nadpis"]="Letošní ročník";
             $data["content"]="text";
             $data["obsah"]= TEXT_LETOS;
 
-        }elseif($id=="cena"){
+        }elseif($id=="cena"){//=========================================== cena
             $this->appendNavbar("Cena", "index.php?id=cena");
             $data["nadpis"]="Cena";
             $data["content"]="text";
             $data["obsah"]= TEXT_CENA;
 
-        }elseif($id=="reg" && !$admin){
+        }elseif($id=="reg" && !$prihl){//================================= registrace
             $this->appendNavbar("Registrace", "index.php?id=reg");
             $this->stranaRegistrace($do);
 
-        }else{
+        }else{//========================================================== index
             $this->resetNavbar();
             $this->appendNavbar(TITLE, "index.php");
             $this->stranaIndex();
@@ -150,6 +156,9 @@ class app
     //===============================================================================================================
     //===============================================================================================================
 
+    /**
+     * Funkce nastaví hodnoty odkazů zobrazovaných v patičce stránky
+     */
     public function setFooter(){
         global $data;
         $data["footer_left_a"]="http://www.pilirionos.org/pro-verejnost";
@@ -162,6 +171,9 @@ class app
     //===============================================================================================================
     //===============================================================================================================
 
+    /**
+     * Funkce nastaví vlajky a základní data k zobrazení do šablony
+     */
     public function setLogged(){
         global $data;
         if(isset($_SESSION[MY_SES]["user"]["flag"]) && $_SESSION[MY_SES]["user"]["flag"] == true){
@@ -175,12 +187,15 @@ class app
         }
     }
 
+    /**
+     * Funkce provede přihlášení v závislosti na nastavení hodnot v poli $_POST
+     * a nastaví informace o uživateli do $session...[user] proměnné
+     */
     public function login(){
         global $data;
 
         $osoby = new osobyDB($this->GetConnection());
         $user = $osoby->GetOsobaByLogin(trim($_POST["login"]), trim($_POST["pass"]));
-
 
         if(!isset($user["jmeno"]) || $user["jmeno"]==""){
             $data["data"]["error"] = array();
@@ -198,6 +213,9 @@ class app
         }
     }
 
+    /**
+     * Funkce provede odhlášení, zruší proměnnou session...[user]
+     */
     public function logout(){
         global $data;
         $_SESSION[MY_SES] = array();
