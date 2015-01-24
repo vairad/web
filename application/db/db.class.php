@@ -420,7 +420,8 @@ class db
 	//==================================================================================================================
 	//==================================================================================================================
 
-	public function DBUpdate($table_name, $item, $where_str, $limit_string)
+
+	public function DBUpdate($table_name, $item, $where_str, $limit_string = "")
 	{
 		$sql_pdo_error = false;
 
@@ -470,6 +471,7 @@ class db
 
 			if(VERBOSE == true){
 				printr($query);
+				printr($statement->rowCount());
 			}
 
 			return $statement->rowCount();
