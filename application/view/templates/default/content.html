@@ -253,10 +253,15 @@
 <p>{{info}}</p>
 {% include 'default/form/create_hra.html' %}
 
-<!-- CREATE HRA -->
+<!-- CHANGE PASS -->
 {% elseif content == 'change_pass' %}
 <p>{{info}}</p>
 {% include 'default/form/change_pass.html' %}
+
+<!-- GENERATE PASS -->
+{% elseif content == 'forgot_pass' %}
+<p>{{info}}</p>
+{% include 'default/form/gen_pass.html' %}
 
 
 <!-- MUJ UCET -->

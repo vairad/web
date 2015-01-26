@@ -1,0 +1,26 @@
+<form role="form" method="post">
+
+    <div class="row">
+        <div class="col-xs-offset-1 col-xs-10">
+            <div class="input-group">
+                <span class="input-group-addon {% if reg_fail.pass == true  %} alert-danger {% endif %}">
+                   Login (email) účtu
+                </span>
+                <input type="email"
+                       placeholder="Email k účtu"
+                       class="form-control"
+                       required
+                       value=""
+                       name="mail"
+                        >
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-offset-5 col-md-2">
+            <input type="hidden" name="do" value="pass">
+            <button type="submit"  class="btn btn-default" formaction="index.php?id=forgot#body">Vygeneruj</button>
+        </div>
+    </div>
+</form>

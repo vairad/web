@@ -144,6 +144,10 @@ class app
             $this->appendNavbar("Registrace", "index.php?id=reg");
             $this->stranaRegistrace($do);
 
+        }elseif($id=="forgot" && !$prihl){//================================= zapomenuté heslo
+            $this->appendNavbar("Zapomenuté heslo", "", true);
+            $this->stranaNoveHeslo($do);
+
         }else{//========================================================== index
             $this->resetNavbar();
             $this->appendNavbar(TITLE, "index.php");
@@ -1079,6 +1083,89 @@ class app
 
         }
 
+
+    }
+
+    //==================================================================================================================
+    //==================================================================================================================
+
+    /**
+     * Vytvoží náhodnou posloupnost znaků abecedy a číslic dle zadané délky
+     * @param $delka int - počet znaků generované posloupnosti
+     * @return string - vygenerovaná posloupnost
+     */
+    private function nove_heslo($delka){
+        $noveHeslo = "";
+        for($i=0; $i < $delka; $i++){
+            $mnozinaZnaku='0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ' ;
+            $noveHeslo=$noveHeslo."".substr($mnozinaZnaku,mt_rand(0,strlen($mnozinaZnaku)-1),1);
+        }
+        return $noveHeslo;
+    }
+
+    //TODO upravit - zasadit jinam, promyslet zařazení zasílání mailů do aplikace
+    private function posli_mail($noveHeslo, $mail, $KONTAKT){
+        $zprava="
+                                Dobrý den,<br />
+                                toto je automaticky generovaná odpověď na žádost o změnu hesla uživatele: $mail do registračního systému PIVKo\n<br />                           <br />
+                                Vaše nové dočasné heslo je: **$noveHeslo** (**vašeNovéHeslo**)  \n<br /><br /><br />
+                                Bezproblémové používání systému Vám přeje     \n<br />
+                                Organizační tým<br />
+                                PS: Veškeré problémy a nesrovnalosti rádi vyřešíme mailem $KONTAKT.
+                               "    ;
+
+
+        $dopis = new PHPMailer();
+        $dopis->IsMail();
+        $dopis->IsHTML(true);
+        $dopis->CharSet  = "utf-8";
+        $dopis->From     = "noreply@pivko.pilirion.org";
+        $dopis->FromName = "Registrační systém PIVKo";
+        $dopis->WordWrap = 50;
+        $dopis->Subject  = "Nové heslo";
+        $dopis->Body     =  $zprava;
+        $dopis->AltBody  =  "Vaše nove heslo je:**$noveHeslo**(**VašeNovéHeslo**)";
+        $dopis->Sender = "noreply@pivko.pilirion.org";
+        $dopis->AddAddress(''.$mail.'');
+        // $dopis->AddAddress('vais.radek@seznam.cz');
+        $dopis->AddReplyTo("pivko.pilirion@gmail.com");
+        $dopis->ContentType = "multipart/alternative";
+
+        if(!($dopis->Send()))
+        {
+            echo'<script> alert("Omlouváme se, ale při vykonávání vašeho požadavku na změnu hesla došlo k chybě.\\nKontaktujte prosím organizátory:\\n'.$KONTAKT.'"); </script>';
+        }
+        else{
+            echo '<script> alert("Vaše nové heslo Vám bylo odesláno na email."); </script>';
+        }
+    }
+
+    /**
+     * Zpracuje požadavky na stranu generování nového hesla
+     * @param $do string - strana reaguje na hodnotu pass, kdy provede vytvoření a odeslání nového hesla
+     */
+    public function stranaNoveHeslo($do){
+        global $data;
+
+        if($do == "pass" && isset($_POST["mail"])){
+            $osobyDB = new osobyDB($this->GetConnection());
+            $acount = $osobyDB->GetOsobaIdByMail($_POST["mail"]);
+            if($acount != false){
+                $noveHeslo = $this->nove_heslo(6);
+                $result = $osobyDB->UpdatePassByID($acount["id_osoby"], $noveHeslo);
+                if($result == true){
+                    $this->posli_mail($noveHeslo, $acount["email"], "pivko.pilirion@gmail.com");
+                    $this->stranaIndex();
+                }
+            }
+        }
+
+
+        $data["nadpis"] = "Nové heslo";
+        $data["info"] = "Pokud neznáte své heslo k účtu s Vaší mailovou adresou, není jednodužší způsob, neš si vygenerovat"
+                        ." nové heslo pro účet s Vaším mailem. Je, pokud neobdržíte nové heslo do několika hodin, kontaktujte"
+                        ." prosím organizátory pivko.";
+        $data["content"] = "forgot_pass";
 
     }
 

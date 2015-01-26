@@ -40,6 +40,18 @@ class osobyDB extends db
     /**
      * @return bool | item osoba
      * */
+    public function GetOsobaIdByMail($mail)
+    {
+        $where_arr[0]["column"]= "email";
+        $where_arr[0]["value"]= "".$mail."";
+        $where_arr[0]["symbol"]= "LIKE";
+
+        return $this->DBSelectOne(TABLE_OSOBY,"id_osoby, email",$where_arr);
+    }
+
+    /**
+     * @return bool | item osoba
+     * */
     public function UpdatePassByIDandPass($id ,$pass, $new_pass)
     {
        /* $where_arr[0]["column"]= "id_osoby";
@@ -51,6 +63,23 @@ class osobyDB extends db
         $where_arr[1]["symbol"]= "="; */
 
         $where_str = "id_osoby = $id and heslo = '".sha1($pass)."'";
+
+        $item["heslo"] = sha1($new_pass);
+
+        return $this->DBUpdate(TABLE_OSOBY, $item, $where_str);
+    }
+
+    /**
+     * @return bool | item osoba
+     * */
+    public function UpdatePassByID($id , $new_pass)
+    {
+        /* $where_arr[0]["column"]= "id_osoby";
+         $where_arr[0]["value"]= "$id";
+         $where_arr[0]["symbol"]= "=";
+  */
+
+        $where_str = "id_osoby = $id";
 
         $item["heslo"] = sha1($new_pass);
 
