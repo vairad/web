@@ -27,9 +27,6 @@ function typustuS($typuctu){
                 int $year = date("Y") [,
                 int $is_dst = -1 ]]]]]]] )*/
 
-define("START_TIME", mktime(20, 00, 00, 01, 29, 2014)); // snad 29.01.2015 20:00:00
-define("END_TIME", mktime(20, 00, 00, 02, 27, 2015)); // snad 27.02.2015 20:00:00
-
 $data["startDay"]="20.2.2015";
 $data["endDay"]="20.3.2015";
 
