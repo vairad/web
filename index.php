@@ -34,6 +34,10 @@
 
     //php mailer
     require 'application/core/PHPMailer/class.phpmailer.php';
+    require 'application/core/PHPMailer/class.pop3.php';
+    require 'application/core/PHPMailer/class.smtp.php';
+
+    require 'application/core/mail.class.php';
 
     // připojení twigu
     require_once("application/view/core/twig/lib/Twig/Autoloader.php");

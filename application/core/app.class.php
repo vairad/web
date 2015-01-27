@@ -1114,26 +1114,23 @@ class app
                                 PS: Veškeré problémy a nesrovnalosti rádi vyřešíme mailem $KONTAKT.
                                "    ;
 
+        $dopis = Mail::prepareGmail();
 
-        $dopis = new PHPMailer();
-        $dopis->IsMail();
-        $dopis->IsHTML(true);
-        $dopis->CharSet  = "utf-8";
-        $dopis->From     = "noreply@pivko.pilirion.org";
-        $dopis->FromName = "Registrační systém PIVKo";
-        $dopis->WordWrap = 50;
         $dopis->Subject  = "Nové heslo";
         $dopis->Body     =  $zprava;
         $dopis->AltBody  =  "Vaše nove heslo je:**$noveHeslo**(**VašeNovéHeslo**)";
-        $dopis->Sender = "noreply@pivko.pilirion.org";
         $dopis->AddAddress(''.$mail.'');
-        // $dopis->AddAddress('vais.radek@seznam.cz');
-        $dopis->AddReplyTo("pivko.pilirion@gmail.com");
-        $dopis->ContentType = "multipart/alternative";
+
+
+        $dopis->AddAddress('vais.radek@seznam.cz');
 
         if(!($dopis->Send()))
         {
             echo'<script> alert("Omlouváme se, ale při vykonávání vašeho požadavku na změnu hesla došlo k chybě.\\nKontaktujte prosím organizátory:\\n'.$KONTAKT.'"); </script>';
+
+            if(VERBOSE == true){
+                printr($dopis->ErrorInfo);
+            }
         }
         else{
             echo '<script> alert("Vaše nové heslo Vám bylo odesláno na email."); </script>';
@@ -1148,12 +1145,28 @@ class app
         global $data;
 
         if($do == "pass" && isset($_POST["mail"])){
+
+            if(VERBOSE == true){
+                printr("pass");
+            }
+
             $osobyDB = new osobyDB($this->GetConnection());
             $acount = $osobyDB->GetOsobaIdByMail($_POST["mail"]);
+
+            if(VERBOSE == true){
+                printr($acount);
+            }
+
             if($acount != false){
                 $noveHeslo = $this->nove_heslo(6);
                 $result = $osobyDB->UpdatePassByID($acount["id_osoby"], $noveHeslo);
+
+                if(VERBOSE == true){
+                    printr($result);
+                }
+
                 if($result == true){
+                    $data["data"]["success"] = "Heslo bylo změněno";
                     $this->posli_mail($noveHeslo, $acount["email"], "pivko.pilirion@gmail.com");
                     $this->stranaIndex();
                 }
