@@ -1172,9 +1172,9 @@ class app
 
 
         $data["nadpis"] = "Nové heslo";
-        $data["info"] = "Pokud neznáte své heslo k účtu s Vaší mailovou adresou, není jednodužší způsob, neš si vygenerovat"
-                        ." nové heslo pro účet s Vaším mailem. Je, pokud neobdržíte nové heslo do několika hodin, kontaktujte"
-                        ." prosím organizátory pivko.";
+        $data["info"] = "Pokud neznáte heslo k Vašemu účtu, není jednodužší způsob, než si vygenerovat"
+                        ." heslo nové. Generování odešle nové heslo na mail spojený s Vaším účtem. Pokud neobdržíte"
+                        ." nové heslo do několika hodin, kontaktujte prosím organizátory PIVKa.";
         $data["content"] = "forgot_pass";
 
     }
