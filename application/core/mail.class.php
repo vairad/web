@@ -16,6 +16,9 @@ class Mail{
         $mail->IsSMTP(); // telling the class to use SMTP
         $mail->Host       = "mail.pilirion.org"; // SMTP server
         $mail->SMTPDebug  = 0;                     // enables SMTP debug information (for testing)
+        if(VERBOSE){
+            $mail->SMTPDebug  = 2;
+        }
                                     // 1 = errors and messages
                                     // 2 = messages only
         $mail->SMTPAuth   = true;                  // enable SMTP authentication
@@ -28,7 +31,8 @@ class Mail{
         $mail->CharSet  = "utf-8";
         $mail->WordWrap = 70;
 
-        $mail->SetFrom('noreply@pivko.pilirion.org', 'Registrační systém.');
+
+        $mail->SetFrom('noreply.pivko@gmail.com', 'Registrační systém.');
 
         $mail->AddReplyTo("pivko.pilirion@gmail.com","Organizační tým PIVKo");
 

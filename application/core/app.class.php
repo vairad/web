@@ -1121,9 +1121,6 @@ class app
         $dopis->AltBody  =  "Vaše nove heslo je:**$noveHeslo**(**VašeNovéHeslo**)";
         $dopis->AddAddress(''.$mail.'');
 
-
-        $dopis->AddAddress('vais.radek@seznam.cz');
-
         if(!($dopis->Send()))
         {
             echo'<script> alert("Omlouváme se, ale při vykonávání vašeho požadavku na změnu hesla došlo k chybě.\\nKontaktujte prosím organizátory:\\n'.$KONTAKT.'"); </script>';
