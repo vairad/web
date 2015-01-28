@@ -33,7 +33,7 @@
     <div class="container">
 
             <!-- HEADER -->
-            <div class="row">
+            <div class="row margin-top-min">
                <a href="./index.php">
                 <div class="col-xs-12 header">
                     <img src="{{header_img}}" class="col-xs-12 no-padding" alt = "Hlavní obrázek">
@@ -60,8 +60,8 @@
                 {% if content == 'title' %}
                 <div class="col-xs-9 no-padding">
 
-                    <div id="fb" class="col-md-3 col-xs-0 fb-like rounded content fb-margin">
-                        <div class="col-md-3 fb-like-box"
+                    <div id="fb" class="col-xs-3 fb-like rounded content fb-margin">
+                        <div class="col-xs-3 fb-like-box"
                              data-href="https://www.facebook.com/pages/PIVKO/848625445171446"
                              data-colorscheme="light"
                              data-show-faces="false"
@@ -72,7 +72,7 @@
                         </div>
                     </div>
 
-                    <div class="col-md-offset-0 col-md-7 content rounded">
+                    <div class="col-xs-7 content rounded">
                         <!-- DATABÁZOVÉ HLÁŠKY -->
 
                         {% for item in data.error %}
