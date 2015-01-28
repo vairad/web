@@ -183,7 +183,7 @@
         <tr> <th>Název</th><th>Adresa</th><th>GPS</th>
         <th></th></tr>
         {%for place in places %}
-        <tr> <td>{{place.nazev}}</td> <td>{{place.ulice}} {{place.cp}}</td><td>{{place.gps}}</td>
+        <tr> <td><a href="index.php?id=misto&amp;val={{place.id_mista}}" target="_blank">{{place.nazev}}</a></td> <td>{{place.ulice}} {{place.cp}}</td><td>{{place.gps}}</td>
             <td><button onclick="{{place.delA}}" class="btn btn-sm btn-info">Smazat</button>
                 <button onclick="{{place.updateA}}" class="btn btn-sm btn-info">Upravit</button>
             </td>

@@ -140,6 +140,12 @@ class app
             $data["content"]="text";
             $data["obsah"]= TEXT_CENA;
 
+        }elseif($id=="ubytko"){//=========================================== ubytko
+            $this->appendNavbar("Ubytování", "index.php?id=ubytko");
+            $data["nadpis"]="Ubytování 2015";
+            $data["content"]="text";
+            $data["obsah"]= TEXT_UBYTKO;
+
         }elseif($id=="reg" && !$prihl){//================================= registrace
             $this->appendNavbar("Registrace", "index.php?id=reg");
             $this->stranaRegistrace($do);
@@ -1264,6 +1270,9 @@ class app
 
         $data["menu"]["cena"]["text"]="Cena";
         $data["menu"]["cena"]["href"]="?id=cena";
+
+        $data["menu"]["ubytko"]["text"]="Ubytování";
+        $data["menu"]["ubytko"]["href"]="?id=ubytko";
 
 
         if(!isset($_SESSION[MY_SES]["user"]["flag"]) || $_SESSION[MY_SES]["user"]["flag"] == false) {
