@@ -959,9 +959,12 @@ class app
         $prihlaskyDB = new prihlaskyDB($this->GetConnection());
         $uziv = $_SESSION[MY_SES]["user"]["id"];
 
+
         if(isset($_POST["action"]) && $_POST["action"] == 'prihl' && $bool_before == false){
 
-            if($uvedeniDB->setFlag($_POST["val"]) == true){
+            $bool_prem = $prihlaskyDB->pouzePremium($_POST["val"]) && $_SESSION[MY_SES]["user"]["rights"]!=PREMIUM_RIGHTS;
+
+            if($bool_prem == false && $uvedeniDB->setFlag($_POST["val"]) == true){
                 if($prihlaskyDB->prihlas($uziv, $_POST["val"]) == true){
                     $data["data"]["success"] = "Byl jste úspěšně přihlášen";
                 }else{
@@ -1001,11 +1004,17 @@ class app
         $data["separator"][0]["text"] = "Pátek 27.2.2015";
         $data["separator"][0]["time"] = timestamp("2015-02-27 00:00:00");
 
-        $data["separator"][1]["text"] = "Sobota 28.2.2015";
+        $data["separator"][1]["text"] = "Sobota 28.2.2015 - dopoledne";
         $data["separator"][1]["time"] = timestamp("2015-02-28 00:00:00");
 
-        $data["separator"][2]["text"] = "Neděle 1.3.2015";
-        $data["separator"][2]["time"] = timestamp("2015-03-01 00:00:00");
+        $data["separator"][2]["text"] = "Sobota 28.2.2015 - odpoledne";
+        $data["separator"][2]["time"] = timestamp("2015-02-28 12:00:00");
+
+        $data["separator"][3]["text"] = "Neděle 1.3.2015 - dopoledne";
+        $data["separator"][3]["time"] = timestamp("2015-03-01 00:00:00");
+
+        $data["separator"][4]["text"] = "Neděle 1.3.2015 - odpoledne";
+        $data["separator"][4]["time"] = timestamp("2015-03-01 12:00:00");
 
         // vytvořeni tlačítek pro smazání
         foreach ($data["performances"] as &$value){
@@ -1040,6 +1049,12 @@ class app
            }elseif($prihlaskyDB->obsazeno($id_u)){//====================================== case obsazeno
                $value["disabled"] = "disabled";
                $value["submitVal"] = "Hra je plně obsazena.";
+               $value["action"] = "no";
+
+           }elseif($prihlaskyDB->pouzePremium($id_u) && $_SESSION[MY_SES]["user"]["rights"]!=PREMIUM_RIGHTS){
+                                                //======================================== case premium
+               $value["disabled"] = "disabled";
+               $value["submitVal"] = "Pouze prémiová místa!";
                $value["action"] = "no";
 
            }elseif(!$stihnes == true){//================================================== case nestihneš

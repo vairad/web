@@ -30,8 +30,9 @@ $text_cena = '<p class ="text-justify">Cena jednoho larpu se bude pohybovat mezi
 
 $text_reg = "Vytvořením účtu získáte přístup do přihlašování na akci Pivko. Vytvoření účtu Vás nezavazuje k platbě. Účty vytvpřené v minulých letech jsou stále aktivní.";
 
-define('TEXT_MUJ_PROGRAM', '   <p class="text-justify">Zde budou konkrétní informace o programu uživatele. Sit amet, consectetur adipiscing elit. Nam sodales arcu non fermentum vestibulum. Sed sed cursus risus. Donec porta urna in tellus sodales, ut congue velit blandit. In porttitor vulputate enim, vel viverra nulla mattis eu. Fusce mollis, diam egestas fringilla lobortis, tellus erat sodales ipsum, vitae auctor arcu lectus nec justo. Sed rhoncus, ex in condimentum rhoncus, velit est ultricies urna, sed posuere mauris lectus ac dui. Nullam tincidunt ligula nec congue commodo. Praesent pellentesque luctus pharetra. Maecenas at blandit nisi. Etiam vitae nulla lectus. Quisque sed augue elementum nisl tincidunt vulputate nec a est.
-                    </p>');
+$muj_program = '   <p class="text-justify">Zde budou uvedené Vámi přihlášené hry.</p>';
+
+define('TEXT_MUJ_PROGRAM', $muj_program);
 
 define('TEXT_O_AKCI', $text_o_akci);
 define('TEXT_PIVKO', $text_pivko);

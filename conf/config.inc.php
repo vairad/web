@@ -68,6 +68,8 @@
 	 */
 	define("START_TIME", mktime(20, 00, 00, 01, 29, 2014)); // snad 29.01.2015 20:00:00
 	define("END_TIME", mktime(20, 00, 00, 02, 27, 2015)); // snad 27.02.2015 20:00:00
+	define("KILL_PREMIUM", mktime(20, 00, 00, 02, 27, 2015)); // snad 27.02.2015 20:00:00
+
 
     define('MY_SES', "pivko_session");
 

@@ -5,7 +5,7 @@ class hra {
 
     private $name;
     private $need, $text;
-    private $num_m, $num_f, $num_h, $min;
+    private $num_m, $num_f, $num_h, $num_p, $min;
     private $length, $cost;
     private $web;
     private $org;
@@ -24,6 +24,7 @@ class hra {
         $this->setNumM($item["pocet_m"]);
         $this->setNumF($item["pocet_z"]);
         $this->setNumH($item["pocet_h"]);
+        $this->setNumP($item["pocet_p"]);
         $this->setMin($item["min"]);
 
         $this->setLength($item["delka"]);
@@ -58,6 +59,7 @@ class hra {
         $item["pocet_m"] = $this->getNumM();
         $item["pocet_z"] = $this->getNumF();
         $item["pocet_h"] = $this->getNumH();
+        $item["pocet_p"] = $this->getNumP();
         $item["min"] =  $this->getMin();
         $item["organizator"] = $this->getOrg();
         $item["web"] = $this->getWeb();
@@ -74,6 +76,7 @@ class hra {
         $item["num_m"] = $this->getNumM();
         $item["num_f"] = $this->getNumF();
         $item["num_h"] = $this->getNumH();
+        $item["num_p"] = $this->getNumP();
         $item["num_min"] =  $this->getMin();
         $item["org"] = $this->getOrg();
         $item["web"] = $this->getWeb();
@@ -208,6 +211,15 @@ class hra {
     }
 
     /**
+     * @param int $num_p
+     */
+    public function setNumP($num_p)
+    {
+        $this->set_up["num_p"] = true;
+        $this->num_p = $num_p;
+    }
+
+    /**
      * @param int $org
      */
     public function setOrg($org)
@@ -299,6 +311,14 @@ class hra {
     public function getNumH()
     {
         return $this->num_h;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getNumP()
+    {
+        return $this->num_p;
     }
 
     /**

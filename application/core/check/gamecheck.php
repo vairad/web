@@ -20,6 +20,7 @@ if(!isset($_POST["name"]))$_POST["name"]="";
 if(!isset($_POST["num_m"]))$_POST["num_m"]="";
 if(!isset($_POST["num_f"]))$_POST["num_f"]="";
 if(!isset($_POST["num_h"]))$_POST["num_h"]="";
+if(!isset($_POST["num_p"]))$_POST["num_p"]="";
 
 if(!isset($_POST["num_min"]))$_POST["num_min"]="";
 
@@ -132,6 +133,28 @@ if( !empty($_POST["num_min"]))
 else {
    //nula prázdné pole = 0
     $hra->setMin(0);
+}
+
+//===================================================================================================================
+/* proměnná num_p  */
+if(is_numeric($_POST["num_p"]))
+{
+    $num_p=trim($_POST["num_p"]);
+    if(delka(1,$num_p,11) ){
+        $data["game"]["num_p"]=$num_p;
+        $hra->setNumP($num_p);
+        $hra->set_up["num_p"]=true;
+    }
+    else {
+        $data["game_fail"]["num_p"]=1;
+        $hra->set_up["num_p"]=false;
+        $err[]="Počet prémiových míst musí být číslo.";
+    }
+}
+else {
+    $data["game_fail"]["num_p"]=1;
+    $hra->set_up["num_p"]=true;
+    $err[]="Počet prémiových míst musí být zadán.";
 }
 //===================================================================================================================
 

@@ -102,8 +102,56 @@ class prihlaskyDB extends db
         return $uvedeni;
     }
 
-    public function nestihnes($uziv, $uvedeni){
 
+    /**
+     * Zjistí kapacitu uvedení.
+     * @param $uvedeni_id int - identifikátor uvedení
+     * @return int - kapacita uvedení
+     */
+    public function kapacita($uvedeni_id){
+        $uvedeniDB = new uvedeniDB($this->connection);
+        $hryDB = new hryDB($this->connection);
+        $uvedeni = $uvedeniDB->GetUvedeniByID($uvedeni_id);
+        $hra = $hryDB->getHraByID($uvedeni["hra"]);
+
+        $kapacita = 0 + $hra["pocet_m"]+$hra["pocet_z"]+$hra["pocet_h"];
+        return $kapacita;
+    }
+
+    /**
+     * Vrátí počet míst
+     * @param $id_uvedeni int - identifikátor uvedení
+     * @return int - počet volných míst
+     */
+    public function pocetVolnychMist($id_uvedeni){
+        $kapacita = $this->kapacita($id_uvedeni);
+
+        $kapacita -= $this->pocet_muzu($id_uvedeni);
+        $kapacita -= $this->pocet_zen($id_uvedeni);
+
+        return $kapacita;
+
+    }
+
+    /**
+     * Zabere pokud na hře zbývají pouze prémiová místa
+     * @param $id_uvedeni int - identifikátor uvedení
+     * @return bool - vrací true, pokud zbývají jen prémiová místa
+     */
+    public function pouzePremium($id_uvedeni){
+
+        if(time() > KILL_PREMIUM){
+            return false;
+        }
+
+        $uvedeniDB = new uvedeniDB($this->connection);
+        $hryDB = new hryDB($this->connection);
+        $uvedeni = $uvedeniDB->GetUvedeniByID($id_uvedeni);
+        $hra = $hryDB->getHraByID($uvedeni["hra"]);
+
+        if($this->pocetVolnychMist($id_uvedeni) <= $hra["pocet_p"] ){
+            return true;
+        }
         return false;
     }
 
@@ -132,12 +180,7 @@ class prihlaskyDB extends db
     }
 
     public function obsazenoH($uvedeni_id){
-        $uvedeniDB = new uvedeniDB($this->connection);
-        $hryDB = new hryDB($this->connection);
-        $uvedeni = $uvedeniDB->GetUvedeniByID($uvedeni_id);
-        $hra = $hryDB->getHraByID($uvedeni["hra"]);
-
-        $kapacita = 0 + $hra["pocet_m"]+$hra["pocet_z"]+$hra["pocet_h"];
+        $kapacita = $this->kapacita($uvedeni_id);
         if($kapacita == 0){
             return true;
         }
@@ -151,6 +194,11 @@ class prihlaskyDB extends db
         return false;
     }
 
+    /**
+     * Zjistí, zda je na hře ještě volé místo
+     * @param $uvedeni int - identifikátor uvedení
+     * @return bool
+     */
     public function obsazeno($uvedeni){
         $bool = $this->obsazenoM($uvedeni);
         $bool &= $this->obsazenoZ($uvedeni);
@@ -158,6 +206,11 @@ class prihlaskyDB extends db
         return $bool;
     }
 
+    /**
+     * Sečte počet mužů přihlášených na konkrétním uvedení
+     * @param $uvedeni int - identifikátor uvedení
+     * @return int - počet mužů přihlášených na hře
+     */
     public function pocet_muzu($uvedeni){
         $where_arr[0]["column"]= "uvedeni";
         $where_arr[0]["value"]= "$uvedeni";
@@ -174,6 +227,11 @@ class prihlaskyDB extends db
         return count($this->DBSelectAll(TABLE_PRIHLASKY.", ".TABLE_OSOBY, "*", $where_arr));
     }
 
+    /**
+     * Sečte počet žen přihlášených na konkrétním uvedení
+     * @param $uvedeni int - identifikátor uvedení
+     * @return int - počet žen přihlášených na hře
+     */
     public function pocet_zen($uvedeni){
         $where_arr[0]["column"]= "uvedeni";
         $where_arr[0]["value"] = "$uvedeni";
@@ -190,6 +248,33 @@ class prihlaskyDB extends db
         return count($this->DBSelectAll(TABLE_PRIHLASKY.", ".TABLE_OSOBY, "*", $where_arr));
     }
 
+
+    /**
+     * Sečte počet prémiových uživatelů přihlášených na konkrétním uvedení
+     * @param $uvedeni int - identifikátor uvedení
+     * @return int - počet prémiových hráčů přihlášených na hře
+     */
+    public function pocet_premium($uvedeni){
+        $where_arr[0]["column"]= "uvedeni";
+        $where_arr[0]["value"] = "$uvedeni";
+        $where_arr[0]["symbol"]= "=";
+
+        $where_arr[1]["column"]= "typuctu";
+        $where_arr[1]["value"]= PREMIUM_RIGHTS;
+        $where_arr[1]["symbol"]= "=";
+
+        $where_arr[2]["column"]= "hrac";
+        $where_arr[2]["value_mysql"]= "id_osoby";
+        $where_arr[2]["symbol"]= "=";
+
+        return count($this->DBSelectAll(TABLE_PRIHLASKY.", ".TABLE_OSOBY, "*", $where_arr));
+    }
+
+    /**
+     * Získá informace o hráčích přihlášenýc na konkrétní hře.
+     * @param $uvedeni int - identifikátor uvedení
+     * @return array - seznam objektů hráčů
+     */
     public function prihlaseni($uvedeni){
         $where_arr[0]["column"]= "uvedeni";
         $where_arr[0]["value"]= "$uvedeni";
