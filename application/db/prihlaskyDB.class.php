@@ -12,8 +12,7 @@ class prihlaskyDB extends db
      * @param uvedeni $uvedeni
      */
     public function InsertUvedeni($uvedeni){
-        $item= $uvedeni->getItemDB();
-        // printr($item);
+        $item = $uvedeni->getItemDB();
         return $this->DBInsert(TABLE_UVEDENI,$item);
     }
 
@@ -180,6 +179,37 @@ class prihlaskyDB extends db
     }
 
     public function obsazenoH($uvedeni_id){
+        $uvedeniDB = new uvedeniDB($this->connection);
+        $hryDB = new hryDB($this->connection);
+        $uvedeni = $uvedeniDB->GetUvedeniByID($uvedeni_id);
+        $hra = $hryDB->getHraByID($uvedeni["hra"]);
+
+        $kapacita_h = $hra["pocet_h"]; // počet obojetných míst
+
+        //přepočítat přihlášené muže
+        $prebytek_muzu = $hra["pocet_m"] - $this->pocet_muzu($uvedeni_id);
+        if($prebytek_muzu < 0){
+            $kapacita_h +=$prebytek_muzu;
+        }
+
+        //přepočítat přihlášené ženy
+        $prebytek_zen = $hra["pocet_z"] - $this->pocet_zen($uvedeni_id);
+        if($prebytek_zen < 0){
+            $kapacita_h +=$prebytek_zen;
+        }
+
+        if($kapacita_h <= 0){
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * Zjistí, zda je na hře ještě volé místo
+     * @param $uvedeni int - identifikátor uvedení
+     * @return bool
+     */
+    public function obsazeno($uvedeni_id){
         $kapacita = $this->kapacita($uvedeni_id);
         if($kapacita == 0){
             return true;
@@ -192,18 +222,6 @@ class prihlaskyDB extends db
             return true;
         }
         return false;
-    }
-
-    /**
-     * Zjistí, zda je na hře ještě volé místo
-     * @param $uvedeni int - identifikátor uvedení
-     * @return bool
-     */
-    public function obsazeno($uvedeni){
-        $bool = $this->obsazenoM($uvedeni);
-        $bool &= $this->obsazenoZ($uvedeni);
-        $bool &= $this->obsazenoH($uvedeni);
-        return $bool;
     }
 
     /**

@@ -187,10 +187,11 @@ class app
     public function setLogged(){
         global $data;
         if(isset($_SESSION[MY_SES]["user"]["flag"]) && $_SESSION[MY_SES]["user"]["flag"] == true){
-            $data["logged"]=$_SESSION[MY_SES]["user"]["rights"];
-            $data["user"]["name"]=$_SESSION[MY_SES]["user"]["name"];
-            $data["user"]["nick"]=$_SESSION[MY_SES]["user"]["nick"];
-            $data["user"]["surname"]=$_SESSION[MY_SES]["user"]["surname"];
+            $data["logged"] = $_SESSION[MY_SES]["user"]["rights"];
+            $data["user"]["name"] = $_SESSION[MY_SES]["user"]["name"];
+            $data["user"]["nick"] = $_SESSION[MY_SES]["user"]["nick"];
+            $data["user"]["surname"] = $_SESSION[MY_SES]["user"]["surname"];
+            $data["user"]["account"] = typustuS($_SESSION[MY_SES]["user"]["rights"]);
         }else{
             $data["logged"]=false;
             $_SESSION[MY_SES]["user"]["flag"]=false;
