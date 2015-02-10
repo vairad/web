@@ -233,10 +233,14 @@
 <div class="table-responsive">
     <table class="table table-striped table-bordered">
         <tr> <th>Čas začátku</th><th>Hra</th><th>Místo</th>
+            <th>M</th><th>Ž</th><th>H</th>
+            <th>Muži</th><th>Ženy</th>
             <th></th></tr>
         {%for performance in performances %}
 
         <tr> <td>{{performance.zacatek}}</td> <td>{{performance.nazevhry}}</td><td>{{performance.nazev}}</td>
+            <td>{{performance.pocet_m}}</td><td>{{performance.pocet_z}}</td><td>{{performance.pocet_h}}</td>
+            <td>{{performance.pm}}</td><td>{{performance.pz}}</td>
             <td><button onclick="{{performance.delA}}" class="btn btn-block btn-info">Smazat</button></td>
         </tr>
         {% endfor %}

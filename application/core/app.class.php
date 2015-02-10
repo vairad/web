@@ -206,7 +206,7 @@ class app
         global $data;
 
         $osoby = new osobyDB($this->GetConnection());
-        $user = $osoby->GetOsobaByLogin(trim($_POST["login"]), trim($_POST["pass"]));
+        $user = $osoby->GetOsobaByLogin(strtolower(trim($_POST["login"])), trim($_POST["pass"]));
 
         if(!isset($user["jmeno"]) || $user["jmeno"]==""){
             $data["data"]["error"] = array();
@@ -810,11 +810,16 @@ class app
         $data["performances"] = array();
         $data["performances"] = $uvedeni;
 
+        $prihlaskyDB = new prihlaskyDB($this->GetConnection());
+
         // vytvořeni tlačítek pro smazání
         foreach ($data["performances"] as &$value){
             $msg = "Opravdu chcete smazat uvedení: \\n"
                 .$value["zacatek"]." hra: ".$value["nazevhry"]." místo: ".$value["nazev"];
             $value["delA"] = "confimElement(\"".$msg."\", \"vuved\", ".($value["id_uvedeni"]+456).", \"delete\")"; //magic hash number
+
+            $value["pm"] = $prihlaskyDB->pocet_muzu($value["id_uvedeni"]);
+            $value["pz"] = $prihlaskyDB->pocet_zen($value["id_uvedeni"]);
         }
 
     }
@@ -1164,6 +1169,8 @@ class app
         global $data;
 
         if($do == "pass" && isset($_POST["mail"])){
+
+            $_POST["mail"]=strtolower($_POST["mail"]);
 
             if(VERBOSE == true){
                 printr("pass");
