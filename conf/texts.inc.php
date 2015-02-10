@@ -1,5 +1,8 @@
 <?php
 
+define('UCET', "2800141302/2010");
+
+
 $rights_text = " Dávám souhlas s tím, aby Pilirion o.s., Psohlavců 10, Praha 4 Braník, IČO: 22893610 jako pořadatel zpracoval mé osobní údaje v souladu se zákonem č. 101/2000 sb. o ochraně osobních údajů.";
 
 $text_pivko = '<p class="text-justify h4">Ač by se mohlo zdát že jde o pozvánkou na alkoholický nápoj do Plzně, nenechte se zmást! Plzeňský Inspirační Víkendový Kurz vám může nabídnout zcela nový rozměr zážitků.
@@ -70,6 +73,8 @@ $text_reg = "Vytvořením účtu získáte přístup do přihlašování na akci
 
 $muj_program = '   <p class="text-justify">Zde budou uvedené Vámi přihlášené hry.</p>';
 
+$text_platba = '<p class="text-justify">Platbu za akci je možné uskutečnit dvěma způsoby. Prvním a preferovaným je využít platbu přes transparentní účet Pilirion o.s. (<a href="https://www.fio.cz/scgi-bin/hermes/dz-transparent.cgi?ID_ucet=2800141302" target="_blank">odkaz</a>). Identifikace platby viz níže. Druhým způsobem je uhrazení her v hotovosti při registraci, tento způsob je o 100Kč dražší.</p>';
+
 define('TEXT_MUJ_PROGRAM', $muj_program);
 
 define('TEXT_O_AKCI', $text_o_akci);
@@ -78,6 +83,8 @@ define('TEXT_LETOS', $text_letos);
 define('TEXT_CENA', $text_cena);
 define('TEXT_REG_INFO',$text_reg );
 define('TEXT_UBYTKO',$text_ubytko );
+define('TEXT_PLATBA',$text_platba );
+
 
 define('HESLO_INFO', "Použijte tak jednoduché heslo, abyste ho nemuseli mít napsané na monitoru.");
 

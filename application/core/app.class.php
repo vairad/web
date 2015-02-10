@@ -392,6 +392,25 @@ class app
 
         $prihlaskyDB = new prihlaskyDB($this->GetConnection());
         $data["performances"] = $prihlaskyDB->mojeUvedeni($_SESSION[MY_SES]["user"]["id"]);
+
+        $suma = array();
+        $suma["cena"] = 0;
+        $suma["nazev"] = "===";
+        $suma["nazevhry"] = "CELKEM";
+
+        foreach($data["performances"] as $uvedeni){
+            $suma["cena"] += $uvedeni["cena"];
+        }
+
+        $data["performances"][] = $suma;
+
+        $data["h3"] = "Informace o platbě";
+        $data["info"] = TEXT_PLATBA;
+
+        $data["vs"] = 20150000+$_SESSION[MY_SES]["user"]["id"];
+        $data["ucet"] = UCET;
+        $data["cena"] = $suma["cena"];
+
     }
 
     //===============================================================================================================
