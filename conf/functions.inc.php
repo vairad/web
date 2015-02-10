@@ -53,7 +53,8 @@ function DateTimeToTimestamp($date){
 }
 
 /**
- * @param $timestamp
+ * Vytvoří datum ve formátu Y-m-d H:i:s.u z unix timestamp
+ * @param $timestamp Y-m-d H:i:s.u
  * @return bool|string
  */
 function timeToData($timestamp){
@@ -99,7 +100,7 @@ function vek($dateDB){
     return $now-$dateDB;
 }
 
-function cze_datum($datetime) {
+function cze_datum_cas($datetime) {
     $datum=explode (" ", $datetime) ;
     $denmesic=explode ("-", $datum[0]) ;
     $hms=explode (":", $datum[1]) ;
@@ -109,6 +110,15 @@ function cze_datum($datetime) {
     $hodina=$hms[0];
     $minuta=$hms[1];
     return "".$den.".".$mesic.".".$rok." ".$hodina.":".$minuta."";
+}
+
+function cze_datum($datetime) {
+    $datum = explode (" ", $datetime) ;
+    $denmesic = explode ("-", $datum[0]) ;
+    $mesic = round($denmesic[1],0);
+    $den = round($denmesic[2],0);
+    $rok = $denmesic[0];
+    return "".$den.".".$mesic.".".$rok."";
 }
 
 

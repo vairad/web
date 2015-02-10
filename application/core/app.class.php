@@ -212,6 +212,8 @@ class app
             $data["data"]["error"] = array();
             $data["data"]["error"][]="Špatná kombinace jména a hesla.";
         }else{
+            $osoby->UpdateLastByID($user["id_osoby"]);
+
             $data["data"]["success"]="Přihlášení bylo úspěšné";
             $_SESSION[MY_SES]["user"]= array();
             $_SESSION[MY_SES]["user"]["flag"]=true;

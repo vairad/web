@@ -72,6 +72,22 @@ class osobyDB extends db
     /**
      * @return bool | item osoba
      * */
+    public function UpdateLastByID($id)
+    {
+        /* $where_arr[0]["column"]= "id_osoby";
+         $where_arr[0]["value"]= "$id";
+         $where_arr[0]["symbol"]= "=";
+
+         $where_arr[1]["column"]= "heslo";
+         $where_arr[1]["value"]= sha1($pass);
+         $where_arr[1]["symbol"]= "="; */
+
+        $where_str = "id_osoby = $id";
+
+        $item["posledni"] = timeToData(time());
+
+        return $this->DBUpdate(TABLE_OSOBY, $item, $where_str);
+    }
     public function UpdatePassByID($id , $new_pass)
     {
         /* $where_arr[0]["column"]= "id_osoby";
