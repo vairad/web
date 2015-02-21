@@ -55,7 +55,7 @@ class uvedeniDB extends db
 
         // vratit data
 
-            $item["zacatek"]=cze_datum($item["zacatek"]);
+            $item["zacatek"]=cze_datum_cas($item["zacatek"]);
 
         return $item;
     }
@@ -97,7 +97,7 @@ class uvedeniDB extends db
         // vratit data
         foreach($uvedeni as &$item){
             $item["z"]=timestamp($item["zacatek"]);
-            $item["zacatek"]=cze_datum($item["zacatek"]);
+            $item["zacatek"]=cze_datum_cas($item["zacatek"]);
         }
         return $uvedeni;
     }
@@ -164,7 +164,7 @@ class uvedeniDB extends db
 
         // vratit data
         foreach($uvedeni as &$item){
-            $item["zacatek"]=cze_datum($item["zacatek"]);
+            $item["zacatek"]=cze_datum_cas($item["zacatek"]);
         }
         return $uvedeni;
         }

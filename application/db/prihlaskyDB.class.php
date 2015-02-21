@@ -96,6 +96,10 @@ class prihlaskyDB extends db
         // vratit data
         foreach($uvedeni as &$item){
             $item["z"] = timestamp($item["zacatek"]);
+            $tmpDate = $item["zacatek"];
+            $konec = $item["z"]+(60 * $item["delka"]);
+            $konec = timeToData($konec);
+            $item["doba"] = cze_cas($tmpDate)." - ".cze_cas($konec);
             $item["zacatek"]=cze_datum_cas($item["zacatek"]);
         }
         return $uvedeni;

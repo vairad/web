@@ -112,6 +112,19 @@ function cze_datum_cas($datetime) {
     return "".$den.".".$mesic.".".$rok." ".$hodina.":".$minuta."";
 }
 
+
+function cze_cas($datetime) {
+    $datum=explode (" ", $datetime) ;
+    $denmesic=explode ("-", $datum[0]) ;
+    $hms=explode (":", $datum[1]) ;
+    $mesic=round($denmesic[1],0);
+    $den=round($denmesic[2],0);
+    $rok=$denmesic[0];
+    $hodina=$hms[0];
+    $minuta=$hms[1];
+    return $hodina.":".$minuta;
+}
+
 function cze_datum($datetime) {
     $datum = explode (" ", $datetime) ;
     $denmesic = explode ("-", $datum[0]) ;

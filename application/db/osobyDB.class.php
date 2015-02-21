@@ -52,6 +52,18 @@ class osobyDB extends db
     /**
      * @return bool | item osoba
      * */
+    public function GetOsobaByID($id)
+    {
+        $where_arr[0]["column"]= "id_osoby";
+        $where_arr[0]["value"]= "".$id."";
+        $where_arr[0]["symbol"]= "=";
+
+        return $this->DBSelectOne(TABLE_OSOBY,"*",$where_arr);
+    }
+
+    /**
+     * @return bool | item osoba
+     * */
     public function UpdatePassByIDandPass($id ,$pass, $new_pass)
     {
        /* $where_arr[0]["column"]= "id_osoby";
@@ -88,6 +100,10 @@ class osobyDB extends db
 
         return $this->DBUpdate(TABLE_OSOBY, $item, $where_str);
     }
+
+    /**
+     * @return bool | item osoba
+     * */
     public function UpdatePassByID($id , $new_pass)
     {
         /* $where_arr[0]["column"]= "id_osoby";
@@ -143,6 +159,21 @@ class osobyDB extends db
     {
         $table_name = TABLE_OSOBY;
         $select_columns_string = "id_osoby, jmeno, prijmeni, prezdivka, datnar, pohlavi, email, mobil, typuctu";
+        $where_array = array();
+        $limit_string = "";
+        $order_by_array = $this->abecedne();
+
+        $mista = $this->DBSelectAll($table_name, $select_columns_string, $where_array, $limit_string, $order_by_array);
+        //printr($predmety);
+
+        // vratit data
+        return $mista;
+    }
+
+    public function GetAllMails()
+    {
+        $table_name = TABLE_OSOBY;
+        $select_columns_string = "email";
         $where_array = array();
         $limit_string = "";
         $order_by_array = $this->abecedne();
