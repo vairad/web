@@ -1,0 +1,6 @@
+AuthUserFile /home/pivko/www/export/hesla
+AuthGroupFile /dev/null
+AuthName "Export ucastniku"
+AuthType Basic
+
+require valid-user

@@ -29,12 +29,12 @@ $uvedeniDB = new uvedeniDB($db->GetConnection());
 
 
 $osoby = $osobyDB->SelectAllOsobyInfo();
-
+    //$osoby = $osobyDB->GetOsobyByRights(CREATE_RIGHTS);
 $export = "";
 
 foreach ($osoby as $osoba){
     $program = $prihlaskyDB->mojeUvedeni($osoba["id_osoby"]);
-    printr($program);
+    //printr($program);
     if(count($program)>0){
 
         $jmeno = $osoba["jmeno"]." \"".$osoba["prezdivka"]."\" ".$osoba["prijmeni"];
@@ -58,23 +58,32 @@ foreach ($osoby as $osoba){
 
         $cas = mktime(20, 00, 00, 02, 27, 2015);
 
-        for($i = 0; $i < count($program); $i++){
-            if($program[$i]["z"] < $cas ){
-                $hrac[$i]["hra"] = $program[$i]["nazevhry"];
-                $hrac[$i]["misto"] = $program[$i]["nazev"];
-                $hrac[$i]["cas"] = $program[$i]["doba"];
+        $pp = 0; //program pointer
+        for($i = 0; $i < count($hrac); $i++){
+
+         /*   echo "zacatek: ".$program[$i]["z"]." cas hodin: ".$cas;
+            echo "<br>";*/
+
+            if(isset($program[$pp]) && $program[$pp]["z"] < $cas ){
+                $hrac[$i]["hra"] = $program[$pp]["nazevhry"];
+                $hrac[$i]["misto"] = $program[$pp]["nazev"];
+                $hrac[$i]["cas"] = $program[$pp]["doba"];
+                $pp++;
             }
 
+          //  echo cze_datum_cas(timeToData($cas))."<br>";
             $cas += 8*60*60; //osm hodin v sekundách
         }
 
-
         echo $jmeno.";";
+        echo typustuS($osoba["typuctu"]).";";
+      //  echo "<br>";
 
         for($i = 0; $i<count($hrac); $i++){
             echo $hrac[$i]["hra"].";";
             echo $hrac[$i]["cas"].";";
             echo $hrac[$i]["misto"].";";
+        //    echo "<br>";
         }
         echo "\n";
         //funkcni kod
