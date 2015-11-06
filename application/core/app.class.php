@@ -241,6 +241,11 @@ class app
     //===============================================================================================================
     //===============================================================================================================
 
+    /**
+     * Výhybka při zpracování her. Buď seznam a nebo konkrétní informace.
+     * Veřejná část
+     * @param $val int id_zobrazované hry
+     */
     public function stranaHra($val){
         if($val == 'none'){
             $this->seznamHer();
@@ -249,8 +254,13 @@ class app
         }
     }
 
+    /**
+     * Načtení seznamu her z DB.
+     */
     public function seznamHer(){
         global $data;
+
+        //TODO Seznam pouze her a ne NONher
 
         $data["nadpis"]="Uváděné hry";
         $data["content"]="seznamHer";
@@ -262,6 +272,10 @@ class app
         $data["games"] = $hry;
     }
 
+    /**
+     * Načtení informace o konkrétní hře
+     * @param $val int id_hry
+     */
     public function jendaHra($val){
         global $data;
 
@@ -282,6 +296,11 @@ class app
     //===============================================================================================================
     //===============================================================================================================
 
+    /**
+     * Výhybka zobrazení míst, kde se konají hry.
+     * Přihlášený uživatel.
+     * @param $val int id_hry nebo none
+     */
     public function stranaMisto($val){
         if($val == 'none'){
             $this->seznamMist();
@@ -290,6 +309,9 @@ class app
         }
     }
 
+    /**
+     * Načtení seznamu míst z DB
+     */
     public function seznamMist(){
         global $data;
 
@@ -303,6 +325,10 @@ class app
         $data["places"] = $hry;
     }
 
+    /**
+     * Načtení konkrétních informací o hře dle id
+     * @param $val int id_hry
+     */
     public function jendoMisto($val){
         global $data;
 
@@ -321,6 +347,10 @@ class app
     //===============================================================================================================
 
 
+    /**
+     * Metoda obsluhující vytváření a mazání her.
+     * @param $do ??
+     */
     public function  stranaSpravaHer($do){
         global $data;
 
@@ -385,8 +415,11 @@ class app
     //===============================================================================================================
     //===============================================================================================================
 
-
-    public function stranaMujProgram(){ //TODO better view
+    /**
+     * Metoda obsluhující zobrazení osobního programu.
+     */
+    //TODO better view issue #8
+    public function stranaMujProgram(){
         global $data;
 
         $data["content"]="proglist";
@@ -418,6 +451,11 @@ class app
     //===============================================================================================================
     //===============================================================================================================
 
+    /**
+     * Výhybka pro správu vlastního účtu
+     * Přihlášený uživatel
+     * @param $do string "pass", "account" or ""
+     */
     public function mujUcet($do){
         global $data;
 
@@ -471,8 +509,9 @@ class app
 
     }
 
-    public function stranaZmenUdaje(){
 
+    public function stranaZmenUdaje(){
+        //TODO strana uprav své údaje
     }
 
     public function stranaInfoUdaje(){
@@ -492,6 +531,10 @@ class app
     //===============================================================================================================
     //===============================================================================================================
 
+    /**
+     * Metoda seznamu her pro správu a úpravy.
+     * Admin uživatel
+     */
     public function stranaSeznamHer(){
         global $data;
 
@@ -521,7 +564,10 @@ class app
 
     //===============================================================================================================
     //===============================================================================================================
-
+    /**
+     * Metoda pro vytvoření nové hry
+     * Admin uživatel
+     */
     public function stranaFormularHra($do){
         global $data;
 
@@ -601,6 +647,11 @@ class app
     //===============================================================================================================
 
 
+    /**
+     * Výhybka obsluhující správu míst
+     * Admin uživatel
+     * @param $do ??
+     */
     public function stranaSpravaMist($do){
         global $data;
 
