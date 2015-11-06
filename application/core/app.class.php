@@ -457,7 +457,6 @@ class app
      * @param $do string "pass", "account" or ""
      */
     public function mujUcet($do){
-        global $data;
 
         if($do == 'pass'){
             $this->stranaZmenHeslo();
@@ -534,8 +533,9 @@ class app
     /**
      * Metoda seznamu her pro správu a úpravy.
      * Admin uživatel
+     * @param $do string vlajka metody
      */
-    public function stranaSeznamHer(){
+    public function stranaSeznamHer($do){
         global $data;
 
         $data["nadpis"]="Seznam her";
@@ -567,6 +567,7 @@ class app
     /**
      * Metoda pro vytvoření nové hry
      * Admin uživatel
+     * @param $do
      */
     public function stranaFormularHra($do){
         global $data;
@@ -606,7 +607,7 @@ class app
                 if ($database == true) {
                     $data["data"]["success"] = "Hra byla úspěšně upravena";
                     //zobrazit prázdný formulář
-                    $this->stranaSeznamHer();
+                    $this->stranaSeznamHer($do);
                 } else {
                     if (!isset($data["data"]["error"][0])) {
                         $data["data"]["error"][] = "Nebylo možné upravit hru.";
@@ -733,7 +734,7 @@ class app
                 if ($database == true) {
                     $data["data"]["success"] = "Místo bylo úspěšně upraveno";
                     //zobrazit prázdný formulář
-                    $this->stranaSeznamMist();
+                    $this->stranaSeznamMist($do);
                 } else {
                     if (!isset($data["data"]["error"][0])) {
                         $data["data"]["error"][] = "Nebylo možné upravit místo.";
@@ -764,7 +765,7 @@ class app
         }
     }
 
-    public function stranaSeznamMist(){
+    public function stranaSeznamMist($do){
         global $data;
 
         $data["nadpis"]="Seznam mist";
@@ -1408,9 +1409,12 @@ class app
 
     //==================================================================================================================
 
-   /**
-    * připojí na konec pole navigační lišty další prvek
-   */
+    /**
+     * připojí na konec pole navigační lišty další prvek
+     * @param $title string titulek k zobrazení v navigační liště
+     * @param $href string odkaz, na ktery bude titulek ukazovat
+     * @param bool $last bool speciální možnost pro nastavení poslední položky vodorovného menu
+     */
     private function appendNavbar($title, $href, $last = false){
         global $data;
 

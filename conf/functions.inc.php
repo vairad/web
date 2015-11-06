@@ -39,7 +39,7 @@ function dateToData($date){
 }
 
 /**
- * @param $date strig dd.mm.yyyy.hh.mm
+ * @param $date string dd.mm.yyyy.hh.mm
  * @return bool false pokud selže  |string
  */
 function DateTimeToTimestamp($date){
