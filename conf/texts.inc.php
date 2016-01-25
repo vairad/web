@@ -29,20 +29,8 @@ $text_o_akci = ' <p><strong>PIVKo Dvan&aacute;ctka </strong>je akce pro v&scaron
 <h4><strong>Poděkov&aacute;n&iacute; nad&aacute;le patř&iacute; n&aacute;sleduj&iacute;c&iacute;m:</strong></h4>
 <p><strong>Luk&aacute;&scaron; &ldquo;Finmer&rdquo; Beran, Jan &ldquo;Zagro&rdquo; Zahradn&iacute;k, Jakub &ldquo;Balda&rdquo; Balhar, Danča Kojzarov&aacute;, Lenka &ldquo;Alienka&rdquo; Pittnerov&aacute;, Jakub &ldquo;Kořen&rdquo; Korbel, Lenka Žaitlikov&aacute;, Jaroslav &ldquo;Roslav&rdquo; Voves, Karel &ldquo;Keret&rdquo; Ř&iacute;ha, Luk&aacute;&scaron; &ldquo;Viper&rdquo; Makovička, a dal&scaron;&iacute;, kter&yacute;m moc děkujeme za obs&aacute;hlou podporu a pomoc!</strong></p>';
 
-$text_letos = '<h4>27.2. - 1.3.2015</h4>
-<p>Co můžete od leto&scaron;n&iacute;ho ročn&iacute;ku oček&aacute;vat?</p>
-<p>Program PIVKa bude již tradičně zač&iacute;nat v p&aacute;tek v odpoledn&iacute;ch hodin&aacute;ch<strong> registrac&iacute;.</strong></p>
-<p><strong>P&aacute;tečn&iacute; REGISTRACE bude prob&iacute;hat na Totemu od 15.30 do 20.00. </strong>Z&aacute;roveň si zde budete moct odložit v&scaron;echny sv&eacute; věci, ve vr&aacute;tnici bude po celou dobu akce př&iacute;tomen dozor (buď vr&aacute;tn&aacute; Totemu nebo někdo od n&aacute;s).</p>
-<p>Ti kteř&iacute; doraz&iacute; později nebo se nestihnou dostavit na Totem před zač&aacute;tkem her, budou m&iacute;t je&scaron;tě možnost <strong>zaregistrovat se tamt&eacute;ž r&aacute;no mezi 7.00 - 8.00.</strong></p>
-<p><strong>Po zbytek sobotn&iacute;ho dne bude registrace prob&iacute;hat v kav&aacute;rně a čajovně Seraf v centru, kde bude z&aacute;roveň celou sobotu př&iacute;tomn&yacute; někdo z organiz&aacute;torů.</strong></p>
-<p><strong>V neděli se již s registrac&iacute; nepoč&iacute;t&aacute;. </strong>Pokud pl&aacute;nujete dorazit pouze na neděln&iacute; hru, ozvěte se n&aacute;m a domluv&iacute;me se individu&aacute;lně.</p>
-<p>V sobotu na v&aacute;s budou čekat <strong>dva hern&iacute; bloky, </strong>mezi kter&yacute;mi budete m&iacute;t dostatek času na oběd.</p>
-<p>Na každ&eacute; hře budou samozřejmě k dispozici n&aacute;poje a drobn&eacute; občerstven&iacute; (su&scaron;enky, chipsy).</p>
-<p>V neděli se můžete &uacute;častnit posledn&iacute;ho, <strong>dopoledn&iacute;ho bloku larpů</strong> a pot&eacute; dle libosti vyrazit domů. Nebo, pokud se v&aacute;m PIVKo bude l&iacute;bit, si můžete naj&iacute;t je&scaron;tě chvilku voln&eacute;ho času, dorazit na Seneč&aacute;k, povědět n&aacute;m jak jste si leto&scaron;n&iacute; ročn&iacute;k užili a co byste chtěli do př&iacute;&scaron;tě změnit - a třeba n&aacute;m i maličko pomoct s ukl&iacute;dem. :)</p>
-<p><strong>V r&aacute;mci festivalu v&aacute;s zveme na p&aacute;tečn&iacute; a sobotn&iacute; OFFPROGRAM:</strong></p>
-<p><strong>V p&aacute;tek </strong>večer proběhne od <strong>21.30 </strong>vystoupen&iacute;<strong> muzikanta Laega na Seneč&aacute;ku.</strong></p>
-<p><strong>V</strong> <strong>sobotu </strong>bude pro n&aacute;s od <strong>20.00</strong> otevřen&yacute; klub<strong> U star&eacute;ho psa</strong> v centru města (<a href="https://www.facebook.com/groups/53602423465/?fref=ts" target="_blank">Facebook "U star&eacute;ho psa"</a>). Bude zde možnost navečeřet se (hlasujte v anketě &ldquo;Sobotn&iacute; večeře&rdquo; na facebooku akce).</p>
-<p>V průběhu večera vystoup&iacute; hudebn&iacute; duo <strong>Kachna a Zodiac. </strong>Kromě toho bude celou dobu hr&aacute;t <strong>reprodukovan&aacute; muzika - potřebujete-li nutně sly&scaron;et svoji p&iacute;sničku, napi&scaron;te si o ni!</strong><br /><strong>Upozorňujeme, že prostory klubu budou po celou dobu př&iacute;sně NEKUŘ&Aacute;CK&Eacute;!</strong></p>
+$text_letos = '<h4>1. - 3.4.2016</h4>
+<p>Další informace očekávejte každým dnem.</p>
 ';
 
 $text_cena = '<p><strong>Cena jednoho larpu</strong> se bude pohybovat mezi <strong>100 &nbsp;̶ &nbsp;250,- Kč</strong>.</p>
@@ -88,7 +76,7 @@ define('TEXT_PLATBA',$text_platba );
 
 define('HESLO_INFO', "Použijte tak jednoduché heslo, abyste ho nemuseli mít napsané na monitoru.");
 
-define('TITLE', "PIVKo 2015");
+define('TITLE', "PIVKo 2016");
 
 global $data;
 $data["rights_text"] = $rights_text;
