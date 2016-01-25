@@ -27,8 +27,8 @@ function typustuS($typuctu){
                 int $year = date("Y") [,
                 int $is_dst = -1 ]]]]]]] )*/
 
-$data["startDay"]="20.2.2015";
-$data["endDay"]="20.3.2015";
+$data["startDay"] = "1.3.2016";
+$data["endDay"] = "1.4.2016";
 
 
 
