@@ -204,10 +204,18 @@
 {% elseif content == 'lhra' %}
 <div class="table-responsive">
     <table class="table table-striped table-bordered">
-        <tr> <th>Název</th><th>Muži</th><th>Ženy</th><th>Obojí</th><th>Délka</th><th>Cena</th>
+        <tr> <th>Název</th><th>Hra</th><th>Muži</th><th>Ženy</th><th>Obojí</th><th>Délka</th><th>Cena</th>
         <th></th></tr>
         {%for game in games %}
         <tr> <td>{{game.nazev}}</td>
+
+            <td>{% if game.servis == "0" %}
+                 Ano
+                {% elseif game.servis == "1" %}
+                 Ne
+                {% endif %}
+            </td>
+
             <td>{{game.pocet_m}}</td>
             <td>{{game.pocet_z}}</td>
             <td>{{game.pocet_h}}</td>

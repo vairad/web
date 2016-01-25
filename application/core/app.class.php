@@ -260,14 +260,12 @@ class app
     public function seznamHer(){
         global $data;
 
-        //TODO Seznam pouze her a ne NONher
-
         $data["nadpis"]="Uváděné hry";
         $data["content"]="seznamHer";
 
         //pole her
         $hryDB = (new hryDB($this->GetConnection()));
-        $hry = $hryDB->LoadAllHry();
+        $hry = $hryDB->LoadAllHryNoServis();
         $data["games"] = array();
         $data["games"] = $hry;
     }

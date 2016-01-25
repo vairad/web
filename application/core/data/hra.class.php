@@ -9,6 +9,7 @@ class hra {
     private $length, $cost;
     private $web;
     private $org;
+    private $servis;
 
     public $set_up = array();
 
@@ -32,6 +33,8 @@ class hra {
 
         $this->setWeb($item["web"]);
         $this->setOrg($item["organizator"]);
+
+        $this->setServis($item["servis"]);
     }
 
 
@@ -47,6 +50,7 @@ class hra {
         $this->set_up["cost"] = false;
         $this->set_up["web"] = false;
         $this->set_up["org"] = false;
+        $this->set_up["servis"] = false;
 
     }
 
@@ -64,6 +68,7 @@ class hra {
         $item["organizator"] = $this->getOrg();
         $item["web"] = $this->getWeb();
         $item["special"] = $this->getNeed();
+        $item["servis"] = $this->getServis();
 
         return $item;
     }
@@ -81,6 +86,7 @@ class hra {
         $item["org"] = $this->getOrg();
         $item["web"] = $this->getWeb();
         $item["special"] = $this->getNeed();
+        $item["servis"] = $this->getServis();
 
         return $item;
     }
@@ -246,6 +252,14 @@ class hra {
         $this->text = $text;
     }
 
+    /**
+     * @param bool $servis if
+     */
+    public function setServis($bool)
+    {
+        $this->set_up["servis"] = true;
+        $this->servis = $bool;
+    }
 
     //==================================================================
 
@@ -359,6 +373,14 @@ class hra {
     public function getWeb()
     {
         return $this->web;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getServis()
+    {
+        return $this->servis;
     }
     //==================================================================
 

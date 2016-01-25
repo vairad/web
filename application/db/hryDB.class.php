@@ -68,6 +68,31 @@ class hryDB extends db {
         return $hry;
     }
 
+    /*******************************************************************************************************************
+     *
+     *
+     */
+    public function LoadAllHryNoServis()
+    {
+        $table_name = TABLE_HRY;
+        $select_columns_string = "*";
+        $where_array = array();
+        $limit_string = "";
+        $order_by_array = array();
+        $order_by_array[0]["column"]="nazev";
+        $order_by_array[0]["sort"]="asc";
+
+        $where_array[1]["column"]= "servis";
+        $where_array[1]["value_mysql"]= "0";
+        $where_array[1]["symbol"]= "=";
+
+        $hry = $this->DBSelectAll($table_name, $select_columns_string, $where_array, $limit_string, $order_by_array);
+        //printr($predmety);
+
+        // vratit data
+        return $hry;
+    }
+
 
     /*******************************************************************************************************************
      * Metoda smaže hru dle zvoleného id z databáze.

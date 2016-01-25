@@ -13,7 +13,9 @@ global $hra;
 
 $hra = new hra();
 
-//printr($_POST);
+if(VERBOSE) {
+    printr($_POST);
+}
 
 if(!isset($_POST["name"]))$_POST["name"]="";
 
@@ -260,6 +262,19 @@ else {
 
     $data["game"]["web"]=$web;
     $hra->setWeb($web);
+
+//===================================================================================================================
+
+/*proměnná servis*/
+
+if(!isset($_POST["servis"])){
+    $servis=false;
+}else{
+    $servis=true;
+}
+
+$data["game"]["servis"]=$servis;
+$hra->setServis($servis);
 
 //===================================================================================================================
 //výpis chyb

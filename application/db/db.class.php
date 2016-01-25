@@ -189,7 +189,7 @@ class db
 	
 	 		// 1) pripravit dotaz s dotaznikama
 	 		$query = "select $select_columns_string from ".$table_name." $where_pom $order_by_pom $limit_string;";
-	 		//////echo $query;
+//	 		echo $query;
 
 
 	
@@ -212,7 +212,11 @@ class db
 	 		}
 	 		}
 			//********************/
-           // ////printr($statement);
+           //
+
+
+			 //printr($statement);
+
 
 	 		// 4) provest dotaz
 	 		$statement->execute();

@@ -144,9 +144,9 @@
         </div>
     </div>
 
-    <!-- org -->
+    <!-- org a servis -->
     <div class="row">
-        <div class="col-md-offset-1 col-md-10">
+        <div class="col-md-offset-1 col-md-7">
             <div class="input-group">
                 <span class="input-group-addon {% if game_fail.org == true  %} alert-danger {% endif %}">Organizátor</span>
                 <select name="org" class="form-control" required>
@@ -157,6 +157,26 @@
                 </select>
             </div>
         </div>
+
+        <div class="col-md-3">
+            <div class="input-group">
+
+                 <span class="input-group-addon {% if reg_fail.sex == true  %} alert-danger {% endif %}">
+                     <input type="checkbox"
+                            name="servis"
+                            {% if game.servis == "1" %}
+                          checked
+                        {% endif %}
+                     >
+                </span>
+                <span  class="form-control">
+                   <abbr title="Označení že jde pouze o servisní událost typu ubytování Jde o události, které se nemají zobrazovat ve výpisu uváděných her.">
+                       Servisní událost
+                   </abbr>
+                </span>
+            </div>
+        </div>
+
     </div>
 
 
