@@ -114,7 +114,7 @@ CREATE TABLE IF NOT EXISTS `osoby` (
   `mobil` int(11) NOT NULL,
   `heslo` varchar(40) NOT NULL,
   `posledni` datetime DEFAULT NULL,
-  `vytvoreni` datetime DEFAULT CURRENT_TIMESTAMP,
+  `vytvoreni` datetime DEFAULT NULL,
   `typuctu` int(11) DEFAULT '1',
   PRIMARY KEY (`id_osoby`),
   UNIQUE KEY `email_UNIQUE` (`email`)
