@@ -232,6 +232,9 @@
 
 <!-- SEZNAM HER -->
 {% elseif content == 'seznamHer' %}
+
+{{info | raw}}
+
 <div class="well">
     {%for game in games %}
     <a href="index.php?id=hry&amp;val={{game.id_hry}}#body" class="linkGame"><span>{{game.nazev}}</span></a>

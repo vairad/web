@@ -59,9 +59,11 @@ $text_ubytko = '
 
 $text_reg = "Vytvořením účtu získáte přístup do přihlašování na akci Pivko. Vytvoření účtu Vás nezavazuje k platbě. Účty vytvpřené v minulých letech jsou stále aktivní.";
 
-$muj_program = '   <p class="text-justify">Zde budou uvedené Vámi přihlášené hry.</p>';
+$muj_program = '<p class="text-justify">Zde budou uvedené Vámi přihlášené hry.</p>';
 
 $text_platba = '<p class="text-justify">Platbu za akci je možné uskutečnit dvěma způsoby. Prvním a preferovaným je využít platbu přes transparentní účet Pilirion o.s. (<a href="https://www.fio.cz/scgi-bin/hermes/dz-transparent.cgi?ID_ucet=2800141302" target="_blank">odkaz</a>). Identifikace platby viz níže. Druhým způsobem je uhrazení her v hotovosti při registraci, tento způsob je o 100Kč dražší.</p>';
+
+$text_hry = '<p class="text-justify"> Všechny tyto hry byly na PIVKu uvedeny v letech minulých nebo se pro Vás připravují v nadcházejícím ročníku. Po přihlášení můžete prozkoumat aktuální program.</p>';
 
 define('TEXT_MUJ_PROGRAM', $muj_program);
 
@@ -72,6 +74,7 @@ define('TEXT_CENA', $text_cena);
 define('TEXT_REG_INFO',$text_reg );
 define('TEXT_UBYTKO',$text_ubytko );
 define('TEXT_PLATBA',$text_platba );
+define('TEXT_UVEDENI',$text_hry );
 
 
 define('HESLO_INFO', "Použijte tak jednoduché heslo, abyste ho nemuseli mít napsané na monitoru.");

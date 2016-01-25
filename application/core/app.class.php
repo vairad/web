@@ -262,6 +262,7 @@ class app
 
         $data["nadpis"]="Uváděné hry";
         $data["content"]="seznamHer";
+        $data["info"] = TEXT_UVEDENI;
 
         //pole her
         $hryDB = (new hryDB($this->GetConnection()));
