@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Webová stránka plzeňského larpového festivalu. - PIVKo">
+    <meta name="keywords" content="LARP, PIVKo, Plzeň, festival">
+    <meta name="author" content="Olie">
+
+    <title>{{title}}</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="{{bootstrap_css}}" rel="stylesheet">
+
+    <!-- Optional Bootstrap Theme -->
+    <link href="{{bootstrap_theme}}" rel="stylesheet">
+
+    <!-- Bootstrap datepicker CSS -->
+    <link href="{{bootstrap_dp_css}}" rel="stylesheet">
+
+    <!-- My CSS -->
+    <link href="{{my_css}}" rel="stylesheet">
+
+    <!-- FAVICO -->
+    <link rel="icon" href="{{favico}}">
+
+</head>
+<body>
+ <!-- LOGED BAR -->
+        {% include 'default/loggedbar.html' %}
+
+    <div class="container">
+
+            <!-- HEADER -->
+            <div class="row margin-top-min">
+               <a href="./index.php">
+                <div class="col-xs-12 header">
+                    <img src="{{header_img}}" class="col-xs-12 no-padding" alt = "Hlavní obrázek">
+                </div>
+               </a>
+           </div>
+
+            <!-- NAVIGATION -->
+            <div class="row">
+                <div class="col-xs-12 rounded" id="navbar">
+                    <ol class="col-xs-12 breadcrumb rounded">
+                        {% for item in navbar %}
+                        <li><a href="{{ item.href }}">{{ item.text }}</a></li>
+                        {% endfor %}
+                        <li class="active">{{navbar_last}}</li>
+                    </ol>
+                </div>
+            </div>
+
+
+            <div class="row">
+
+                <!-- INDEX PAGE -->
+                {% if content == 'title' %}
+                <div class="col-xs-9 no-padding">
+
+                    <div id="fb" class="col-xs-3 fb-like rounded content fb-margin">
+                        <div class="col-xs-3 fb-like-box"
+                             data-href="https://www.facebook.com/pages/PIVKO/848625445171446"
+                             data-colorscheme="light"
+                             data-show-faces="false"
+                             data-header="true"
+                             data-stream="true"
+                             data-show-border="false">
+
+                        </div>
+                    </div>
+
+                    <div class="col-xs-7 content rounded">
+                        <!-- DATABÁZOVÉ HLÁŠKY -->
+
+                        {% for item in data.error %}
+                        <div class="alert alert-danger" role="alert">
+                            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                            <span class="sr-only">Chyba:</span>
+                            {{item}}
+                        </div>
+                        {% endfor %}
+
+                        {% if data.success|length > 0 %}
+                        <div class="alert alert-success" role="alert">
+                            <span class="glyphicon glyphicon-ok-sign" aria-hidden="true"></span>
+                            <span class="sr-only">OK:</span>
+                            {{data.success}}
+                        </div>
+                        {% endif %}
+
+                        <h1>{{nadpis}}</h1>
+                        {{obsah | raw}}
+
+                    </div>
+                </div>
+
+                {% else %}
+                <!-- CONTENT FILE -->
+                <div class="col-xs-9 content rounded" id="body">
+                    {% include 'default/content.html' %}
+                </div>
+                {% endif %}
+
+                <!-- RIGHT BAR -->
+                <div class="col-xs-offset-0 col-xs-3 right-menu rounded my-right">
+                     {% include 'default/menu.html' %}
+                </div>
+
+           </div>
+
+            <!-- FOOTER -->
+            <footer class="row">
+                <a href="{{footer_left_a}}" target="_blank">
+                    <div class="col-md-6 col-xs-12 footer footer-left rounded">
+                       <p class="text-center h4">{{footer_left}}</p>
+                    </div>
+                </a>
+                <a href="{{footer_right_a}}" target="_blank">
+                    <div class=" col-md-6 col-xs-12 footer footer-right rounded">
+                        <p class="text-center h4">{{footer_right}}</p>
+                    </div>
+                </a>
+            </footer>
+
+    </div>
+
+
+
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="{{bootstrap_js}}"></script>
+    <script src="{{bootstrap_datepicker}}"></script>
+    <script src="{{bootstrap_dp_locale}}"></script>
+    <script src="{{tinymce_js}}"></script>
+
+    <script>
+     tinymce.init({
+         selector: "textarea.tinymce",
+         theme: "modern",
+         plugins: [
+             "advlist autolink link image lists charmap hr anchor spellchecker",
+             "searchreplace wordcount visualblocks visualchars code insertdatetime nonbreaking",
+             "table contextmenu directionality template paste textcolor"
+         ],
+         content_css: "css/content.css",
+         toolbar: "undo redo | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | forecolor ",
+        style_formats: [
+             {title: 'Nepoužívat prosím', inline: 'b'},
+         ]
+     });
+     </script>
+
+     <script>
+         $(function(){
+             $('.datepicker').datepicker({
+                 format: 'dd.mm.yyyy',
+                 autoclose:true,
+                 language: 'cs'
+             });
+         });
+         $(function(){
+             $('.datepicker2').datepicker({
+                 format: 'dd.mm.yyyy',
+                 autoclose:true,
+                 language: 'cs',
+                 startDate: '{{startDay}}',
+                 endDate: '{{endDay}}'
+             });
+         });
+     </script>
+     <script>
+         function confimElement(label, type, id, vardo) {
+             var r;
+             r = confirm(label);
+             if (r == true) {
+                 window.location.href="?id="+type+"&do="+vardo+"&val="+id;
+             } else {
+                 //do nothing
+             }
+         }
+     </script>
+
+    <!-- FB EVIL -->
+     <script>(function(d, s, id) {
+         var js, fjs = d.getElementsByTagName(s)[0];
+         if (d.getElementById(id)) return;
+         js = d.createElement(s); js.id = id;
+         js.src = "//connect.facebook.net/cs_CZ/all.js#xfbml=1";
+         fjs.parentNode.insertBefore(js, fjs);
+     }(document, 'script', 'facebook-jssdk'));
+     </script>
+
+</body>
+</html>
