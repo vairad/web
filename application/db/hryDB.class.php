@@ -83,7 +83,7 @@ class hryDB extends db {
         $order_by_array[0]["sort"]="asc";
 
         $where_array[1]["column"]= "servis";
-        $where_array[1]["value_mysql"]= "0";
+        $where_array[1]["value"]= "0";
         $where_array[1]["symbol"]= "=";
 
         $hry = $this->DBSelectAll($table_name, $select_columns_string, $where_array, $limit_string, $order_by_array);
