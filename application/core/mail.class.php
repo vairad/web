@@ -14,7 +14,6 @@ class Mail{
         $mail = new PHPMailer();
 
         $mail->isSMTP(); // telling the class to use SMTP
-        $mail->Host       = "mail.pilirion.org"; // SMTP server
         $mail->SMTPDebug  = 0;                     // enables SMTP debug information (for testing)
         if(VERBOSE){
             $mail->SMTPDebug  = 2;
