@@ -908,7 +908,11 @@ class app
             $hrac = new hrac();
             require_once("check/regcheck.php");
             $osoby = new osobyDB($this->GetConnection());
-           // printr($hrac);
+
+           if(VERBOSE) {
+               printr($hrac);
+           }
+
             $database = $hrac->toDB($osoby);
             if($database == true){
                 $data["data"]["success"]="Byl jste úspěšně zaregistrován";
@@ -1216,9 +1220,10 @@ class app
         $dopis = Mail::prepareGmail();
 
         $dopis->Subject  = "Nové heslo";
-        $dopis->Body     =  $zprava;
+        $dopis->msgHTML($zprava);
         $dopis->AltBody  =  "Vaše nove heslo je:**$noveHeslo**(**VašeNovéHeslo**)";
         $dopis->AddAddress(''.$mail.'');
+
 
         if(!($dopis->Send()))
         {
@@ -1268,6 +1273,8 @@ class app
                     $this->posli_mail($noveHeslo, $acount["email"], "pivko.pilirion@gmail.com");
                     $this->stranaIndex();
                 }
+            }else{
+                $data["data"]["error"] = "Zadaný email nepaří k žádnému účtu v databázi.";
             }
         }
 

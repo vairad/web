@@ -33,9 +33,7 @@
     require 'application/core/data/uvedeni.class.php';
 
     //php mailer
-    require 'application/core/PHPMailer/class.phpmailer.php';
-    require 'application/core/PHPMailer/class.pop3.php';
-    require 'application/core/PHPMailer/class.smtp.php';
+    require 'application/core/PHPMailer/PHPMailerAutoload.php';
 
     require 'application/core/mail.class.php';
 

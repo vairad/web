@@ -54,7 +54,7 @@ else {
 //   echo " <script> alert(\"prijmeni\")</script>";
 
 /*proměnná MAIL */
-if( !empty($_POST["mail_1"]) and $_POST["mail_1"]==$_POST["mail_2"] and je_mail($_POST["mail_1"]))
+if( !empty($_POST["mail_1"]) and !empty($_POST["mail_2"]) and $_POST["mail_1"]==$_POST["mail_2"] and je_mail($_POST["mail_1"]))
 {
     $mail=trim($_POST["mail_1"]);
     $mail=strip_tags($mail);
@@ -67,6 +67,15 @@ if( !empty($_POST["mail_1"]) and $_POST["mail_1"]==$_POST["mail_2"] and je_mail(
 
 }
 else {
+
+    if(empty($_POST["mail_1"]) or empty($_POST["mail_2"])){
+        $data["data"]["error"][] = "Nezadal email dvakrát pro kontrolu překlepu.";
+    }elseif($_POST["mail_1"]!=$_POST["mail_2"]){
+        $data["data"]["error"][] = "Zadané emaily se neshodují.";
+    }elseif(!je_mail($_POST["mail_1"])){
+        $data["data"]["error"][] = "Zadaný email neodpovídá syntaxi emailové adresy.";
+    }
+
     $data["reg_fail"]["mail"]=1;
     $hrac->set_up["mail"]=false;
 }
@@ -122,6 +131,7 @@ if( !empty($_POST["nick"]) and delka(0,$_POST["nick"],50) )
     $hrac->set_up["nick"]=true;
 }
 else {
+    $data["data"]["error"][] = "Vyplň prosím přezdívku abychom věděli jak Tě vhodně oslovit.";
     $data["reg_fail"]["nick"]=1;
     $hrac->set_up["nick"]=false;
 }
