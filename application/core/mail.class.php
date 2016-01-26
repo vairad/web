@@ -25,8 +25,8 @@ class Mail{
 
         $mail->SMTPAuth   = true;                  // enable SMTP authentication
         $mail->SMTPSecure = 'tls';                 // sets the prefix to the servier
-        $mail->Host       = gethostbyname('smtp.gmail.com');      // sets GMAIL as the SMTP server
         $mail->Port       = 587;                   // set the SMTP port for the GMAIL server
+        $mail->Host       = 'tls://smtp.gmail.com:587';      // sets GMAIL as the SMTP server
 
         $mail->Username   = "noreply.pivko@gmail.com";  // GMAIL username
         $mail->Password   = "qwertzuiop123456";            // GMAIL password
