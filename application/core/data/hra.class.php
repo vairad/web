@@ -9,7 +9,7 @@ class hra {
     private $length, $cost;
     private $web;
     private $org;
-    private $servis;
+    private $servis = "FALSE";
 
     public $set_up = array();
 
@@ -50,7 +50,7 @@ class hra {
         $this->set_up["cost"] = false;
         $this->set_up["web"] = false;
         $this->set_up["org"] = false;
-        $this->set_up["servis"] = false;
+        $this->set_up["servis"] = true;
 
     }
 
@@ -258,7 +258,8 @@ class hra {
     public function setServis($bool)
     {
         $this->set_up["servis"] = true;
-        $this->servis = $bool;
+        $this->servis = $bool == true ? "TRUE" : "FALSE";
+
     }
 
     //==================================================================
