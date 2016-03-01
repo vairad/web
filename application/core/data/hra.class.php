@@ -86,7 +86,7 @@ class hra {
         $item["org"] = $this->getOrg();
         $item["web"] = $this->getWeb();
         $item["special"] = $this->getNeed();
-        $item["servis"] = $this->getServis();
+        $item["servis"] = $this->getServis() == "TRUE";
 
         return $item;
     }
