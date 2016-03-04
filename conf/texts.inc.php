@@ -15,7 +15,7 @@ $text_pivko = '<p class="text-justify h4">Ač by se mohlo zdát že jde o pozvá
 $text_o_akci = ' <p><strong>PIVKo Dvan&aacute;ctka </strong>je akce pro v&scaron;echny, kdo maj&iacute; odvahu a chuť přij&iacute;t si hr&aacute;t. Ček&aacute; v&aacute;s v&iacute;kend pln&yacute; komorn&iacute;ch larpů a dal&scaron;&iacute;ho doplňkov&eacute;ho programu, kde pozn&aacute;te spoustu lid&iacute; kteř&iacute; se věnuj&iacute; larpu.</p>
 <p><strong>Nev&iacute;te-li co to larp je, stač&iacute; se pod&iacute;vat např&iacute;klad sem: </strong><a href="http://www.pilirionos.org/pro-verejnost" target="_blank">Pilirion - Pro veřejnost</a></p>
 <p><strong>PIVKo Dvan&aacute;ctka </strong>je form&aacute;tem klasick&yacute; larpov&yacute; festival. Nem&aacute; tedy pevně dan&yacute; program, v&iacute;kend je sestaven z několika bloků ve kter&yacute;ch si každ&yacute; může (a nemus&iacute;) navolit hru, jak&aacute; se mu zamlouv&aacute;. Je tak možn&eacute; sestavit si nabit&yacute; v&iacute;kend a j&iacute;t z larpu do larpu, stejně jako str&aacute;vit pohodov&eacute; tři dny ve kter&yacute;ch si zahrajete jeden dva larpy a zbytek str&aacute;v&iacute;te prohl&iacute;dkou města či posezen&iacute;m s kamar&aacute;dy.</p>
-<p><strong>Akci PIVKo již p&aacute;t&yacute;m rokem poř&aacute;d&aacute; neziskov&yacute; spolek Pilirion o. s.</strong> (<a href="http://www.pilirionos.org/"><strong>Web</strong></a>, <a href="https://www.facebook.com/pilirion?fref=ts"><strong>Facebook</strong></a>)</p>
+<p><strong>Akci PIVKo již šestým rokem pořádá neziskový spolek Pilirion o. s.</strong> (<a href="http://www.pilirionos.org/"><strong>Web</strong></a>, <a href="https://www.facebook.com/pilirion?fref=ts"><strong>Facebook</strong></a>)</p>
 <h3><strong>Organiz&aacute;torsk&yacute; t&yacute;m akce tvoř&iacute;:</strong></h3>
 <p><strong>Jiř&iacute; &ldquo;Pilly&rdquo; Zahradn&iacute;k </strong></p>
 <p><strong>Magda &ldquo;Hro&scaron;e&rdquo; &Ouml;rd&ouml;gov&aacute; </strong></p>
@@ -33,17 +33,17 @@ $text_letos = '<h4>1. - 3.4.2016</h4>
 <p>Další informace očekávejte každým dnem.</p>
 ';
 
-$text_cena = '<p><strong>Cena jednoho larpu</strong> se bude pohybovat mezi <strong>100 &nbsp;̶ &nbsp;250,- Kč</strong>.</p>
-<p>Stejně jako vloni bude letos k dispozici vstupenka na PIVKo <strong><em>All Inclusive</em></strong>, kter&aacute; v&aacute;s přijde na <strong>1200,- Kč</strong>. V ceně budou <strong>4 larpy dle vlastn&iacute;ho v&yacute;běru</strong>, omezen&yacute; počet <strong>rezervac&iacute; </strong>m&iacute;st na hr&aacute;ch před spu&scaron;těn&iacute;m přihla&scaron;ov&aacute;n&iacute;, <strong>doprava</strong> na hry organiz&aacute;torsk&yacute;m vozem, <strong>ubytov&aacute;n&iacute; se sn&iacute;dan&iacute;</strong> na p&aacute;tečn&iacute; i sobotn&iacute; noc a samozřejmě i organizačn&iacute; <strong>d&aacute;rek</strong>.</p>
+$text_cena = '<p>Cena jednoho larpu se bude pohybovat mezi 100  ̶  250,- Kč.</p>
+<p>Stejně jako vloni bude letos k dispozici vstupenka na PIVKo All Inclusive, která vás přijde na 1200,- Kč. V ceně budou 4 larpy dle vlastního výběru, omezený počet rezervací míst na hrách před spuštěním přihlašování, doprava na hry organizátorským vozem,ubytování se snídaní na páteční i sobotní noc a samozřejmě i organizační dárek.</p>
 <h4><strong>Jak je to s premiov&yacute;mi m&iacute;sty?</strong></h4>
-<p>Na každ&eacute; hře budeme dle počtu hr&aacute;čů držet jedno nebo dvě premiov&aacute; m&iacute;sta. Tato m&iacute;sta nebude možn&eacute; &ldquo;zabrat&rdquo; během prvn&iacute;ch dvou t&yacute;dnů klasick&yacute;m přihla&scaron;ov&aacute;n&iacute;m. Budou dostupn&aacute; pouze pro majitele All Inclusive vstupenky (kteř&iacute; se tak vyhnout klasick&eacute;mu klikfestu). Po dvou t&yacute;dnech i tato m&iacute;sta uvoln&iacute;me k běžn&eacute;mu přihla&scaron;ov&aacute;n&iacute;, č&iacute;mž se vytvoř&iacute; je&scaron;tě druh&aacute; klikac&iacute; vlna pro opozdilce. ;-)</p>
+<p>Na každé hře budeme dle počtu hráčů držet dvě nebo čtyři premiová místa. Tato místa nebude možné “zabrat” během prvního týdne klasickým přihlašováním. Budou dostupná pouze pro majitele All Inclusive vstupenky (kteří se tak vyhnout klasickému klikfestu). Po týdnu i tato místa uvolníme k běžnému přihlašování, čímž se vytvoří ještě druhá klikací vlna pro opozdilce. ;-)</p>
 <p>Pokud stoj&iacute;te o All Inclusive vstupenku, napi&scaron;te n&aacute;m na organizačn&iacute; mail. (pivko.pilirion(ZAVINAC)gmail.com).</p>
 
 <span class="well-sm">
     <p><strong>Ubytov&aacute;n&iacute;:</strong></p>
-    <p><strong>Seneč&aacute;k</strong><strong>&nbsp;&nbsp;&nbsp; </strong><strong>Bez sn&iacute;daně: 50,- Kč</strong></p>
-    <p><strong>Se sn&iacute;dan&iacute;: 65,- Kč</strong></p>
-    <p><strong>Totem</strong><strong>&nbsp;&nbsp;&nbsp; </strong><strong>&nbsp;&nbsp;&nbsp; </strong><strong>Bez sn&iacute;daně: 65,- Kč</strong></p>
+    <p><strong>Seneč&aacute;k</strong><strong>&nbsp;&nbsp;&nbsp; </strong><strong>Bez sn&iacute;daně: 60,- Kč</strong></p>
+    <p><strong>Se sn&iacute;dan&iacute;: 70,- Kč</strong></p>
+    <p><strong>Totem</strong><strong>&nbsp;&nbsp;&nbsp; </strong><strong>&nbsp;&nbsp;&nbsp; </strong><strong>Bez sn&iacute;daně: 70,- Kč</strong></p>
     <p><strong>Se sn&iacute;dan&iacute;: 80,- Kč</strong></p>
 </span>
 <p><strong>Informace o platbách najdete na svých účtech v sekci “Můj program”.</strong></p>
@@ -52,9 +52,12 @@ $text_cena = '<p><strong>Cena jednoho larpu</strong> se bude pohybovat mezi <str
 
 $text_ubytko = '
 <h2>Totem</h2>
-<p><strong>Luxusněj&scaron;&iacute; a klidněj&scaron;&iacute; varianta. </strong>Prostory na Totemu jsou vyt&aacute;pěn&eacute;, nově zrekonstruovan&eacute; a velmi dobře dostupn&eacute; (cca 300 m od zast&aacute;vky tramvaje č. 4 i zast&aacute;vky nočn&iacute;ho autobusu N3). Span&iacute; je možn&eacute; na podlaze na karimatk&aacute;ch. <strong>K dispozici je sprcha, modern&iacute; WC a mal&aacute; kuchyňka </strong>(rychlovarn&aacute; konev a dřez)<strong>. Bude tam ale vyžadov&aacute;n v rozumn&eacute; m&iacute;ře klid (tedy ž&aacute;dn&aacute; party).</strong></p>
+<p>Luxusnější a klidnější varianta. Prostory na Totemu jsou vytápěné, nově zrekonstruované a velmi dobře dostupné (cca 300 m od zastávky tramvaje č. 4 i zastávky nočního autobusu N3). Spaní je možné na podlaze na karimatkách. K dispozici je sprcha, moderní WC a malá kuchyňka (rychlovarná konev a dřez). Na Totemu je důležité zachovávat v rozumné míře noční klid a nenadělat přílišný nepořádek.</p>
 <h2>Seneč&aacute;k</h2>
-<p><strong>M&eacute;ně luxusn&iacute; a m&eacute;ně dostupn&aacute; </strong>varianta. Prostory na klubovně Seneč&aacute;k jsou vyt&aacute;pěn&eacute; akumulačn&iacute;mi kamny a může se st&aacute;t že tam bude <strong>chladněji.</strong> Jedn&aacute; se o klasickou skautskou klubovnu bez modern&iacute;ho zař&iacute;zen&iacute;. Jsou zde sprchy i WC, tepl&aacute; voda je omezena boilerem. Kuchyně na Seneč&aacute;ku bude vyhrazena organiz&aacute;torům. <strong>Seneč&aacute;k je hůře dostupn&yacute;, obzvl&aacute;&scaron;tě v noci. Klubovna je um&iacute;stěna cca 800 m od autobusov&eacute; zast&aacute;vky a nen&iacute; zde možn&eacute; parkovat autem. </strong>Přes den zde budou prob&iacute;hat někter&eacute; hry a bude tu v&iacute;ce ru&scaron;no i d&eacute;le do noci (Seneč&aacute;k slouž&iacute; jako organiz&aacute;torsk&aacute; z&aacute;kladna).<strong> Na Seneč&aacute;ku je zak&aacute;z&aacute;no konzumovat alkohol!</strong><br /><strong>Na obou dvou z&aacute;kladn&aacute;ch bude možnost sn&iacute;daně.</strong> Ta bude zahrnovat pečivo a slanou pomaz&aacute;nku, př&iacute;padně sladkou variantu (m&aacute;slo s marmel&aacute;dou). Tak&eacute; bude možnost d&aacute;t si čaj nebo k&aacute;vu.</p>
+<p>Méně luxusní a hůře dostupná varianta. Prostory na klubovně Senečák jsou vytápěné akumulačními kamny a může se stát, že tam bude chladněji. Jedná se o klasickou skautskou klubovnu bez moderního zařízení. Jsou zde sprchy i WC, teplá voda je omezena boilerem. Kuchyně na Senečáku bude vyhrazena organizátorům. Senečák je hůře dostupný, obzvláště v noci. Klubovna je umístěna cca 800 m od autobusové zastávky a není zde možné parkovat autem. Přes den zde budou probíhat některé hry a bude tu více rušno i déle do noci (Senečák slouží jako organizátorská základna). V sobotu zde proběhne party.</p>
+
+<p>Na obou dvou ubytovnách bude možnost snídaně. Ta bude zahrnovat pečivo a slanou pomazánku, případně sladkou variantu (máslo s marmeládou). Také bude možnost dát si čaj nebo kávu.</p>
+
         ';
 
 $text_reg = "Vytvořením účtu získáte přístup do přihlašování na akci Pivko. Vytvoření účtu Vás nezavazuje k platbě. Účty vytvpřené v minulých letech jsou stále aktivní.";
