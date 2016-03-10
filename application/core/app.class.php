@@ -441,7 +441,7 @@ class app
         $data["h3"] = "Informace o platbě";
         $data["info"] = TEXT_PLATBA;
 
-        $data["vs"] = 20150000+$_SESSION[MY_SES]["user"]["id"];
+        $data["vs"] = 20160000+$_SESSION[MY_SES]["user"]["id"];
         $data["ucet"] = UCET;
         $data["cena"] = $suma["cena"];
 
