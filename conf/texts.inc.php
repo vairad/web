@@ -30,7 +30,31 @@ $text_o_akci = ' <p><strong>PIVKo Dvan&aacute;ctka </strong>je akce pro v&scaron
 <p><strong>Luk&aacute;&scaron; &ldquo;Finmer&rdquo; Beran, Jan &ldquo;Zagro&rdquo; Zahradn&iacute;k, Jakub &ldquo;Balda&rdquo; Balhar, Danča Kojzarov&aacute;, Lenka &ldquo;Alienka&rdquo; Pittnerov&aacute;, Jakub &ldquo;Kořen&rdquo; Korbel, Lenka Žaitlikov&aacute;, Jaroslav &ldquo;Roslav&rdquo; Voves, Karel &ldquo;Keret&rdquo; Ř&iacute;ha, Luk&aacute;&scaron; &ldquo;Viper&rdquo; Makovička, a dal&scaron;&iacute;, kter&yacute;m moc děkujeme za obs&aacute;hlou podporu a pomoc!</strong></p>';
 
 $text_letos = '<h4>1. - 3.4.2016</h4>
-<p>Další informace očekávejte každým dnem.</p>
+<h3>Jak bude probíhat letošní ročník PIVKa?</h3>
+
+<p>Program PIVKa bude již tradičně začínat v pátek v odpoledních hodinách registrací.
+
+Páteční REGISTRACE bude probíhat na Senečáku od 17.00. Zároveň si zde budete moct odložit všechny své věci do spacích místností.
+
+Ti kteří dorazí později budou mít ještě možnost zaregistrovat se ráno mezi 7.00 - 8.00 (tedy se snídaní).
+
+V neděli se již s registrací nepočítá. Pokud plánujete dorazit pouze na nedělní hru, ozvěte se nám a domluvíme se individuálně.</p>
+
+
+<p>
+V sobotu na vás budou čekat dva herní bloky, mezi kterými budete mít dostatek času na oběd (některé hry mají atypické časy a nelze je proto stihnout v kombinaci s jinými - v systému se na takové hry zároveň ani nejde přihlásit).
+
+Na každé hře budou samozřejmě k dispozici nápoje a drobné občerstvení (sušenky, chipsy).</p>
+
+<p>V neděli se můžete účastnit posledního, dopoledního bloku larpů a poté dle libosti vyrazit domů. Nebo, pokud se vám PIVKo bude líbit, si můžete najít ještě chvilku volného času, dorazit na Senečák, povědět nám jak jste si letošní ročník užili a co byste chtěli do příště změnit - a třeba nám i maličko pomoct s uklídem. :)</p>
+
+
+
+<h3>V rámci festivalu vás zveme na sobotní OFFPROGRAM:</h3>
+
+<p>V sobotu bude probíhat party na klubovně Senečák. Vše bude zařízeno od nás, organizátorů, takže se nemusíte bát že byste trpěli nedostatkem. Ceny budou velmi lidové. ;-)</p>
+
+<strong>Upozorňujeme, že prostory klubovny jsou přísně NEKUŘÁCKÉ!</strong>
 ';
 
 $text_cena = '<p>Cena jednoho larpu se bude pohybovat mezi 100  ̶  250,- Kč.</p>
@@ -43,14 +67,14 @@ $text_cena = '<p>Cena jednoho larpu se bude pohybovat mezi 100  ̶  250,- Kč.</
     <p><strong>Ubytov&aacute;n&iacute;:</strong></p>
     <p><strong>Seneč&aacute;k</strong><strong>&nbsp;&nbsp;&nbsp; </strong><strong>Bez sn&iacute;daně: 60,- Kč</strong></p>
     <p><strong>Se sn&iacute;dan&iacute;: 70,- Kč</strong></p>
-    <p><strong>Totem</strong><strong>&nbsp;&nbsp;&nbsp; </strong><strong>&nbsp;&nbsp;&nbsp; </strong><strong>Bez sn&iacute;daně: 70,- Kč</strong></p>
-    <p><strong>Se sn&iacute;dan&iacute;: 80,- Kč</strong></p>
+<strike><p><strong>Totem</strong><strong>&nbsp;&nbsp;&nbsp; </strong><strong>&nbsp;&nbsp;&nbsp; </strong><strong>Bez sn&iacute;daně: 70,- Kč</strong></p></strike>
+<strike><p><strong>Se sn&iacute;dan&iacute;: 80,- Kč</strong></p></strike>
 </span>
 <p><strong>Informace o platbách najdete na svých účtech v sekci “Můj program”.</strong></p>
 ';
 
 
-$text_ubytko = '
+/*$text_ubytko = '
 <h2>Totem</h2>
 <p>Luxusnější a klidnější varianta. Prostory na Totemu jsou vytápěné, nově zrekonstruované a velmi dobře dostupné (cca 300 m od zastávky tramvaje č. 4 i zastávky nočního autobusu N3). Spaní je možné na podlaze na karimatkách. K dispozici je sprcha, moderní WC a malá kuchyňka (rychlovarná konev a dřez). Na Totemu je důležité zachovávat v rozumné míře noční klid a nenadělat přílišný nepořádek.</p>
 <h2>Seneč&aacute;k</h2>
@@ -58,7 +82,10 @@ $text_ubytko = '
 
 <p>Na obou dvou ubytovnách bude možnost snídaně. Ta bude zahrnovat pečivo a slanou pomazánku, případně sladkou variantu (máslo s marmeládou). Také bude možnost dát si čaj nebo kávu.</p>
 
-        ';
+        ';*/
+
+$text_ubytko = '<h2>Seneč&aacute;k</h2><p>Jedná se o klasickou skautskou základnu na kraji Plzně. Prostory na klubovně Senečák jsou vytápěné akumulačními kamny a může se stát, že tam bude chladněji (ale nezmrznete, jen doporučujeme teplé spacáky!). Jsou zde sprchy i WC, teplá voda je omezena boilerem. Kuchyně na Senečáku bude vyhrazena organizátorům. Senečák je hůře dostupný, obzvláště v noci, nicméně letos bude dojíždění na hry minimální. Klubovna je umístěna cca 800 m od autobusové zastávky a není zde možné parkovat autem. Přes den zde budou probíhat hry a v sobotu večer pak party. Bar zajištěn. :)
+Nabízíme možnost snídaně. Ta bude zahrnovat pečivo a slanou pomazánku, případně sladkou variantu (máslo s marmeládou). Také bude možnost dát si čaj nebo kávu.</p>';
 
 $text_reg = "Vytvořením účtu získáte přístup do přihlašování na akci Pivko. Vytvoření účtu Vás nezavazuje k platbě. Účty vytvpřené v minulých letech jsou stále aktivní.";
 
