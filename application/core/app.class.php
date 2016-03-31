@@ -80,9 +80,13 @@ class app
             $this->appendNavbar("Nastavení oprávnění", "index.php?id=prava");
             $this->stranaPrava($do);
 
-        }elseif($id=="uzivatele" && $admin){//=========================== seznam uživatelů
+        }elseif($id=="uzivatele" && $admin) {//=========================== seznam uživatelů
             $this->appendNavbar("Seznam uživatelů", "index.php?id=uzivatele", true);
             $this->stranaSeznamUziv($do);
+
+        }elseif($id=="reglist" && $admin){//=========================== seznam uživatelů
+                $this->appendNavbar("Registrační listina", "index.php?id=reglist", true);
+                $this->stranaReglist($do);
 
 //============PRIHLASENY=========================================
 
@@ -451,7 +455,7 @@ class app
     //===============================================================================================================
 
     /**
-     * Výhybka pro správu vlastního účtu
+     * Rozcestník pro správu vlastního účtu
      * Přihlášený uživatel
      * @param $do string "pass", "account" or ""
      */
@@ -966,6 +970,26 @@ class app
         }
     }
 
+    //===============================================================================================================
+    //===============================================================================================================
+
+    public  function stranaReglist($do){
+        global $data;
+
+        $data["nadpis"]="Registrační listina";
+        $data["content"]="table_reglist";
+
+        $platbyDB = new platbyDB($this->GetConnection());
+
+        $osobyDB = new osobyDB($this->GetConnection());
+        $data["users"]= $osobyDB->SelectAllOsobyInfo();
+
+        foreach($data["users"] as &$user){
+            $user["madati"] = $this->cenaUser($user["id_osoby"]);
+            $user["dal"]= $platbyDB->platil($user["id_osoby"]);
+        }
+    }
+
     //==================================================================================================================
     //==================================================================================================================
 
@@ -1407,6 +1431,9 @@ class app
         $data["menu_admin"]["uzivatele"]["text"]="Seznam uživatelů";
         $data["menu_admin"]["uzivatele"]["href"]="?id=uzivatele";
 
+        $data["menu_admin"]["reglist"]["text"]="Registrační listina";
+        $data["menu_admin"]["reglist"]["href"]="?id=reglist";
+
         $data["menu_admin"]["prava"]["text"]="Nastav oprávnění";
         $data["menu_admin"]["prava"]["href"]="?id=prava";
 
@@ -1449,6 +1476,24 @@ class app
 
         $data["navbar"]=array();
     }
+
+    /**
+     * Sečte cenu všech zapsanyhc her dle user id.
+     * @param $id_user
+     * @return int
+     */
+    private function  cenaUser($id_user){
+        $prihlaskyDB = new prihlaskyDB($this->GetConnection());
+        $data["performances"] = $prihlaskyDB->mojeUvedeni($id_user);
+
+        $suma = 0;
+
+        foreach($data["performances"] as $uvedeni){
+            $suma += $uvedeni["cena"];
+        }
+        return $suma;
+    }
+
 }
 
 ?>
