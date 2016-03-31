@@ -982,12 +982,17 @@ class app
         $platbyDB = new platbyDB($this->GetConnection());
 
         $osobyDB = new osobyDB($this->GetConnection());
-        $data["users"]= $osobyDB->SelectAllOsobyInfo();
+        $users= $osobyDB->SelectAllOsobyInfo();
 
-        foreach($data["users"] as &$user){
+        foreach($users as $user){
             $user["madati"] = $this->cenaUser($user["id_osoby"]);
             $user["dal"]= $platbyDB->platil($user["id_osoby"]);
+            if($user["madati"] != 0 || $user["dal"] != 0 ){
+                $platci[] = $user;
+            }
         }
+
+        $data[users] = $platci;
     }
 
     //==================================================================================================================
