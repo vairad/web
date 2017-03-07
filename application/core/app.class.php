@@ -1118,20 +1118,20 @@ class app
 
         $data["separator"] = array();
 
-        $data["separator"][0]["text"] = "Pátek 1.4.2016";
-        $data["separator"][0]["time"] = timestamp("2016-04-01 00:00:00");
+        $data["separator"][0]["text"] = "Sobota 8.4.2017 - dopoledne";
+        $data["separator"][0]["time"] = timestamp("2017-04-08 00:00:00");
 
-        $data["separator"][1]["text"] = "Sobota 2.4.2016 - dopoledne";
-        $data["separator"][1]["time"] = timestamp("2016-04-02 00:00:00");
+        $data["separator"][1]["text"] = "Sobota 8.4.2017 - odpoledne";
+        $data["separator"][1]["time"] = timestamp("2017-04-08 12:00:00");
 
-        $data["separator"][2]["text"] = "Sobota 2.4.2016 - odpoledne";
-        $data["separator"][2]["time"] = timestamp("2016-04-02 12:00:00");
+        $data["separator"][2]["text"] = "Neděle 9.4.2016 - dopoledne";
+        $data["separator"][2]["time"] = timestamp("2017-04-09 00:00:00");
 
-        $data["separator"][3]["text"] = "Neděle 3.4.2016 - dopoledne";
-        $data["separator"][3]["time"] = timestamp("2016-04-03 00:00:00");
+        $data["separator"][3]["text"] = "Neděle 9.4.2016 - odpoledne";
+        $data["separator"][3]["time"] = timestamp("2017-04-09 12:00:00");
 
-        $data["separator"][4]["text"] = "Neděle 3.4.2016 - odpoledne";
-        $data["separator"][4]["time"] = timestamp("2016-04-03 12:00:00");
+//        $data["separator"][4]["text"] = "Neděle 3.4.2016 - odpoledne";
+//        $data["separator"][4]["time"] = timestamp("2016-04-03 12:00:00");
 
         // vytvořeni tlačítek pro smazání
         foreach ($data["performances"] as &$value){
