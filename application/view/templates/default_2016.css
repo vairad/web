@@ -1,11 +1,11 @@
 
 /**
 rgb(242, 173, 169) - růžová
-rgb(118, 148, 204) - červená
+rgb(218, 37, 29) - červená
 */
 
 body{
-    background-color: rgb(255,255,255);
+    background-color: rgb(10,11,13);
 }
 
 a{
@@ -20,9 +20,9 @@ a:hover, a:focus{
     padding: 4px;
 }
 .breadcrumb a:hover, .breadcrumb a:focus{
-    background-color: rgb(118, 148, 204);
+    background-color: rgb(218, 37, 29);
     background-image: none;
-    /*background-image: linear-gradient(to bottom, rgb(118, 148, 204) 0px, rgb(118, 148, 204) 100%);*/
+    /*background-image: linear-gradient(to bottom, rgb(218, 37, 29) 0px, rgb(218, 37, 29) 100%);*/
     border-radius: 4px;
 }
 .breadcrumb{
@@ -36,37 +36,33 @@ a:hover, a:focus{
     margin-top: 10px;
 }
 
-.menu{
-    background-color: #FFF;
-}
-
 .menu .list-group-item.active {
     text-shadow: none;
     color: #FFF;
-    background-image: linear-gradient(to bottom, rgb(118, 148, 204) 0px, rgb(118, 148, 204) 100%);
+    background-image: linear-gradient(to bottom, rgb(218, 37, 29) 0px, rgb(218, 37, 29) 100%);
     background-repeat: repeat-x;
-    border-color: rgb(118, 148, 204);
-    border-top: rgb(118, 148, 204);
+    border-color: rgb(218, 37, 29);
+    border-top: rgb(218, 37, 29);
 }
 .menu .list-group-item:hover, .menu .list-group-item:focus {
     color: #FFF;
-    background-image: linear-gradient(to bottom, rgb(118, 148, 204) 0px, rgb(118, 148, 204) 100%);
+    background-image: linear-gradient(to bottom, rgb(218, 37, 29) 0px, rgb(218, 37, 29) 100%);
     background-repeat: repeat-x;
     border-width: 1px;
-    border-color:  rgb(118, 148, 204);
-    border-bottom-color: rgb(118, 148, 204);
+    border-color:  rgb(218, 37, 29);
+    border-bottom-color: rgb(218, 37, 29);
 }
 
 .menu .list-group-item:hover:first-child, .menu .list-group-item:focus:first-child{
-    border-top: 1px solid rgb(118, 148, 204);
+    border-top: 1px solid rgb(218, 37, 29);
 }
 
 .menu .list-group-item:hover:last-child, .menu .list-group-item:focus:last-child {
-    border-bottom: 1px solid rgb(118, 148, 204);
+    border-bottom: 1px solid rgb(218, 37, 29);
 }
 
 .menu .list-group-item.active:first-child{
-    border-top: rgb(118, 148, 204);
+    border-top: rgb(218, 37, 29);
 }
 
 .menu .list-group{
@@ -78,12 +74,12 @@ a:hover, a:focus{
 
 
 .content{
-    background-color: #cdcdcd;
+    background-color: lightgrey;
     margin-top: 10px;
     min-height: 425px;
 }
 .footer{
-    background-color: #cdcdcd;
+    background-color: white;
     margin-top: 10px;
     margin-bottom: 10px;
     width:  49.5%;
@@ -96,7 +92,7 @@ a:hover, a:focus{
 }
 .footer:hover, .footer:focus{
     color: #FFF;
-    background-image: linear-gradient(to bottom, rgb(118, 148, 204) 0px, rgb(118, 148, 204) 100%);
+    background-image: linear-gradient(to bottom, rgb(218, 37, 29) 0px, rgb(218, 37, 29) 100%);
     background-repeat: repeat-x;
 }
 .header{
@@ -116,10 +112,6 @@ a:hover, a:focus{
 }
 .float-right{
     float: right;
-}
-
-.navigation{
-    background-color: #cdcdcd;
 }
 
 #navbar{
@@ -159,24 +151,24 @@ h2{
     margin: 4px;
 }
 .linkGame:hover, .linkGame:focus{
-    background-color: rgb(118, 148, 204);
-    background-image: linear-gradient(to bottom, rgb(118, 148, 204) 0px, rgb(118, 148, 204) 100%);
+    background-color: rgb(218, 37, 29);
+    background-image: linear-gradient(to bottom, rgb(218, 37, 29) 0px, rgb(218, 37, 29) 100%);
     border-radius: 4px;
 }
 
 
 .btn-info {
     color: #444;
-    background-image: linear-gradient(to bottom, rgb(118, 148, 204) 0px, rgb(118, 148, 204) 100%);
-    background-color: rgb(118, 148, 204);
-    border-color: rgb(118, 148, 204);
+    background-image: linear-gradient(to bottom, rgb(218, 37, 29) 0px, rgb(218, 37, 29) 100%);
+    background-color: rgb(218, 37, 29);
+    border-color: rgb(218, 37, 29);
 }
 
 .btn-info:hover, .btn-info:focus{
     color: #444;
     background-image: none;
-    border-color: rgb(118, 148, 204);
-    background-color: rgb(118, 148, 204);
+    border-color: rgb(218, 37, 29);
+    background-color: rgb(218, 37, 29);
 }
 
 .margin-bottom{
