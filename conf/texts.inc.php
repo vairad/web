@@ -52,10 +52,6 @@ Sobotní program je zatím otevřený, nicméně předpokládáme, že během do
 ';
 
 $text_cena = '<p>Cena jednoho larpu se bude pohybovat mezi 100  ̶  250,- Kč.</p>
-<p>Stejně jako vloni bude letos k dispozici vstupenka na PIVKo All Inclusive, která vás přijde na 1200,- Kč. V ceně budou 4 larpy dle vlastního výběru, omezený počet rezervací míst na hrách před spu&scaron;těním přihla&scaron;ování, doprava na hry organizátorským vozem,ubytování se snídaní na páteční i sobotní noc a samozřejmě i organizační dárek.</p>
-<h4><strong>Jak je to s premiov&yacute;mi m&iacute;sty?</strong></h4>
-<p>Na každé hře budeme dle počtu hráčů držet dvě nebo čtyři premiová místa. Tato místa nebude možné “zabrat” během prvního týdne klasickým přihla&scaron;ováním. Budou dostupná pouze pro majitele All Inclusive vstupenky (kteří se tak vyhnout klasickému klikfestu). Po týdnu i tato místa uvolníme k běžnému přihla&scaron;ování, čímž se vytvoří je&scaron;tě druhá klikací vlna pro opozdilce. ;-)</p>
-<p>Pokud stoj&iacute;te o All Inclusive vstupenku, napi&scaron;te n&aacute;m na organizačn&iacute; mail. (pivko.pilirion(ZAVINAC)gmail.com).</p>
 
 <span class="well-sm">
     <p><strong>Ubytov&aacute;n&iacute;:</strong></p>
