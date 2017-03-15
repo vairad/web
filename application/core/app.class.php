@@ -80,9 +80,13 @@ class app
             $this->appendNavbar("Nastavení oprávnění", "index.php?id=prava");
             $this->stranaPrava($do);
 
-        }elseif($id=="uzivatele" && $admin){//=========================== seznam uživatelů
+        }elseif($id=="uzivatele" && $admin) {//=========================== seznam uživatelů
             $this->appendNavbar("Seznam uživatelů", "index.php?id=uzivatele", true);
             $this->stranaSeznamUziv($do);
+
+        }elseif($id=="reglist" && $admin){//=========================== seznam uživatelů
+                $this->appendNavbar("Registrační listina", "index.php?id=reglist", true);
+                $this->stranaReglist($do);
 
 //============PRIHLASENY=========================================
 
@@ -441,7 +445,7 @@ class app
         $data["h3"] = "Informace o platbě";
         $data["info"] = TEXT_PLATBA;
 
-        $data["vs"] = 20160000+$_SESSION[MY_SES]["user"]["id"];
+        $data["vs"] = 20170000+$_SESSION[MY_SES]["user"]["id"];
         $data["ucet"] = UCET;
         $data["cena"] = $suma["cena"];
 
@@ -451,7 +455,7 @@ class app
     //===============================================================================================================
 
     /**
-     * Výhybka pro správu vlastního účtu
+     * Rozcestník pro správu vlastního účtu
      * Přihlášený uživatel
      * @param $do string "pass", "account" or ""
      */
@@ -966,6 +970,31 @@ class app
         }
     }
 
+    //===============================================================================================================
+    //===============================================================================================================
+
+    public  function stranaReglist($do){
+        global $data;
+
+        $data["nadpis"]="Registrační listina";
+        $data["content"]="table_reglist";
+
+        $platbyDB = new platbyDB($this->GetConnection());
+
+        $osobyDB = new osobyDB($this->GetConnection());
+        $users= $osobyDB->SelectAllOsobyInfo();
+
+        foreach($users as $user){
+            $user["madati"] = $this->cenaUser($user["id_osoby"]);
+            $user["dal"]= $platbyDB->platil($user["id_osoby"]);
+            if($user["madati"] != 0 || $user["dal"] != 0 ){
+                $platci[] = $user;
+            }
+        }
+
+        $data[users] = $platci;
+    }
+
     //==================================================================================================================
     //==================================================================================================================
 
@@ -1089,20 +1118,20 @@ class app
 
         $data["separator"] = array();
 
-        $data["separator"][0]["text"] = "Pátek 1.4.2016";
-        $data["separator"][0]["time"] = timestamp("2016-04-01 00:00:00");
+        $data["separator"][0]["text"] = "Sobota 8.4.2017 - dopoledne";
+        $data["separator"][0]["time"] = timestamp("2017-04-08 00:00:00");
 
-        $data["separator"][1]["text"] = "Sobota 2.4.2016 - dopoledne";
-        $data["separator"][1]["time"] = timestamp("2016-04-02 00:00:00");
+        $data["separator"][1]["text"] = "Sobota 8.4.2017 - odpoledne";
+        $data["separator"][1]["time"] = timestamp("2017-04-08 12:00:00");
 
-        $data["separator"][2]["text"] = "Sobota 2.4.2016 - odpoledne";
-        $data["separator"][2]["time"] = timestamp("2016-04-02 12:00:00");
+        $data["separator"][2]["text"] = "Neděle 9.4.2017 - dopoledne";
+        $data["separator"][2]["time"] = timestamp("2017-04-09 00:00:00");
 
-        $data["separator"][3]["text"] = "Neděle 3.4.2016 - dopoledne";
-        $data["separator"][3]["time"] = timestamp("2016-04-03 00:00:00");
+        $data["separator"][3]["text"] = "Neděle 9.4.2017 - odpoledne";
+        $data["separator"][3]["time"] = timestamp("2017-04-09 12:00:00");
 
-        $data["separator"][4]["text"] = "Neděle 3.4.2016 - odpoledne";
-        $data["separator"][4]["time"] = timestamp("2016-04-03 12:00:00");
+//        $data["separator"][4]["text"] = "Neděle 3.4.2016 - odpoledne";
+//        $data["separator"][4]["time"] = timestamp("2016-04-03 12:00:00");
 
         // vytvořeni tlačítek pro smazání
         foreach ($data["performances"] as &$value){
@@ -1407,6 +1436,9 @@ class app
         $data["menu_admin"]["uzivatele"]["text"]="Seznam uživatelů";
         $data["menu_admin"]["uzivatele"]["href"]="?id=uzivatele";
 
+        $data["menu_admin"]["reglist"]["text"]="Registrační listina";
+        $data["menu_admin"]["reglist"]["href"]="?id=reglist";
+
         $data["menu_admin"]["prava"]["text"]="Nastav oprávnění";
         $data["menu_admin"]["prava"]["href"]="?id=prava";
 
@@ -1449,6 +1481,24 @@ class app
 
         $data["navbar"]=array();
     }
+
+    /**
+     * Sečte cenu všech zapsanyhc her dle user id.
+     * @param $id_user
+     * @return int
+     */
+    private function  cenaUser($id_user){
+        $prihlaskyDB = new prihlaskyDB($this->GetConnection());
+        $data["performances"] = $prihlaskyDB->mojeUvedeni($id_user);
+
+        $suma = 0;
+
+        foreach($data["performances"] as $uvedeni){
+            $suma += $uvedeni["cena"];
+        }
+        return $suma;
+    }
+
 }
 
 ?>

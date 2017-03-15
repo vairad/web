@@ -55,6 +55,23 @@
     </table>
 </div>
 
+
+<!-- Registracni listina -->
+{% elseif content == 'table_reglist' %}
+<div class="table-responsive">
+    <table class="table table-striped table-bordered">
+        <tr>
+            <th>Jméno</th><th>Příjmení</th><th>Přezdívka</th><th>Telefon</th><th>Cena</th><th>Platba</th>
+        </tr>
+        {%for user in users %}
+        <tr> <td>{{user.jmeno}}</td> <td>{{user.prijmeni}}</td><td>{{user.prezdivka}}</td>
+            <td>{{user.mobil}}</td><td>{{user.madati}}</td><td>{{user.dal}}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+
+
 <!-- JEDNA HRA -->
 {% elseif content == 'infoHra' %}
 <div class="row">
