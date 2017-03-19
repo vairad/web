@@ -19,7 +19,6 @@ $text_o_akci = ' <p><strong>PIVKo Dvan&aacute;ctka </strong>je akce pro v&scaron
 <h3><strong>Organiz&aacute;torsk&yacute; t&yacute;m akce tvoř&iacute;:</strong></h3>
 <p><strong>Jiř&iacute; &ldquo;Pilly&rdquo; Zahradn&iacute;k </strong></p>
 <p><strong>Magda &ldquo;Hro&scaron;e&rdquo; &Ouml;rd&ouml;gov&aacute; </strong></p>
-<p><strong>Jakub &ldquo;Aki&rdquo; Matas </strong></p>
 <p><em>(vrchn&iacute; organiz&aacute;torsk&eacute; trio)</em></p>
 <p><strong>Radek &ldquo;Olie&rdquo; Vais </strong></p>
 <p><strong>Pavel &ldquo;Tkaj&rdquo; Tomiczek </strong></p>
